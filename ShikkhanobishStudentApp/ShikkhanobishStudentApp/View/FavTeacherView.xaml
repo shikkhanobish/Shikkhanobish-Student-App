@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+              xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
+             x:Name="favteacher"
+             x:Class="ShikkhanobishStudentApp.View.FavTeacherView">
+    <ContentPage.BindingContext>
+        <viewmodel:FavteacherViewModel/>
+    </ContentPage.BindingContext>
+    <Grid x:Name="FavouriteTeacherGrid" BackgroundColor="#FFFFFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height=".3*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Label Text="Recharge Coin" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="18"/>
+        <Image Source="favback.png" Grid.RowSpan="4" Grid.ColumnSpan="3" Aspect="AspectFill" VerticalOptions="End"/>
+        <Grid Grid.Row="1" Grid.Column="1" RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".5*"/>
+                <RowDefinition Height=".7*"/>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".3*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width=".3*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Student Status" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="End" Grid.Column="1" FontSize="12" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+            <Label x:Name="studentstatus" Text="{Binding studentstatus}" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Start" FontSize="22" FontAttributes="Bold" Grid.Column="1" TextColor="{Binding studentstatusColor}" >
+            </Label>
+            <Label Text="Maximum Favourite Teacher" Grid.Row="0" HorizontalOptions="End" VerticalOptions="End" Grid.Column="1" FontSize="12" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+            <Label x:Name="maxnumteacher" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Start" FontSize="22" FontAttributes="Bold" Grid.Column="1" Text="{Binding maxnumteacher}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.RowSpan="3" Grid.Column="1" Margin="0,15,0,15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".3*"/>
+                <RowDefinition Height=".006*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".1*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width=".1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="List Of Favourite Teacher" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Start" FontSize="12"/>
+            <Frame BackgroundColor="Black"  Grid.Row="1" Grid.Column="1" HasShadow="False"/>
+            <ListView  ItemsSource="{Binding favteacherItemSource}" Grid.Row="2" Grid.ColumnSpan="3" RowHeight="80" SeparatorColor="#ffffff" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="0,10,0,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height=".5*"/>
+                                    <RowDefinition Height=".1*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.8*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <material:MaterialCard Grid.RowSpan="3" Grid.ColumnSpan="4" Elevation="3" BackgroundColor="#06000000"/>
+                                <Label Text="{Binding teacherName}" Grid.RowSpan="3" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+                                <Label Text="{Binding teacherTotalTuition}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12"  FontAttributes="Bold" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+                                <Label Text="Total Tuition" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+                                <Label Text="{Binding teacherRatting}" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+                                <Label Text="Ratting" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+                                <material:MaterialButton Text="Remove" Grid.RowSpan="2" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="8" ButtonType="Text" TextColor="Red" PressedBackgroundColor="#20000000"  Command="{Binding Source={x:Reference favteacher}, Path=BindingContext.RemoveFavTeacher}" CommandParameter="{Binding .}"/>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11" IsVisible="{Binding prmStudentTextVisibility}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span  Text="Get "/>
+                        <Span Text="Unlimited Favourite Teacher " />
+                        <Span Text="by becoming our "/>
+                        <Span Text="Premium Student. " />
+                        <Span Text="To become our premium student you have to buy our "/>
+                        <Span Text="Premium Pass "/>
+                        <Span Text="only with "/>
+                        <Span Text="100 Taka."/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </Grid>
+
+    </Grid>
+</ContentPage>

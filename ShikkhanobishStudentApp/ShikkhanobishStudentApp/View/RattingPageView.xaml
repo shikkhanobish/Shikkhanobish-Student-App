@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Class="ShikkhanobishStudentApp.View.RattingPageView">
+    <!--  x:DataType="viewmodel:RattingPageViewModel" !-->
+    <ContentPage.BindingContext>
+        <viewmodel:RattingPageViewModel/>
+    </ContentPage.BindingContext>
+    <Grid BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".7*"/>
+            <RowDefinition Height=".7*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2.5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width=".5*"/>
+        </Grid.ColumnDefinitions>
+        <Label Text="Rate Teacher" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" FontSize="16" FontAttributes="Bold"/>
+        <Label />
+
+        <Label x:Name="nofavlbl" Text="{Binding nofavTeacherTxt}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" TextColor="#60000000" VerticalOptions="Center" FontSize="10" IsVisible="{Binding nofavTeacherTextVisbility}"/>
+        <material:MaterialButton x:Name="favbyn" Text="+ Add As Favourite Teacher" Grid.Row="1" HorizontalOptions="Center" ButtonType="Flat"  Grid.Column="1" FontSize="9" FontAttributes="Bold" TextColor="White"  PressedBackgroundColor="#30FF0000" Clicked="AddFavTeacherButton_Clicked" IsVisible="{Binding addFavteacherVisbility }">
+        </material:MaterialButton>
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Techer Name" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="End" FontSize="14" TextColor="#AAAAAA" Margin="10,0,0,0" />
+            <Label Text="{Binding TeacherName}" Grid.Row="1" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Start" FontSize="18" FontAttributes="Bold" Margin="10,0,0,0"/>
+
+            <Label Text="Total Cost" Grid.Row="0" Grid.Column="1" HorizontalOptions="End" VerticalOptions="End" FontSize="14" TextColor="#AAAAAA" Margin="0,0,10,0"/>
+            <Label Text="{Binding TotalCost}" Grid.Row="1" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" FontSize="18" FontAttributes="Bold" Margin="0,0,10,0"/>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height=".5"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Tuition Info" Grid.Row="0" Grid.ColumnSpan="4" FontSize="14" HorizontalOptions="Start" VerticalOptions="End"/>
+            <Frame BackgroundColor="Black" Grid.Row="1" Grid.ColumnSpan="4" HasShadow="False"/>
+            <Label  Grid.Row="2" Grid.ColumnSpan="4" VerticalOptions="Center" >
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="TuitinoID: " FontAttributes="Bold" FontSize="11"/>
+                        <Span Text="{Binding TuitionID}" FontSize="11"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label  Grid.Row="3" Grid.Column="0"  >
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Time: " FontAttributes="Bold" FontSize="11"/>
+                        <Span Text="{Binding Time}" FontSize="11"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label  Grid.Row="3" Grid.Column="1" >
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Class: " FontAttributes="Bold" FontSize="11"/>
+                        <Span Text="{Binding cls}" FontSize="11"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label  Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" >
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Subject: " FontAttributes="Bold" FontSize="11"/>
+                        <Span Text="{Binding subject}" FontSize="11"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" >
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Chapter: " FontAttributes="Bold" FontSize="11"/>
+                        <Span Text="{Binding chapter}" FontSize="11"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Frame BackgroundColor="#323232" Grid.ColumnSpan="5" HasShadow="False" CornerRadius="20"/>
+            <Image Source="unselectedstar.png" Grid.Column="0" Margin="13">
+
+            </Image>
+            <Image Source="unselectedstar.png" Grid.Column="1" Margin="13">
+
+            </Image>
+            <Image Source="unselectedstar.png" Grid.Column="2" Margin="13">
+
+            </Image>
+            <Image Source="unselectedstar.png" Grid.Column="3" Margin="13">
+
+            </Image>
+            <Image Source="unselectedstar.png" Grid.Column="4" Margin="13">
+
+            </Image>
+
+            <Image Source="selectedstart.png" Grid.Column="0" Margin="13" IsVisible="{Binding oneStartVisibility}"/>
+            <Image Source="selectedstart.png" Grid.Column="1" Margin="13" IsVisible="{Binding twoStartVisibility}"/>
+            <Image Source="selectedstart.png" Grid.Column="2" Margin="13" IsVisible="{Binding threeStartVisibility}"/>
+            <Image Source="selectedstart.png" Grid.Column="3" Margin="13" IsVisible="{Binding fourStartVisibility}"/>
+            <Image Source="selectedstart.png" Grid.Column="4" Margin="13" IsVisible="{Binding fiveStartVisibility}"/>
+
+            <Button BackgroundColor="Transparent" Grid.Column="0" Command="{Binding StartClick}" CommandParameter="1"/>
+            <Button BackgroundColor="Transparent" Grid.Column="1" Command="{Binding StartClick}" CommandParameter="2"/>
+            <Button BackgroundColor="Transparent" Grid.Column="2" Command="{Binding StartClick}" CommandParameter="3"/>
+            <Button BackgroundColor="Transparent" Grid.Column="3" Command="{Binding StartClick}" CommandParameter="4"/>
+            <Button BackgroundColor="Transparent" Grid.Column="4" Command="{Binding StartClick}" CommandParameter="5"/>
+        </Grid>
+
+        <Label Text="{Binding rattingName}" Grid.Row="5" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold"/>
+        <Label Text="[To maintain the highest educational quality in Shikkhanobish, every student must rate the teacher after every tuition.]" Grid.Row="6" Grid.Column="1" HorizontalOptions="Center" TextColor="#50000000" VerticalOptions="Center"/>
+        <material:MaterialButton Text="Report Teacher" Grid.Row="9" HorizontalOptions="End" VerticalOptions="End" ButtonType="Text" Grid.Column="1" FontSize="9" FontAttributes="Bold" TextColor="Red" PressedBackgroundColor="#30FF0000" Command="{Binding popUpReport}">
+        </material:MaterialButton>
+        <Button Text="Rate"  Grid.Row="10" Grid.ColumnSpan="3"  Margin="0,10,0,0" FontAttributes="13" BackgroundColor="#A231F6" TextColor="White" IsEnabled="{Binding rateBtnEnabled}" Clicked="Button_Clicked"/>
+
+
+        <Grid x:Name="reportGrid" Grid.RowSpan="11" Grid.ColumnSpan="3" BackgroundColor="#30000000" IsVisible="{Binding reportVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button BackgroundColor="Transparent" Grid.RowSpan="3" Grid.ColumnSpan="3" Command="{Binding popOutReport}"/>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <material:MaterialCard Grid.RowSpan="3" Grid.ColumnSpan="3" CornerRadius="10" Elevation="20"/>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height=".5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Grid.Column="0" Grid.Row="1" IsChecked="{Binding firstChecked}"/>
+                    <CheckBox Grid.Column="0" Grid.Row="2" IsChecked="{Binding secondChecked}"/>
+                    <CheckBox Grid.Column="0" Grid.Row="3" IsChecked="{Binding thiedChecked}"/>
+                    <CheckBox Grid.Column="0" Grid.Row="4" IsChecked="{Binding forthChecked}"/>
+                    <Label Text="Disrespectful Behaviour" Grid.Column="1" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Time Waste" Grid.Column="1" Grid.Row="2" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Bad Internet Connection" Grid.Column="1" Grid.Row="3" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Text="Other" Grid.Column="1" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </Grid>
+                <Editor Grid.Row="1" Text="{Binding reportDescription}" Placeholder="Description" Grid.Column="1" FontSize="13"/>
+                <Button Text="Submit" Grid.Row="2" BackgroundColor="#F64747" Grid.Column="1" TextColor="White" Margin="0,0,0,10" IsVisible="{Binding reportSubmitEnabled}" Clicked="ReportButton_Clicked_1"/>
+            </Grid>
+        </Grid>
+    </Grid>
+
+
+</ContentPage>

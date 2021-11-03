@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sharedTransitions="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions"
+             sharedTransitions:SharedTransitionNavigationPage.TransitionSelectedGroup="gg"
+             sharedTransitions:SharedTransitionNavigationPage.BackgroundAnimation="SlideFromRight"
+             x:Class="ShikkhanobishStudentApp.View.LoadingPage">
+    <Grid BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Image Source="logo.png" Grid.Row="0" Aspect="AspectFit" Margin="30,0,30,0"
+
+               />
+        <Label Text="Loading Shikkhanobish. Please wait..." Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+        <ProgressBar x:Name="prgs" Grid.Row="1" VerticalOptions="End" Margin="10,0,0,10"/>
+    </Grid>
+
+
+</ContentPage>

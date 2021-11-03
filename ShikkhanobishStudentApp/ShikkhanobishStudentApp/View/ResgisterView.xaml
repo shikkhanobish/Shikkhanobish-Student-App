@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
+             x:Class="ShikkhanobishStudentApp.View.ResgisterView" 
+             xmlns:local="clr-namespace:ShikkhanobishStudentApp.Custom_Rendarar" 
+                      xmlns:sharedTransitions="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions"
+ sharedTransitions:SharedTransitionNavigationPage.TransitionSelectedGroup="gg"
+             sharedTransitions:SharedTransitionNavigationPage.BackgroundAnimation="Fade"
+             xmlns:localEntry="clr-namespace:ShikkhanobishStudentApp.Custom_Rendarar">
+    <!--  x:DataType="viewmodel:RegisterViewModel" !-->
+    <ContentPage.BindingContext>
+        <viewmodel:RegisterViewModel/>
+    </ContentPage.BindingContext>
+    <Grid BackgroundColor="White">
+        <Grid.RowDefinitions >
+            <RowDefinition Height=".3*"/>
+            <RowDefinition Height=".4*"/>
+            <RowDefinition Height=".1*"/>
+            <RowDefinition Height=".3*"/>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height=".4*"/>
+            <RowDefinition Height=".6*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+            <ImageButton Source="back.png" Aspect="AspectFit" Grid.Column="0" BackgroundColor="White" Command="{Binding goBack}" CornerRadius="20">
+            </ImageButton>
+        </Grid>
+
+
+        <Label Text="Welcome To Shikkhanobish Registration" TextColor="#A5A5A5" Grid.Row="3" HorizontalOptions="Start" VerticalOptions="End" Grid.Column="1"/>
+        <Label Text="{Binding titleTxt}" Grid.Row="4" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Start" TextColor="#3D3D3D" FontSize="26" FontAttributes="Bold"/>
+
+        <Image Source="regback.png" Grid.Row="5" Grid.Column="1" Aspect="AspectFit" sharedTransitions:Transition.Name="register"/>
+
+        <Label Text="{Binding egTxt}" Grid.Column="1" Grid.Row="6" HorizontalOptions="Start" VerticalOptions="Center"/>
+        <Grid Grid.Row="7" Grid.Column="1" IsVisible="{Binding varificationvisibility}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="0" IsVisible="{Binding numberVisibility}"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="1" IsVisible="{Binding numberVisibility}"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="2" IsVisible="{Binding numberVisibility}"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="3" IsVisible="{Binding numberVisibility}"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="4" IsVisible="{Binding numberVisibility}"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="5" IsVisible="{Binding numberVisibility}"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="6" IsVisible="{Binding numberVisibility}"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="7" IsVisible="{Binding numberVisibility}"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="8" IsVisible="{Binding numberVisibility}"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="9" IsVisible="{Binding numberVisibility}"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="10" IsVisible="{Binding numberVisibility}"/>
+
+            <Label Text="0" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" IsVisible="{Binding numberVisibility}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+            <Label Text="1" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" IsVisible="{Binding numberVisibility}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+
+            <localEntry:CustomEntry x:Name="fi"  Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" IsVisible="{Binding numberVisibility}"  Keyboard="Numeric"  TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+                <Entry.Behaviors>
+                    <local:EntryFocusBehavior NextFocusElementName="sec"/>
+                </Entry.Behaviors>
+            </localEntry:CustomEntry>
+            <localEntry:CustomEntry x:Name="sec" Grid.Column="3" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"  Keyboard="Numeric" IsVisible="{Binding numberVisibility}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+                <Entry.Behaviors>
+                    <local:EntryFocusBehavior NextFocusElementName="th"/>
+                </Entry.Behaviors>
+            </localEntry:CustomEntry>
+            <localEntry:CustomEntry x:Name="th" Grid.Column="4" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"  Keyboard="Numeric" IsVisible="{Binding numberVisibility}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+                <Entry.Behaviors>
+                    <local:EntryFocusBehavior NextFocusElementName="fr"/>
+                </Entry.Behaviors>
+            </localEntry:CustomEntry>
+            <localEntry:CustomEntry x:Name="fr" Grid.Column="5" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"  Keyboard="Numeric" IsVisible="{Binding numberVisibility}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+                <Entry.Behaviors>
+                    <local:EntryFocusBehavior NextFocusElementName="fiv"/>
+                </Entry.Behaviors>
+            </localEntry:CustomEntry>
+            <localEntry:CustomEntry x:Name="fiv" Grid.Column="6" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"  Keyboard="Numeric" IsVisible="{Binding numberVisibility}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+                <Entry.Behaviors>
+                    <local:EntryFocusBehavior NextFocusElementName="si"/>
+                </Entry.Behaviors>
+            </localEntry:CustomEntry>
+            <localEntry:CustomEntry x:Name="si" Grid.Column="7" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"  Keyboard="Numeric" IsVisible="{Binding numberVisibility}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+                <Entry.Behaviors>
+                    <local:EntryFocusBehavior NextFocusElementName="sev"/>
+                </Entry.Behaviors>
+            </localEntry:CustomEntry>
+            <localEntry:CustomEntry x:Name="sev" Grid.Column="8" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" IsVisible="{Binding numberVisibility}" Keyboard="Numeric" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+                <Entry.Behaviors>
+                    <local:EntryFocusBehavior NextFocusElementName="ei"/>
+                </Entry.Behaviors>
+            </localEntry:CustomEntry>
+            <localEntry:CustomEntry x:Name="ei" Grid.Column="9" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" IsVisible="{Binding numberVisibility}"  Keyboard="Numeric" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+                <Entry.Behaviors>
+                    <local:EntryFocusBehavior NextFocusElementName="ni"/>
+                </Entry.Behaviors>
+            </localEntry:CustomEntry>
+            <localEntry:CustomEntry x:Name="ni" Grid.Column="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20" IsVisible="{Binding numberVisibility}"  Keyboard="Numeric" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+        </Grid>
+        <Grid Grid.Row="7" Grid.Column="1" IsVisible="{Binding otpVisibility}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="3"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="4"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="5"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="6"/>
+            <Frame BackgroundColor="#E9E9E9" Grid.Column="7"/>
+
+
+            <localEntry:CustomEntry x:Name="first" Grid.Column="3" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"  Keyboard="Numeric" Text="{Binding otpfiText}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+                <Entry.Behaviors>
+                    <local:EntryFocusBehavior NextFocusElementName="second"/>
+                </Entry.Behaviors>
+            </localEntry:CustomEntry>
+            <localEntry:CustomEntry x:Name="second"  Grid.Column="4" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"  Keyboard="Numeric" Text="{Binding otpsecText}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+                <Entry.Behaviors>
+                    <local:EntryFocusBehavior NextFocusElementName="third"/>
+                </Entry.Behaviors>
+            </localEntry:CustomEntry>
+
+            <localEntry:CustomEntry x:Name="third"  Grid.Column="5" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"  Keyboard="Numeric" Text="{Binding otpthText}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+                <Entry.Behaviors>
+                    <local:EntryFocusBehavior NextFocusElementName="forth"/>
+                </Entry.Behaviors>
+            </localEntry:CustomEntry>
+            <localEntry:CustomEntry x:Name="forth" Grid.Column="6" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"  Keyboard="Numeric" Text="{Binding otpfrText}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+                <Entry.Behaviors>
+                    <local:EntryFocusBehavior NextFocusElementName="fifth"/>
+                </Entry.Behaviors>
+            </localEntry:CustomEntry>
+            <localEntry:CustomEntry x:Name="fifth" Grid.Column="7" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="20"  Keyboard="Numeric" Text="{Binding otpfivText}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}">
+
+            </localEntry:CustomEntry>
+        </Grid>
+
+        <Grid Grid.Row="5" Grid.RowSpan="4" Grid.Column="1" Margin="0,40,0,40" IsVisible="{Binding infoVisibility}" BackgroundColor="#90ffffff">
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="3*"/>
+
+            </Grid.RowDefinitions>
+            <Label Text="Password*" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+            <Entry  Grid.Row="1" FontSize="14" Text="{Binding password}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+
+
+            <Label Text="Confirm Password*" Grid.Row="2" HorizontalOptions="Start" VerticalOptions="Center"  FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+            <Entry  Grid.Row="3" FontSize="14" Text="{Binding conPassword}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+
+            <Label Text="Name*" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="Center"  FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+            <Entry  Grid.Row="5" FontSize="14" Text="{Binding name}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+
+
+            <Label Text="City*" Grid.Row="6" HorizontalOptions="Start" VerticalOptions="Center"  FontSize="12" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+            <Entry  Grid.Row="7" FontSize="14" Text="{Binding city}" TextColor="{AppThemeBinding Light=#545454, Dark=#545454}"/>
+
+        </Grid>
+        <Button Text="Change Number" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="9" Grid.Column="1" FontSize="10" BackgroundColor="White" TextColor="Blue"  IsVisible="{Binding sendAgainVisibility}" Command="{Binding btnCommand}" CommandParameter="0" Clicked="Button_Clicked_1"/>
+        <Button Text="{Binding btnTxt}" Grid.Row="9" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" CornerRadius="10" BackgroundColor="#6C3ED6" TextColor="White" Command="{Binding btnCommand}" IsEnabled="{Binding registerbtvEnabled}" CommandParameter="1" Clicked="Button_Clicked"/>
+        <Button Text="{Binding sendAgainText}" Grid.Row="8" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Start" BackgroundColor="white"  FontSize="10" IsEnabled="{Binding sndAgainEnabled}" IsVisible="{Binding sendAgainVisibility}" TextColor="{Binding sendAgainColor}" Command="{Binding sendAgainBtn}" FontAttributes="Bold"/>
+
+        <Label Text="{Binding errorText}" Grid.Row="10" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="End" TextColor="Red"/>
+        <Label Text="Terms And Conditions" Grid.Column="1" Grid.Row="11" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#354EFF">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding goToTermConditionPgae}"/>
+            </Label.GestureRecognizers>
+        </Label>
+        <Grid Grid.RowSpan="12" Grid.ColumnSpan="3" IsVisible="{Binding waitVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Frame BackgroundColor="#70000000" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
+
+            <Grid Grid.Row="1" Grid.Column="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height=".5*"/>
+                    <RowDefinition Height=".5*"/>
+                    <RowDefinition Height=".5*"/>
+                    <RowDefinition Height="1.5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".1*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width=".1*"/>
+                </Grid.ColumnDefinitions>
+                <Frame BackgroundColor="#6C3ED6" Grid.RowSpan="5" Grid.ColumnSpan="3" CornerRadius="40" HasShadow="False"/>
+                <Label Text="Creating Your Shikkhanobish Student Account..." Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="End" TextColor="White" FontAttributes="Bold"/>
+                <ProgressBar Progress="{Binding prgs}" Grid.Row="2" Grid.Column="1" ProgressColor="#D6C4FF" Margin="10,0,10,0"/>
+                <Label Text="{Binding prgsPercent}" Grid.Row="3" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Start" TextColor="White"/>
+            </Grid>
+        </Grid>
+    </Grid>
+
+
+</ContentPage>

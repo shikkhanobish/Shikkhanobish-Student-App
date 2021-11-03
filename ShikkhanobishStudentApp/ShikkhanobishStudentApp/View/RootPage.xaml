@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ShikkhanobishStudentApp.View"
+             SelectedTabColor="#633CFF" 
+             BackgroundColor="White"
+             x:Class="ShikkhanobishStudentApp.View.RootPage">
+    
+    <NavigationPage  IconImageSource="taketuition.png" >
+        <x:Arguments>
+            <local:TakeTuitionView />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage  IconImageSource="rechargeicon.png"  >
+        <x:Arguments>
+            <local:RechargeCoinView />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage  IconImageSource="favouriteteacher.png"  >
+        <x:Arguments>
+            <local:FavTeacherView />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage  IconImageSource="questiondeedicon.png"  >
+        <x:Arguments>
+            <local:QuestionTimeLine />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage  IconImageSource="profileicon.png">
+        <x:Arguments>
+            <local:StudentProfile />
+        </x:Arguments>
+    </NavigationPage>
+</TabbedPage>

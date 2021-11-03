@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Class="ShikkhanobishStudentApp.View.ChooseInsAndClass">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".5*"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Label Text="Select Your Class" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="18"/>
+        <Image Source="chooseclass.png" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Aspect="AspectFit"/>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+
+            <material:MaterialButton x:Name="clseight" Text="Class 8" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Clicked="clseight_Clicked" TextColor="#1586BF"/>
+            <material:MaterialButton x:Name="clsnine" Text="Class 9" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" Clicked="clsnine_Clicked" TextColor="#1586BF"/>
+            <material:MaterialButton x:Name="clsten" Text="Class 10" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" Clicked="clsten_Clicked" TextColor="#1586BF"/>
+            <material:MaterialButton x:Name="clsele" Text="Class 11" Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Center" Clicked="clsele_Clicked" TextColor="#1586BF"/>
+            <material:MaterialButton x:Name="clstelv" Text="Class 12" Grid.Row="5" HorizontalOptions="Center" VerticalOptions="Center" Clicked="clstelv_Clicked" TextColor="#1586BF"/>
+        </Grid>
+    </Grid>
+</ContentPage>

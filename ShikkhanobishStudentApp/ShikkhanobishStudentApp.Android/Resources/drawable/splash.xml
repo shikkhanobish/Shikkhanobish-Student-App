@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+	<item>
+		<shape>
+			<gradient
+				android:angle="0"
+				android:startColor="#FDFDFD"
+				android:endColor="#FDFDFD"
+				android:type="linear"
+				/>
+		</shape>
+
+	</item>
+	<item
+		>
+
+		<bitmap
+            android:src="@drawable/onlylogo"
+			android:gravity="center"
+		
+	/>
+	</item>
+</layer-list>

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Class="ShikkhanobishStudentApp.View.QuestionTimeLine">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1.2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Interest" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontSize="15" FontAttributes="Bold"/>
+            <material:MaterialChip Grid.Row="1" Grid.Column="1" Text="Physics First Paper" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
+            <material:MaterialChip Grid.Row="1" Grid.Column="2" Text="Chemistry First Paper" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
+            <material:MaterialChip Grid.Row="1" Grid.Column="3" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
+            <material:MaterialChip Grid.Row="1" Grid.Column="4" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
+            <material:MaterialChip Grid.Row="2" Grid.Column="1" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
+            <material:MaterialChip Grid.Row="2" Grid.Column="2" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
+            <material:MaterialChip Grid.Row="2" Grid.Column="3" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
+            <material:MaterialChip Grid.Row="2" Grid.Column="4" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
+            <material:MaterialButton Text="Edit Tags" Grid.Row="3" Grid.Column="4" HorizontalOptions="End" VerticalOptions="Center" ButtonType="Text" Clicked="MaterialButton_Clicked"/>
+        </Grid>
+        <WebView Source="https://questiontimelime.shikkhanobish.com/106" Grid.Row="1"/>
+        <Grid x:Name="tagFrid" Grid.RowSpan="2" BackgroundColor="#50000000">
+            <Button BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+            
+            <Grid  Margin="40,60,40,60">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <material:MaterialCard BackgroundColor="White" Grid.RowSpan="3" Elevation="10"/>
+                <material:MaterialButton  Text="Close" HorizontalOptions="End" VerticalOptions="Start" ButtonType="Text" TextColor="Red" Clicked="MaterialButton_Clicked_1" FontSize="9"/>
+                <Label Text="Select your prefered tags:" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End" FontAttributes="Bold" FontSize="15"/>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Select Tags From School" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0"/>
+                        <material:MaterialCheckboxGroup x:Name="schoolCheckBoxGroup" Grid.Row="1" />
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                    <Label Text="Select Tags From School" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0"/>
+                    <material:MaterialCheckboxGroup x:Name="collegeBoxGroup" Grid.Row="1" />
+                </Grid>
+                <material:MaterialButton Text="Select" Grid.Row="2"/>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+    
+</ContentPage>
