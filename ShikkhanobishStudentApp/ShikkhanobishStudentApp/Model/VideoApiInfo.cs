@@ -10,5 +10,6 @@ namespace ShikkhanobishStudentApp.Model
         public string SessionID { get; set; }
         public string token { get; set; }
         public string Response { get; set; }
+
     }
 }
