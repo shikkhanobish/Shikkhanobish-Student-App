@@ -1,7 +1,6 @@
 ﻿using Flurl.Http;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShikkhanobishStudentApp.Model
@@ -26,26 +25,39 @@ namespace ShikkhanobishStudentApp.Model
         public static StudentPaymentHistory thispayment { get; set; }
         public static favouriteTeacher selectedPopupFavTeacher { get; set; }
         public static bool isFromReg { get; set; }
-        public static string LastPaymentRequestID {get;set;}
+        public static string LastPaymentRequestID { get; set; }
+
         public static int GenarateNewID()
         {
             Random rnd = new Random();
             int newID = rnd.Next(10000000, 99999999);
             return newID;
         }
+
+        public static string GenarateIDString(int length)
+        {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
         public static async Task GetStudent()
         {
             thisStudentInfo = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getStudentWithID".PostUrlEncodedAsync(new { studentID = thisStudentInfo.studentID })
   .ReceiveJson<Student>();
         }
+
         public static async Task OnStart()
         {
             isInBackground = false;
         }
+
         public static async Task OnPause()
         {
             isInBackground = true;
         }
+
         public static async Task MakeActiveInServer()
         {
             int i = 0;
@@ -53,11 +65,10 @@ namespace ShikkhanobishStudentApp.Model
 .ReceiveJson<Response>();
             while (i == 0)
             {
-                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/updateActiveStatus".PostUrlEncodedAsync(new { userID = thisStudentInfo.studentID, activeStatus = 1})
+                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/updateActiveStatus".PostUrlEncodedAsync(new { userID = thisStudentInfo.studentID, activeStatus = 1 })
  .ReceiveJson<Response>();
                 await Task.Delay(1000);
             }
-           
         }
     }
 }

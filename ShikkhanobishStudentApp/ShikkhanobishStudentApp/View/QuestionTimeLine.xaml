@@ -1,13 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              x:Class="ShikkhanobishStudentApp.View.QuestionTimeLine">
+    <ContentPage.BindingContext>
+        <viewmodel:QuizTimelineViewModel/>
+    </ContentPage.BindingContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <material:MaterialCard Grid.Row="0" Elevation="5"/>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -32,7 +37,9 @@
             <material:MaterialChip Grid.Row="2" Grid.Column="2" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
             <material:MaterialChip Grid.Row="2" Grid.Column="3" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
             <material:MaterialChip Grid.Row="2" Grid.Column="4" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
-            <material:MaterialButton Text="Edit Tags" Grid.Row="3" Grid.Column="4" HorizontalOptions="End" VerticalOptions="Center" ButtonType="Text" Clicked="MaterialButton_Clicked"/>
+            <material:MaterialCard BackgroundColor="#14C290" Grid.Row="3" Grid.Column="4" IsClickable="True"/>
+            <Image Source="editicon.png" Grid.Row="3" Grid.Column="4" Aspect="AspectFit" />
+            <material:MaterialCard BackgroundColor="Transparent" Grid.Row="3" Grid.Column="4" IsClickable="True"/>
         </Grid>
         <WebView Source="https://questiontimelime.shikkhanobish.com/106" Grid.Row="1"/>
         <Grid x:Name="tagFrid" Grid.RowSpan="2" BackgroundColor="#50000000">
@@ -58,16 +65,25 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Label Text="Select Tags From School" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0"/>
-                        <material:MaterialCheckboxGroup x:Name="schoolCheckBoxGroup" Grid.Row="1" />
+                        <material:MaterialCard BackgroundColor="#FBFBFB" Grid.Row="1" />
+                        <ScrollView Grid.Row="1">
+                            <material:MaterialCheckboxGroup x:Name="schoolCheckBoxGroup" FontSize="12" />
+                        </ScrollView>
+
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
+                        <Label Text="Select Tags From College" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0"/>
+                        <material:MaterialCard BackgroundColor="#FBFBFB" Grid.Row="1" />
+                        <ScrollView Grid.Row="1">
+                            <material:MaterialCheckboxGroup x:Name="collegeBoxGroup" FontSize="12"/>
+                        </ScrollView>
                     </Grid>
-                    <Label Text="Select Tags From School" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0"/>
-                    <material:MaterialCheckboxGroup x:Name="collegeBoxGroup" Grid.Row="1" />
+                    
+                   
                 </Grid>
                 <material:MaterialButton Text="Select" Grid.Row="2"/>
             </Grid>
