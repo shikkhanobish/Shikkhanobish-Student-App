@@ -15,6 +15,7 @@ namespace ShikkhanobishStudentApp.View
         public LiveTuitionList()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
     }
 }

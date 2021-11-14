@@ -1,12 +1,97 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel" 
+              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" 
              x:Class="ShikkhanobishStudentApp.View.LiveTuitionList">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+    <ContentPage.BindingContext>
+        <viewmodel:LiveTuitionViewModel/>
+    </ContentPage.BindingContext>
+    <Grid BackgroundColor="#080000000">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="back.png" Grid.Column="0" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" Grid.Column="0" ClickCommand="{Binding gobakc}"/>
+            <Label Text="Live Tuition" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="17"/>
+        </Grid>
+        <Image Source="" Grid.Row="1" Grid.Column="1" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Text="List Of Live Tuitions" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="13"/>
+            <Frame BackgroundColor="Black" Grid.Row="1"/>
+            <ListView Grid.Row="2" RowHeight="230" ItemsSource="{Binding liveTuitionList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="100"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="20*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <material:MaterialCard BackgroundColor="White" Grid.RowSpan="3" Grid.ColumnSpan="3" Elevation="5"/>
+                                <Grid Grid.Row="0" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="2" HorizontalTextAlignment="Start" VerticalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Date: " FontSize="12"/>
+                                                <Span Text="{Binding date}" FontAttributes="Bold" FontSize="12"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Text="{Binding subjectname}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="10" FontAttributes="Bold" TextColor="#783AEF"/>
+                                    <Label Text="GG"  Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontSize="10" FontAttributes="Bold" TextColor="#3A8BEF"/>
+                                </Grid>
+                                <Label Text="What is Light in my book?" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Grid Grid.Row="2" Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                   
+                                    <Label Text="Requested Teacher" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12"/>
+                                    <Frame BackgroundColor="#50000000" Grid.Row="2" Grid.Column="0"/>
+                                    <Label Text="{Binding teacherName}" Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold" IsVisible="{Binding isPendingTeacherAvailable}"/>
+                                    <material:MaterialButton Text="View" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" HorizontalOptions="End" VerticalOptions="Center" TextColor="Black" PressedBackgroundColor="#5039EC5E" ButtonType="Outlined" BorderColor="Black" FontSize="9" IsVisible="{Binding isPendingTeacherAvailable}"/> 
+                                </Grid>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
 </ContentPage>
