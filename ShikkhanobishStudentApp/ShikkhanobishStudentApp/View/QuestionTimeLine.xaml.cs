@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace ShikkhanobishStudentApp.View
 {
@@ -49,6 +50,31 @@ namespace ShikkhanobishStudentApp.View
         private void MaterialButton_Clicked_1(object sender, EventArgs e)
         {
             tagFrid.IsVisible = false;
+        }
+        protected override bool OnBackButtonPressed()
+        {
+            EndOrBackBtn();
+            return true;
+        }
+
+        private async Task EndOrBackBtn()
+        {
+            var actions = new string[] { "Yes", "No" };
+
+            //Show simple dialog
+            var result = await MaterialDialog.Instance.SelectActionAsync(title: "Do you want to exit this app?",
+                                                             actions: actions);
+            if (result == 0)
+            {
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
+            }
+
+        }
+
+        private void MaterialCard_Clicked(object sender, EventArgs e)
+        {
+            tagFrid.IsVisible = true;
+
         }
     }
 }

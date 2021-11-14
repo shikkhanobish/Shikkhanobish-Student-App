@@ -39,9 +39,10 @@
             <material:MaterialChip Grid.Row="2" Grid.Column="4" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
             <material:MaterialCard BackgroundColor="#14C290" Grid.Row="3" Grid.Column="4" IsClickable="True"/>
             <Image Source="editicon.png" Grid.Row="3" Grid.Column="4" Aspect="AspectFit" />
-            <material:MaterialCard BackgroundColor="Transparent" Grid.Row="3" Grid.Column="4" IsClickable="True"/>
+            <material:MaterialCard BackgroundColor="Transparent" Grid.Row="3" Grid.Column="4" IsClickable="True" Clicked="MaterialCard_Clicked"/>
         </Grid>
         <WebView Source="https://questiontimelime.shikkhanobish.com/106" Grid.Row="1"/>
+        
         <Grid x:Name="tagFrid" Grid.RowSpan="2" BackgroundColor="#50000000">
             <Button BackgroundColor="Transparent" Clicked="Button_Clicked"/>
             
