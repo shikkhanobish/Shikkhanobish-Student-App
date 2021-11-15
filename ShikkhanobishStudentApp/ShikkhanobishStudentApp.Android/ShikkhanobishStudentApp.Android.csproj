@@ -321,5 +321,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\livehirerequest.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\liverequest.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

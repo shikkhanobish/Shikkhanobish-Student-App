@@ -962,13 +962,13 @@ namespace ShikkhanobishStudentApp.ViewModel
             Teacher thisTeacher = new Teacher();
             teacherisSelected = 0;
             bool isFavTeacher = true;
-           
 
+            string tID = StaticPageToPassData.GenarateIDString(40);
             var rsdes = "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setTuiTionLog".PostUrlEncodedAsync(new
             {
                 studentName = StaticPageToPassData.thisStudentInfo.name,
                 subjectname = SelectedSubjectName,
-                tuitionLogID = StaticPageToPassData.GenarateIDString(40),
+                tuitionLogID = tID,
                 description = detailTxt,
                 date = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),
                 subjectID = SelectedSubjectID,

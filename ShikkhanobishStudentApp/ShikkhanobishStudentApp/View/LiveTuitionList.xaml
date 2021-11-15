@@ -10,7 +10,7 @@
     <Grid BackgroundColor="#080000000">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -27,7 +27,7 @@
             <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" Grid.Column="0" ClickCommand="{Binding gobakc}"/>
             <Label Text="Live Tuition" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="17"/>
         </Grid>
-        <Image Source="" Grid.Row="1" Grid.Column="1" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Image Source="liverequest.png" Grid.Row="1" Grid.Column="1" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"/>
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
@@ -69,23 +69,34 @@
                                     <Label Text="{Binding subjectName}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="10" FontAttributes="Bold" TextColor="#783AEF"/>
                                     <Label Text="{Binding chapterName}"  Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontSize="10" FontAttributes="Bold" TextColor="#3A8BEF"/>
                                 </Grid>
-                                <Label Text="{Binding }" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Frame BackgroundColor="#08000000" Grid.Row="1" Grid.Column="1" HasShadow="False"/>
+                                <Label Text="{Binding description}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
                                 <Grid Grid.Row="2" Grid.Column="1">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="20"/>
                                         <RowDefinition Height="1"/>
-                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="Requested Teacher" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12"/>
+                                    <Frame BackgroundColor="#50000000" Grid.Row="1" />
                                    
-                                    <Label Text="Requested Teacher" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12"/>
-                                    <Frame BackgroundColor="#50000000" Grid.Row="2" Grid.Column="0"/>
-                                    <Label Text="{Binding teacherName}" Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold" IsVisible="{Binding isPendingTeacherAvailable}"/>
-                                    <material:MaterialButton Text="View" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" HorizontalOptions="End" VerticalOptions="Center" TextColor="Black" PressedBackgroundColor="#5039EC5E" ButtonType="Outlined" BorderColor="Black" FontSize="9" IsVisible="{Binding isPendingTeacherAvailable}"/> 
+                                    <ListView Grid.Row="2" RowHeight="30" ItemsSource="{Binding teacherNameList}" IsVisible="{Binding isPendingTeacherAvailable}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="2*"/>
+                                                            <ColumnDefinition Width="1*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Text="{Binding name}" Grid.Column="0" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="12"/>
+                                                        <material:MaterialButton Text="View" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" TextColor="Black" PressedBackgroundColor="#5039EC5E" ButtonType="Outlined" BorderColor="Black" FontSize="9" />
+                                                    </Grid>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
                                 </Grid>
                             </Grid>
                         </ViewCell>

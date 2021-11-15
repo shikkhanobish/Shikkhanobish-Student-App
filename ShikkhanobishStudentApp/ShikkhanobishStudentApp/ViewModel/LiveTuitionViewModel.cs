@@ -26,7 +26,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             foreach (var item in lList)
             {
                 
-                if (item.studentID == StaticPageToPassData.thisStudentInfo.studentID && item.tuitionLogStatus == 1)
+                if (item.studentID == StaticPageToPassData.thisStudentInfo.studentID)
                 {
                     if (item.pendingTeacherID != 0)
                     {
@@ -46,6 +46,8 @@ namespace ShikkhanobishStudentApp.ViewModel
                         item.teacherName = "--";
                         item.isPendingTeacherAvailable = false;
                     }
+
+                    //Add Teacher
                     ntll.Add(item);
                 }
             }
