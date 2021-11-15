@@ -161,15 +161,16 @@ namespace ShikkhanobishStudentApp.ViewModel
         public async Task GetLogList()
         {
             var lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
-            foreach(var item in lList)
+            List<TuiTionLog> thisTuition = new List<TuiTionLog>();
+            foreach (var tuition in lList)
             {
-                if(item.studentID == StaticPageToPassData.thisStudentInfo.studentID)
+                if (tuition.studentID == StaticPageToPassData.thisStudentInfo.studentID)
                 {
-                    LTDate = item.date;
-                    LTSubject = item.studentName;
                     isTuitionLive = true;
+                    thisTuition.Add(tuition);
                 }
             }
+            livetuitionList = thisTuition;
         }
         private void PerformliveTuitionViewCmd()
         {
@@ -974,71 +975,79 @@ namespace ShikkhanobishStudentApp.ViewModel
                 subjectID = SelectedSubjectID,
                 studentID = StaticPageToPassData.thisStudentInfo.studentID
             }).ReceiveJson<Response>();
+            var lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
+            
+            foreach(var tuition in lList)
+            {
+                if(tuition.studentID == StaticPageToPassData.thisStudentInfo.studentID)
+                {
+                    livetuitionList.Add(tuition);
+                }
+            }
+            // //select Teacher
+            // while (teacherisSelected == 0)
+            // {
+            //     if (thisSelectedFavPopUpTeacher.teacherID == 0)
+            //     {
+            //         SelectedTeacher = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/HireTeacherAsync".PostUrlEncodedAsync(new { subID = thisSearcherSubId })
+            //.ReceiveJson<Teacher>();
+            //         teacherisSelected = SelectedTeacher.teacherID;
+            //         thisTeacher = SelectedTeacher;
+            //         isFavTeacher = false;
+            //     }
+            //     else
+            //     {
+            //         teacherisSelected = thisSelectedFavPopUpTeacher.teacherID;
+            //         thisTeacher = thisSelectedFavPopUpTeacher;
+            //         isFavTeacher = true;
+            //     }
+            // }
+            // isSearchGifVisible = false;
+            // isscTeacherInfoVisible = true;
+            // connectingTeachertxt = "Teacher Found! Waiting for response...";
+            // //Call teacher
+            // int thisCost = thisTuitionCostCal();
+            // Teacher thisscTeacherInfo = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getTeacherWithID".PostUrlEncodedAsync(new { teacherID = teacherisSelected }).ReceiveJson<Teacher>();
+            // scteacherName = thisscTeacherInfo.name;
+            // scteacherTotalTuition = thisscTeacherInfo.totalTuition + "";
+            // float toalRating = 0;
 
-           // //select Teacher
-           // while (teacherisSelected == 0)
-           // {
-           //     if (thisSelectedFavPopUpTeacher.teacherID == 0)
-           //     {
-           //         SelectedTeacher = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/HireTeacherAsync".PostUrlEncodedAsync(new { subID = thisSearcherSubId })
-           //.ReceiveJson<Teacher>();
-           //         teacherisSelected = SelectedTeacher.teacherID;
-           //         thisTeacher = SelectedTeacher;
-           //         isFavTeacher = false;
-           //     }
-           //     else
-           //     {
-           //         teacherisSelected = thisSelectedFavPopUpTeacher.teacherID;
-           //         thisTeacher = thisSelectedFavPopUpTeacher;
-           //         isFavTeacher = true;
-           //     }
-           // }
-           // isSearchGifVisible = false;
-           // isscTeacherInfoVisible = true;
-           // connectingTeachertxt = "Teacher Found! Waiting for response...";
-           // //Call teacher
-           // int thisCost = thisTuitionCostCal();
-           // Teacher thisscTeacherInfo = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getTeacherWithID".PostUrlEncodedAsync(new { teacherID = teacherisSelected }).ReceiveJson<Teacher>();
-           // scteacherName = thisscTeacherInfo.name;
-           // scteacherTotalTuition = thisscTeacherInfo.totalTuition + "";
-           // float toalRating = 0;
+            // float totalSum = thisscTeacherInfo.fiveStar * 5 + thisscTeacherInfo.fourStar * 4 + thisscTeacherInfo.threeStar * 3 + thisscTeacherInfo.twoStar * 2 + thisscTeacherInfo.oneStar;
 
-           // float totalSum = thisscTeacherInfo.fiveStar * 5 + thisscTeacherInfo.fourStar * 4 + thisscTeacherInfo.threeStar * 3 + thisscTeacherInfo.twoStar * 2 + thisscTeacherInfo.oneStar;
+            // toalRating = totalSum / (thisscTeacherInfo.fiveStar + thisscTeacherInfo.fourStar + thisscTeacherInfo.threeStar + thisscTeacherInfo.twoStar + thisscTeacherInfo.oneStar);
+            // scteacherRatting = toalRating + "";
+            // string uriToCAllTeacher = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishSignalR/CallSelectedTeacher?&teacherID=" + teacherisSelected + "&des=" + detailTxt + "&cls=" + SelectedClassName + "&sub=" + thisSearcherSubId + "&chapter=" + selectedChapterName + "&cost=" + thisCost + "&name=" + StaticPageToPassData.thisStudentInfo.name + "&studentID=" + StaticPageToPassData.thisStudentInfo.studentID;
+            // await realtimeapi.ExecuteRealTimeApi(uriToCAllTeacher);
+            // int sec = 35;
 
-           // toalRating = totalSum / (thisscTeacherInfo.fiveStar + thisscTeacherInfo.fourStar + thisscTeacherInfo.threeStar + thisscTeacherInfo.twoStar + thisscTeacherInfo.oneStar);
-           // scteacherRatting = toalRating + "";
-           // string uriToCAllTeacher = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishSignalR/CallSelectedTeacher?&teacherID=" + teacherisSelected + "&des=" + detailTxt + "&cls=" + SelectedClassName + "&sub=" + thisSearcherSubId + "&chapter=" + selectedChapterName + "&cost=" + thisCost + "&name=" + StaticPageToPassData.thisStudentInfo.name + "&studentID=" + StaticPageToPassData.thisStudentInfo.studentID;
-           // await realtimeapi.ExecuteRealTimeApi(uriToCAllTeacher);
-           // int sec = 35;
+            // Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            // {
+            //     if (sec == 0)
+            //     {
+            //         isSearchGifVisible = true;
+            //         isscTeacherInfoVisible = false;
+            //         if (isFavTeacher)
+            //         {
+            //             connectingTeachertxt = "Teacher is unable to connect. Please, choose another teacher.";
+            //             selectedTeacherConnectingVisibility = false;
+            //             chooseTeacherVisibility = true;
+            //             Task.Delay(1000);
+            //             teacherisSelected = thisSelectedFavPopUpTeacher.teacherID;
+            //             return false;
+            //         }
+            //         else
+            //         {
+            //             if (!isCancledTuition)
+            //             {
+            //                 CallTeacherAgain();
+            //             }
 
-           // Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-           // {
-           //     if (sec == 0)
-           //     {
-           //         isSearchGifVisible = true;
-           //         isscTeacherInfoVisible = false;
-           //         if (isFavTeacher)
-           //         {
-           //             connectingTeachertxt = "Teacher is unable to connect. Please, choose another teacher.";
-           //             selectedTeacherConnectingVisibility = false;
-           //             chooseTeacherVisibility = true;
-           //             Task.Delay(1000);
-           //             teacherisSelected = thisSelectedFavPopUpTeacher.teacherID;
-           //             return false;
-           //         }
-           //         else
-           //         {
-           //             if (!isCancledTuition)
-           //             {
-           //                 CallTeacherAgain();
-           //             }
-
-           //             return false;
-           //         }
-           //     }
-           //     sec -= 1;
-           //     return true;
-           // });
+            //             return false;
+            //         }
+            //     }
+            //     sec -= 1;
+            //     return true;
+            // });
         }
 
         public async Task CallTeacherAgain()
@@ -2838,7 +2847,11 @@ namespace ShikkhanobishStudentApp.ViewModel
             }
         }
 
-       
+        private List<TuiTionLog> livetuitionList1;
+
+        public List<TuiTionLog> livetuitionList { get => livetuitionList1; set => SetProperty(ref livetuitionList1, value); }
+
+
         #endregion Binding Garbage
     }
 }
