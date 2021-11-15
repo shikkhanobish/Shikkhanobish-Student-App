@@ -61,8 +61,16 @@ namespace ShikkhanobishStudentApp.ViewModel
                 {
                     isscTeacherInfoVisible = true;
                     searchedTeacher = selectedTeacher;
+                    TeacherRiviewInfo(selectedTeacher.teacherID);
                 });
             }
+        }
+
+        public async Task TeacherRiviewInfo(int tid)
+        {
+            var rvWithID = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTeacherReviewWithTeacherID".PostJsonAsync(new { teacherID = tid }).ReceiveJson<TeacherReview>();
+            //reviewList = rvWithID;
+
         }
         private void PerformpopouyTeacherInfo()
         {
