@@ -21,39 +21,47 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             var lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
             var tList = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getAllTeacher".PostJsonAsync(new { }).ReceiveJson<List<Teacher>>();
-            
+            var trList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuitionRequestCount".GetJsonAsync<List<TutionRequestCount>>();
+
             List<TuiTionLog> ntll = new List<TuiTionLog>();
+            int count = 0;
             foreach (var item in lList)
             {
-                
                 if (item.studentID == StaticPageToPassData.thisStudentInfo.studentID)
                 {
-                    if (item.pendingTeacherID != 0)
+                    item.teacherNameList = new List<Teacher>();
+                    
+                    foreach (var trCount in trList)
                     {
-                        foreach(var teacher in tList)
+                        if (item.tuitionLogID == trCount.tuitionID)
                         {
-                            if(teacher.teacherID == item.pendingTeacherID)
-                            {
-                                item.teacherName = teacher.name;
-                            }
+                            
+                            var twithID = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getTeacherWithID".PostJsonAsync(new { teacherID = trCount.teacherID}).ReceiveJson<Teacher>();
+                            
+                            item.teacherNameList.Add(twithID);
+                            count++;
                         }
-                       
-                        item.isPendingTeacherAvailable = true;
+                    }
 
-                    }
-                    else
-                    {
-                        item.teacherName = "--";
-                        item.isPendingTeacherAvailable = false;
-                    }
+                    //rqsTeacherCount1 = count.ToString();
+                    item.isPendingTeacherAvailable = true;
+
+                    //if (item.pendingTeacherID != 0)
+                    //{
+                        
+                    //}
+                    //else
+                    //{
+                    //    item.teacherName = "--";
+                    //    item.isPendingTeacherAvailable = false;
+                    //}
 
                     //Add Teacher
                     ntll.Add(item);
                 }
             }
+            rqsTeacherCount = "( " +  count.ToString()  +" )";
             liveTuitionList = ntll;
-
-            
 
         }
         private void Performgobakc()
@@ -82,8 +90,10 @@ namespace ShikkhanobishStudentApp.ViewModel
                 return gobakc1;
             }
         }
+        private string rqsTeacherCount1;
 
-       
+        public string rqsTeacherCount { get => rqsTeacherCount1; set => SetProperty(ref rqsTeacherCount1, value); }
+        
         #endregion
     }
 }
