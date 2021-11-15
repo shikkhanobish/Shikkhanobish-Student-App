@@ -78,7 +78,14 @@
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
-                                    <Label Text="Requested Teacher" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12"/>
+                                    <Label  Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Requested Teacher "/>
+                                                <Span Text="{Binding rqsTeacherCount}" FontAttributes="Bold"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
                                     <Frame BackgroundColor="#50000000" Grid.Row="1" />
                                    
                                     <ListView Grid.Row="2" RowHeight="30" ItemsSource="{Binding teacherNameList}" IsVisible="{Binding isPendingTeacherAvailable}">
