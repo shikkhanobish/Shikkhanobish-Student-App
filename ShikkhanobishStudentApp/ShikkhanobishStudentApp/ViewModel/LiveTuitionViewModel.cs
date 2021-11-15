@@ -28,27 +28,30 @@ namespace ShikkhanobishStudentApp.ViewModel
                 
                 if (item.studentID == StaticPageToPassData.thisStudentInfo.studentID && item.tuitionLogStatus == 1)
                 {
+                    if (item.pendingTeacherID != 0)
+                    {
+                        foreach(var teacher in tList)
+                        {
+                            if(teacher.teacherID == item.pendingTeacherID)
+                            {
+                                item.teacherName = teacher.name;
+                            }
+                        }
+                       
+                        item.isPendingTeacherAvailable = true;
+
+                    }
+                    else
+                    {
+                        item.teacherName = "--";
+                        item.isPendingTeacherAvailable = false;
+                    }
                     ntll.Add(item);
                 }
             }
             liveTuitionList = ntll;
 
-            TuiTionLog tuiTionLog = new TuiTionLog();
-            foreach (var item2 in tList)
-            {
-                if (item2.activeStatus == 1)
-                {
-                    tuiTionLog.teacherName = item2.name;
-                    tuiTionLog.isPendingTeacherAvailable = true;
-                    
-                }
-                else
-                {
-                    tuiTionLog.teacherName = "--";
-                    tuiTionLog.isPendingTeacherAvailable = false;
-                }
-            }
-            liveTuitionList.Add(tuiTionLog);
+            
 
         }
         private void Performgobakc()
