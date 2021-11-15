@@ -66,10 +66,10 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label Text="{Binding subjectname}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="10" FontAttributes="Bold" TextColor="#783AEF"/>
-                                    <Label Text="GG"  Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontSize="10" FontAttributes="Bold" TextColor="#3A8BEF"/>
+                                    <Label Text="{Binding subjectName}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="10" FontAttributes="Bold" TextColor="#783AEF"/>
+                                    <Label Text="{Binding chapterName}"  Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontSize="10" FontAttributes="Bold" TextColor="#3A8BEF"/>
                                 </Grid>
-                                <Label Text="What is Light in my book?" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Label Text="{Binding }" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
                                 <Grid Grid.Row="2" Grid.Column="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="1*"/>

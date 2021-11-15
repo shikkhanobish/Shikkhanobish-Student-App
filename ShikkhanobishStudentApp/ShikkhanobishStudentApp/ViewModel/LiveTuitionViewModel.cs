@@ -20,16 +20,39 @@ namespace ShikkhanobishStudentApp.ViewModel
         public async Task GetLogList()
         {
             var lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
+            var tList = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getAllTeacher".PostJsonAsync(new { }).ReceiveJson<List<Teacher>>();
+            
             List<TuiTionLog> ntll = new List<TuiTionLog>();
             foreach (var item in lList)
             {
+                
                 if (item.studentID == StaticPageToPassData.thisStudentInfo.studentID && item.tuitionLogStatus == 1)
                 {
+                    if (item.pendingTeacherID != 0)
+                    {
+                        foreach(var teacher in tList)
+                        {
+                            if(teacher.teacherID == item.pendingTeacherID)
+                            {
+                                item.teacherName = teacher.name;
+                            }
+                        }
+                       
+                        item.isPendingTeacherAvailable = true;
+
+                    }
+                    else
+                    {
+                        item.teacherName = "--";
+                        item.isPendingTeacherAvailable = false;
+                    }
                     ntll.Add(item);
                 }
             }
+            liveTuitionList = ntll;
 
-            //liveTuitionList = ntll;
+            
+
         }
         private void Performgobakc()
         {

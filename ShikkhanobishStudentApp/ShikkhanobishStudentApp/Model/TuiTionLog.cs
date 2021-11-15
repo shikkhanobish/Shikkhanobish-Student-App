@@ -8,7 +8,8 @@ namespace ShikkhanobishStudentApp.Model
     {
         public string tuitionLogID { get; set; }
         public string studentName { get; set; }
-        public string subjectname { get; set; }
+        public string subjectName { get; set; }
+        public string chapterName { get; set; }
         public int subjectID { get; set; }
         public string description { get; set; }
         public string date { get; set; }
