@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel" 
               xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" 
+             x:Name="LiveTuition"
              x:Class="ShikkhanobishStudentApp.View.LiveTuitionList">
     <ContentPage.BindingContext>
         <viewmodel:LiveTuitionViewModel/>
@@ -98,7 +99,7 @@
                                                             <ColumnDefinition Width="1*"/>
                                                         </Grid.ColumnDefinitions>
                                                         <Label Text="{Binding name}" Grid.Column="0" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="12"/>
-                                                        <material:MaterialButton Text="View" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" TextColor="Black" PressedBackgroundColor="#5039EC5E" ButtonType="Outlined" BorderColor="Black" FontSize="9" />
+                                                        <material:MaterialButton Text="View" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" TextColor="Black" PressedBackgroundColor="#5039EC5E" ButtonType="Outlined" BorderColor="Black" FontSize="9" Command="{Binding Source={x:Reference LiveTuition}, Path=BindingContext.ViewTeacherInfo}" CommandParameter="{Binding .}"/>
                                                     </Grid>
                                                 </ViewCell>
                                             </DataTemplate>
@@ -110,6 +111,98 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+        </Grid>
+        <Grid Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3" IsVisible="{Binding isscTeacherInfoVisible}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button BackgroundColor="#50000000" Grid.RowSpan="3" Command="{Binding popouyTeacherInfo}"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*" />
+                    <RowDefinition Height="1" />
+                    <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="1" />
+                    <RowDefinition Height=".5*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="20*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <material:MaterialCard BackgroundColor="#ffffff" Grid.RowSpan="5" Grid.ColumnSpan="3" Elevation="20" CornerRadius="15"/>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding searchedTeacher.name}" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="17" />
+                    <material:MaterialButton Text="Close" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" ButtonType="Text" Command="{Binding popouyTeacherInfo}" FontSize="9"/>
+                    <Label Text="4.6" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" />
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="popuptotaltuition.png" Grid.Row="0" Grid.Column="0" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Label Text="{Binding searchedTeacher.totalTuition}" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" />
+                        <Label Text="Total Tuition" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" />
+
+                        <Image Source="popupfavteacher.png" Grid.Row="0" Grid.Column="1" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Label Text="{Binding searchedTeacher.favTeacherCount}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" />
+                        <Label Text="Favourite Teacher" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" />
+
+                        <Image Source="popuptotaltime.png" Grid.Row="0" Grid.Column="2" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Label Text="{Binding searchedTeacher.totalMinuite}" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" />
+                        <Label Text="Total Minute" Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" />
+                    </Grid>
+                </Grid>
+                <Frame BackgroundColor="#60000000" Grid.Row="1" Grid.Column="1" HasShadow="False" />
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Text="Review" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+                    <ListView Grid.Row="2" RowHeight="30" ItemsSource="{Binding reviewList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Label Text="{Binding review}"  HorizontalTextAlignment="Start" VerticalTextAlignment="Center"  FontSize="12"/>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Frame BackgroundColor="#E9F9FF" Grid.Column="0" Grid.RowSpan="2" />
+                    <Image Source="audio.png" Grid.Column="0" Grid.Row="0" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" Margin="2" />
+                    <Label Text="Audio Call" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#09546E" FontAttributes="Bold" />
+                    <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" Grid.Column="0" Grid.RowSpan="2"  ClickCommand="{Binding acceptTeacherTuition}" ClickCommandParameter="1" />
+
+                    <Frame BackgroundColor="#EDE9FF" Grid.Column="1" Grid.RowSpan="2" />
+                    <Image Source="videocall.png" Grid.Column="1" Grid.Row="0" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label Text="Video Call" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#380D83" FontAttributes="Bold" Margin="2" />
+                    <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" Grid.Column="1" Grid.RowSpan="2" ClickCommand="{Binding acceptTeacherTuition}" ClickCommandParameter="2" />
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </ContentPage>

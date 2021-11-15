@@ -19,6 +19,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         }
         public async Task GetLogList()
         {
+            isscTeacherInfoVisible = false;
             var lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
             var tList = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getAllTeacher".PostJsonAsync(new { }).ReceiveJson<List<Teacher>>();
             var trList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuitionRequestCount".GetJsonAsync<List<TutionRequestCount>>();
@@ -43,26 +44,29 @@ namespace ShikkhanobishStudentApp.ViewModel
                         }
                     }
 
-                    //rqsTeacherCount1 = count.ToString();
                     item.isPendingTeacherAvailable = true;
 
-                    //if (item.pendingTeacherID != 0)
-                    //{
-                        
-                    //}
-                    //else
-                    //{
-                    //    item.teacherName = "--";
-                    //    item.isPendingTeacherAvailable = false;
-                    //}
-
-                    //Add Teacher
                     ntll.Add(item);
                 }
             }
             rqsTeacherCount = "( " +  count.ToString()  +" )";
             liveTuitionList = ntll;
 
+        }
+        public ICommand ViewTeacherInfo
+        {
+            get
+            {
+                return new Command<Teacher>((selectedTeacher) =>
+                {
+                    isscTeacherInfoVisible = true;
+                    searchedTeacher = selectedTeacher;
+                });
+            }
+        }
+        private void PerformpopouyTeacherInfo()
+        {
+            isscTeacherInfoVisible = false;
         }
         private void Performgobakc()
         {
@@ -93,7 +97,41 @@ namespace ShikkhanobishStudentApp.ViewModel
         private string rqsTeacherCount1;
 
         public string rqsTeacherCount { get => rqsTeacherCount1; set => SetProperty(ref rqsTeacherCount1, value); }
+
+        private Teacher thisClickedTeacher1;
+
+        public Teacher thisClickedTeacher { get => thisClickedTeacher1; set => SetProperty(ref thisClickedTeacher1, value); }
+
+        private bool isscTeacherInfoVisible1;
+
+        public bool isscTeacherInfoVisible { get => isscTeacherInfoVisible1; set => SetProperty(ref isscTeacherInfoVisible1, value); }
+
+        private Teacher searchedTeacher1;
+
+        public Teacher searchedTeacher { get => searchedTeacher1; set => SetProperty(ref searchedTeacher1, value); }
+
         
+
+        private Command popouyTeacherInfo1;
+
+        public ICommand popouyTeacherInfo
+        {
+            get
+            {
+                if (popouyTeacherInfo1 == null)
+                {
+                    popouyTeacherInfo1 = new Command(PerformpopouyTeacherInfo);
+                }
+
+                return popouyTeacherInfo1;
+            }
+        }
+
+        private List<TeacherReview> reviewList1;
+
+        public List<TeacherReview> reviewList { get => reviewList1; set => SetProperty(ref reviewList1, value); }
+
+
         #endregion
     }
 }
