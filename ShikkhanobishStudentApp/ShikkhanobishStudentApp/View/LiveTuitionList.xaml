@@ -173,7 +173,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Label Text="Review" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
-                    <ListView Grid.Row="2" RowHeight="30" ItemsSource="{Binding reviewList}">
+                    <ListView Grid.Row="1" RowHeight="30" ItemsSource="{Binding reviewList}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
