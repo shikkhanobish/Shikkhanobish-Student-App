@@ -68,8 +68,8 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public async Task TeacherRiviewInfo(int tid)
         {
-            var rvWithID = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTeacherReviewWithTeacherID".PostJsonAsync(new { teacherID = tid }).ReceiveJson<TeacherReview>();
-            //reviewList = rvWithID;
+            var rvWithID = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTeacherReviewWithTeacherID".PostJsonAsync(new { teacherID = tid }).ReceiveJson<List<TeacherReview>>();
+            reviewList = rvWithID;
 
         }
         private void PerformpopouyTeacherInfo()
