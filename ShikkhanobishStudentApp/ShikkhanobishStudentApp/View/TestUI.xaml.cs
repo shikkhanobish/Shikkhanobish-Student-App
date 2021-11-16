@@ -15,6 +15,7 @@ namespace ShikkhanobishStudentApp.View
         public TestUI()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
     }
 }

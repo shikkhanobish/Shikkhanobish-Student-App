@@ -41,7 +41,10 @@
             <Image Source="editicon.png" Grid.Row="3" Grid.Column="4" Aspect="AspectFit" />
             <material:MaterialCard BackgroundColor="Transparent" Grid.Row="3" Grid.Column="4" IsClickable="True" Clicked="MaterialCard_Clicked"/>
         </Grid>
-        <WebView Source="https://questiontimelime.shikkhanobish.com/106" Grid.Row="1"/>
+        
+        <Grid Grid.Row="1">
+            
+        </Grid>
         
         <Grid x:Name="tagFrid" Grid.RowSpan="2" BackgroundColor="#50000000">
             <Button BackgroundColor="Transparent" Clicked="Button_Clicked"/>
