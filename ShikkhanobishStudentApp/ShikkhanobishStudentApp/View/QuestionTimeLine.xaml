@@ -8,7 +8,7 @@
     <ContentPage.BindingContext>
         <viewmodel:QuizTimelineViewModel/>
     </ContentPage.BindingContext>
-    <Grid>
+    <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
             <RowDefinition Height="*"/>
@@ -16,40 +16,48 @@
         <material:MaterialCard Grid.Row="0" Elevation="5"/>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1.2*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="70"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Label Text="Interest" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontSize="15" FontAttributes="Bold"/>
-            <material:MaterialChip Grid.Row="1" Grid.Column="1" Text="Physics First Paper" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
-            <material:MaterialChip Grid.Row="1" Grid.Column="2" Text="Chemistry First Paper" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
-            <material:MaterialChip Grid.Row="1" Grid.Column="3" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
-            <material:MaterialChip Grid.Row="1" Grid.Column="4" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
-            <material:MaterialChip Grid.Row="2" Grid.Column="1" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
-            <material:MaterialChip Grid.Row="2" Grid.Column="2" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
-            <material:MaterialChip Grid.Row="2" Grid.Column="3" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
-            <material:MaterialChip Grid.Row="2" Grid.Column="4" Text="Physics" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#EAF8FF" TextColor="#01597B" FontSize="9"/>
-            <material:MaterialCard BackgroundColor="#14C290" Grid.Row="3" Grid.Column="4" IsClickable="True"/>
-            <Image Source="editicon.png" Grid.Row="3" Grid.Column="4" Aspect="AspectFit" />
-            <material:MaterialCard BackgroundColor="Transparent" Grid.Row="3" Grid.Column="4" IsClickable="True" Clicked="MaterialCard_Clicked"/>
-        </Grid>
-        
-        <Grid Grid.Row="1">
-            
-            <ListView  ItemsSource="{Binding postList}"  RowHeight="400" SeparatorColor="Black" >
+            <Label Text="Interest" Grid.Row="0" Grid.Column="1" TextColor="#90000000"  HorizontalOptions="Start" VerticalOptions="Center" FontSize="15" FontAttributes="Bold"/>
+
+            <ListView  ItemsSource="{Binding tagList}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"  RowHeight="30"  SeparatorColor="White" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <material:MaterialChip Grid.Column="0" Text="{Binding tag1}" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="{Binding backColor1}" TextColor="{Binding backColortxt1}" FontSize="11" Margin="3"/>
+                                <material:MaterialChip Grid.Column="1" Text="{Binding tag2}" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="{Binding backColor2}" TextColor="{Binding backColortxt2}" FontSize="11" Margin="3"/>
+                                <material:MaterialChip Grid.Column="2" Text="{Binding tag3}" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="{Binding backColor3}" TextColor="{Binding backColortxt3}" FontSize="11" Margin="3"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <material:MaterialCard BackgroundColor="#14C290" Grid.Row="2" Grid.Column="2" IsClickable="True" />
+            <Image Source="editicon.png" Grid.Row="2"  Aspect="AspectFit" Grid.Column="2"/>
+            <material:MaterialCard BackgroundColor="Transparent" Grid.Row="2" Grid.Column="2"  IsClickable="True" Clicked="MaterialCard_Clicked" />
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <ListView  ItemsSource="{Binding postList}"  RowHeight="400" SeparatorColor="Black" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid BackgroundColor="White">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="10"/>
                                     <RowDefinition Height="*"/>
@@ -118,8 +126,6 @@
 
                                 </Grid>
                             </Grid>
-                           
-
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -139,33 +145,27 @@
                 <material:MaterialButton  Text="Close" HorizontalOptions="End" VerticalOptions="Start" ButtonType="Text" TextColor="Red" Clicked="MaterialButton_Clicked_1" FontSize="9"/>
                 <Label Text="Select your prefered tags:" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End" FontAttributes="Bold" FontSize="15"/>
                 <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
+                    
+                    <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Label Text="Select Tags From School" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0"/>
                         <material:MaterialCard BackgroundColor="#FBFBFB" Grid.Row="1" />
-                        <ScrollView Grid.Row="1">
-                            <material:MaterialCheckboxGroup x:Name="schoolCheckBoxGroup" FontSize="12" />
-                        </ScrollView>
+                        
+                        <ListView Grid.Row="1" ItemsSource="{Binding popUptagList}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <material:MaterialCheckbox Text="{Binding tagName}" FontSize="12" IsSelected="True"></material:MaterialCheckbox>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
 
                     </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Label Text="Select Tags From College" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0"/>
-                        <material:MaterialCard BackgroundColor="#FBFBFB" Grid.Row="1" />
-                        <ScrollView Grid.Row="1">
-                            <material:MaterialCheckboxGroup x:Name="collegeBoxGroup" FontSize="12"/>
-                        </ScrollView>
-                    </Grid>
+                    
                     
                    
                 </Grid>

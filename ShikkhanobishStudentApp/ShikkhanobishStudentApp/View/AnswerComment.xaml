@@ -112,7 +112,7 @@
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
 
-                                        <Label   Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="PaleVioletRed" Text="Icon"></Label>
+                                        <Image  Source="answericon.png" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" ></Image>
                                         <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" >
                                             <Label.FormattedText>
                                                 <FormattedString>
