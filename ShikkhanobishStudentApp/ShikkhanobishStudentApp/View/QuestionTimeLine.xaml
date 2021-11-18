@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Name="qTimeline"
              x:Class="ShikkhanobishStudentApp.View.QuestionTimeLine">
     <ContentPage.BindingContext>
         <viewmodel:QuizTimelineViewModel/>
@@ -44,6 +45,85 @@
         
         <Grid Grid.Row="1">
             
+            <ListView  ItemsSource="{Binding postList}"  RowHeight="400" SeparatorColor="Black" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="10"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="40"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="20*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <material:MaterialCard Grid.RowSpan="4" Grid.ColumnSpan="3" Margin="10,0,10,0" Elevation="2" BackgroundColor="#FAFAFAFA" CornerRadius="10"/>
+                                    <Grid Grid.Row="0" Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="1*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.ColumnSpan="4" HorizontalOptions="Start" VerticalOptions="Center" >
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding name}" FontAttributes="Bold" FontSize="15"/>
+                                                    <Span Text="  Date: " FontSize="9" />
+                                                    <Span Text="{Binding postDate}" FontSize="9" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+
+                                    </Grid>
+                                    <Label  Grid.Row="1" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="PaleVioletRed" Text="{Binding tagName}"></Label>
+
+
+                                    <Grid Grid.Row="2" Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="3*"/>
+                                            <RowDefinition Height="3*"/>
+                                            <RowDefinition Height="20"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"  Text="{Binding post}" ></Label>
+                                        <Image Grid.Row="1" Source="loginback.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+
+                                        <Grid Grid.Row="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="10"/>
+                                                <ColumnDefinition Width="15"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12" TextColor="Black" Text="60"></Label>
+                                            <Image Source="wrong.png" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
+
+                                        </Grid>
+
+
+                                    </Grid>
+
+                                    <material:MaterialButton Grid.Row="3" Grid.ColumnSpan="3" ButtonType="Text" FontAttributes="Bold"  Text="Answer" FontSize="11" TextColor="Black" Command="{Binding Source={x:Reference qTimeline}, Path=BindingContext.answerQuestion}" CommandParameter="{Binding .}"/>
+
+                                </Grid>
+                            </Grid>
+                           
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
         
         <Grid x:Name="tagFrid" Grid.RowSpan="2" BackgroundColor="#50000000">

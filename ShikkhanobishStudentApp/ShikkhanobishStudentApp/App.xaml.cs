@@ -19,9 +19,8 @@ namespace ShikkhanobishStudentApp
         {
             InitializeComponent();
             XF.Material.Forms.Material.Init(this);
-            MainPage = new SharedTransitionNavigationPage(new LoadingPage());
-            //MainPage = new SharedTransitionNavigationPage(new TestUI());
 
+            MainPage = new SharedTransitionNavigationPage(new LoadingPage());
         }
         
         
