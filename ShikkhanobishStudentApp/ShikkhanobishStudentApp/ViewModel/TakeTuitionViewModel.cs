@@ -980,14 +980,18 @@ namespace ShikkhanobishStudentApp.ViewModel
 
             }).ReceiveJson<Response>();
             var lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
-            
+            List<TuiTionLog> thisList = new List<TuiTionLog>();
             foreach(var tuition in lList)
             {
                 if(tuition.studentID == StaticPageToPassData.thisStudentInfo.studentID)
                 {
-                    livetuitionList.Add(tuition);
+                    thisList.Add(tuition);
+                   
                 }
             }
+            livetuitionList = thisList;
+            string sendTeachernotification = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishSignalR/realTimetuitionNotiofication?&tuitionid=" + tID;
+            await realtimeapi.ExecuteRealTimeApi(sendTeachernotification);
             // //select Teacher
             // while (teacherisSelected == 0)
             // {

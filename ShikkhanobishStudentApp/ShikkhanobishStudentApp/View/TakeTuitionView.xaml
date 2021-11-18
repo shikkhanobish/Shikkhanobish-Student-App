@@ -298,7 +298,7 @@
 
                 <Grid Grid.Row="1" Grid.Column="1" BackgroundColor="White">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height=".1*" />
+                        <RowDefinition Height=".2*" />
                         <RowDefinition Height=".7*" />
                         <RowDefinition Height="2*" />
                         <RowDefinition Height=".01*" />
