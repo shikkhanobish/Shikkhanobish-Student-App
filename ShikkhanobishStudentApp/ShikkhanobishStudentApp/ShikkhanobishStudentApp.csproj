@@ -40,6 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="View\AnswerComment.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="View\ChooseInsAndClass.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -104,5 +107,11 @@
 
   <ItemGroup>
     <Folder Include="Interface\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\AnswerComment.xaml.cs">
+      <DependentUpon>AnswerComment.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

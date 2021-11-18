@@ -1,10 +1,13 @@
 ﻿using Flurl.Http;
 using ShikkhanobishStudentApp.Model;
+using ShikkhanobishStudentApp.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace ShikkhanobishStudentApp.ViewModel
 {
@@ -35,7 +38,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 foreach(var tag in tlist)
                 {
-                    if (post.tagID == tag.tagID)
+                    if ( post.userID== 10000152 && post.tagID==tag.tagID)
                     {
                         post.tagName = tag.tagName;
                         updatedPostList.Add(post);
@@ -43,6 +46,16 @@ namespace ShikkhanobishStudentApp.ViewModel
                 }
             }
             postList = updatedPostList;
+        }
+        public ICommand answerQuestion
+        {
+            get
+            {
+                return new Command<Post>((thisPost) =>
+                {
+                    Application.Current.MainPage.Navigation.PushAsync(new AnswerComment(thisPost.postID));
+                });
+            }
         }
         #endregion
 

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Name="qTimeline"
              x:Class="ShikkhanobishStudentApp.View.QuestionTimeLine">
     <ContentPage.BindingContext>
         <viewmodel:QuizTimelineViewModel/>
@@ -43,7 +44,7 @@
         </Grid>
         
         <Grid Grid.Row="1">
-            <!-- Use Test UI Here-->
+            
             <ListView  ItemsSource="{Binding postList}"  RowHeight="400" SeparatorColor="Black" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -112,8 +113,8 @@
 
 
                                     </Grid>
-                                    
-                                    <material:MaterialButton Grid.Row="3" Grid.ColumnSpan="3" ButtonType="Text" FontAttributes="Bold"  Text="Answer" FontSize="11" TextColor="Black" />
+
+                                    <material:MaterialButton Grid.Row="3" Grid.ColumnSpan="3" ButtonType="Text" FontAttributes="Bold"  Text="Answer" FontSize="11" TextColor="Black" Command="{Binding Source={x:Reference qTimeline}, Path=BindingContext.answerQuestion}" CommandParameter="{Binding .}"/>
 
                                 </Grid>
                             </Grid>
