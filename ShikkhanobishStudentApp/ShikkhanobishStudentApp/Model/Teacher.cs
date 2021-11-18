@@ -13,6 +13,7 @@ namespace ShikkhanobishStudentApp.Model
         public int selectionStatus { get; set; }
         public int monetizetionStatus { get; set; }
         public int activeStatus { get; set; }
+        public string activeString { get; set; }
         public int totalMinuite { get; set; }
         public int favTeacherCount { get; set; }
         public int reportCount { get; set; }

@@ -46,6 +46,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         private List<Voucher> allVoucher = new List<Voucher>();
         private bool teacherGaveResponse = true;
         public bool isCancledTuition;
+        int selectedChapterID;
 
         #region Methods
 
@@ -973,7 +974,10 @@ namespace ShikkhanobishStudentApp.ViewModel
                 description = detailTxt,
                 date = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"),
                 subjectID = SelectedSubjectID,
-                studentID = StaticPageToPassData.thisStudentInfo.studentID
+                studentID = StaticPageToPassData.thisStudentInfo.studentID,
+                chapterID = selectedChapterID,
+                chapterName = SelectedChapterName
+
             }).ReceiveJson<Response>();
             var lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
             
@@ -1782,7 +1786,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                          }
                      }
                      selectedGlobalChp = selectedList;
-
+                     selectedChapterID = selectedList.chapterID;
                      SelectedChapterName = selectedList.name;
                      ChpTRequest = selectedList.tuitionRequest;
                      Chpavgratting = selectedList.avgRatting;
