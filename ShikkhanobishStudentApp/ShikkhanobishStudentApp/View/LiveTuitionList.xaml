@@ -8,7 +8,7 @@
     <ContentPage.BindingContext>
         <viewmodel:LiveTuitionViewModel/>
     </ContentPage.BindingContext>
-    <Grid BackgroundColor="#080000000">
+    <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="200"/>
@@ -52,7 +52,7 @@
                                     <ColumnDefinition Width="20*"/>
                                     <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
-                                <material:MaterialCard BackgroundColor="White" Grid.RowSpan="3" Grid.ColumnSpan="3" Elevation="5"/>
+                                <material:MaterialCard BackgroundColor="#07000000" Grid.RowSpan="3" Grid.ColumnSpan="3" Elevation="5" />
                                 <Grid Grid.Row="0" Grid.Column="1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*"/>
@@ -98,8 +98,9 @@
                                                             <ColumnDefinition Width="2*"/>
                                                             <ColumnDefinition Width="1*"/>
                                                         </Grid.ColumnDefinitions>
-                                                        <Label Text="{Binding name}" Grid.Column="0" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="12"/>
-                                                        <material:MaterialButton Text="View" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" TextColor="Black" PressedBackgroundColor="#5039EC5E" ButtonType="Outlined" BorderColor="Black" FontSize="9" Command="{Binding Source={x:Reference LiveTuition}, Path=BindingContext.ViewTeacherInfo}" CommandParameter="{Binding .}"/>
+                                                        <Label Text="{Binding name}"  Grid.ColumnSpan="2" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="12"/>
+                                                        <Label Text="{Binding activeString}" Grid.Column="1" HorizontalTextAlignment="End" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="10"/>
+                                                        <material:MaterialButton  Grid.ColumnSpan="2" PressedBackgroundColor="#5039EC5E" BackgroundColor="Transparent"  Command="{Binding Source={x:Reference LiveTuition}, Path=BindingContext.ViewTeacherInfo}" CommandParameter="{Binding .}"/>
                                                     </Grid>
                                                 </ViewCell>
                                             </DataTemplate>
@@ -115,7 +116,7 @@
         <Grid Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3" IsVisible="{Binding isscTeacherInfoVisible}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="5*" />
+                <RowDefinition Height="400" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Button BackgroundColor="#50000000" Grid.RowSpan="3" Command="{Binding popouyTeacherInfo}"/>
@@ -123,7 +124,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1.5*" />
                     <RowDefinition Height="1" />
-                    <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="1.5*" />
                     <RowDefinition Height="1" />
                     <RowDefinition Height=".5*" />
                 </Grid.RowDefinitions>
@@ -132,14 +133,14 @@
                     <ColumnDefinition Width="20*" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
-                <material:MaterialCard BackgroundColor="#ffffff" Grid.RowSpan="5" Grid.ColumnSpan="3" Elevation="20" CornerRadius="15"/>
+                <material:MaterialCard BackgroundColor="#ffffff" Grid.RowSpan="5" Grid.ColumnSpan="3" Margin="10,0,10,0" Elevation="20" CornerRadius="15"/>
                 <Grid Grid.Row="0" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Label Text="{Binding searchedTeacher.name}" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="17" />
+                    <Label Text="{Binding searchedTeacher.name}" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="14" />
                     <material:MaterialButton Text="Close" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" ButtonType="Text" Command="{Binding popouyTeacherInfo}" FontSize="9"/>
                     <Label Text="4.6" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" />
                     <Grid Grid.Row="2">
@@ -183,7 +184,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
-                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" ColumnSpacing="0">
+                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" ColumnSpacing="0"  Margin="10,0,10,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />

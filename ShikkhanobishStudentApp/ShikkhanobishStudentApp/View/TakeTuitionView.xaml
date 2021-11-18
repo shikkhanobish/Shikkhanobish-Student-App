@@ -224,7 +224,7 @@
                             <material:MaterialCard BackgroundColor="#1E97E3" Grid.ColumnSpan="2" HasShadow="False" CornerRadius="10"/>
                             <Image Source="golivetuition.png"  Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit" Margin="3"/>
                             <material:MaterialCard Grid.Column="1"  IsClickable="True" BackgroundColor="Transparent" ClickCommand="{Binding liveTuitionViewCmd}"/>
-                            <ListView Grid.Column="0" RowHeight="40" ItemsSource="{Binding livetuitionList}"  SeparatorColor="White" Margin="10">
+                            <ListView Grid.Column="0" RowHeight="30" ItemsSource="{Binding livetuitionList}"  SeparatorColor="White" Margin="10">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <ViewCell>
@@ -236,16 +236,16 @@
                                                 <Label Grid.Column="0" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"  FontAttributes="Bold" TextColor="#FFFFFF">
                                                     <Label.FormattedText>
                                                         <FormattedString>
-                                                            <Span Text="Subject: " FontSize="11"/>
-                                                            <Span  Text="{Binding subjectName}" FontAttributes="Bold" FontSize="13"/>
+                                                            <Span Text="Subject: " FontSize="10"/>
+                                                            <Span  Text="{Binding subjectName}" FontAttributes="Bold" FontSize="11"/>
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
                                                 <Label  Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"  FontAttributes="Bold"  TextColor="#FFFFFF">
                                                     <Label.FormattedText>
                                                         <FormattedString>
-                                                            <Span Text="Request: " FontSize="11"/>
-                                                            <Span  Text="{Binding pendingTeacherID}" FontAttributes="Bold" FontSize="13"/>
+                                                            <Span Text="Request: " FontSize="10"/>
+                                                            <Span  Text="{Binding pendingTeacherID}" FontAttributes="Bold" FontSize="11"/>
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
@@ -513,7 +513,7 @@
                         <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" Grid.Column="1" Grid.RowSpan="2" ClickCommand="{Binding acceptTeacherTuition}" ClickCommandParameter="2" />
                     </Grid>
                 </Grid>
-            </Grid>
+            </Grid> 
         </Grid>
 
         <!--Reg Mas-->

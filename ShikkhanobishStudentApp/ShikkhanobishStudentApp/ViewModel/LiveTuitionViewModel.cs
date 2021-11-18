@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace ShikkhanobishStudentApp.ViewModel
 {
@@ -19,6 +20,9 @@ namespace ShikkhanobishStudentApp.ViewModel
         }
         public async Task GetLogList()
         {
+            using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
+            {
+            
             isscTeacherInfoVisible = false;
             var lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
             var tList = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getAllTeacher".PostJsonAsync(new { }).ReceiveJson<List<Teacher>>();
@@ -36,12 +40,19 @@ namespace ShikkhanobishStudentApp.ViewModel
                     {
                         if (item.tuitionLogID == trCount.tuitionID)
                         {
-                            
-                            var twithID = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getTeacherWithID".PostJsonAsync(new { teacherID = trCount.teacherID}).ReceiveJson<Teacher>();
-                            
-                            item.teacherNameList.Add(twithID);
-                            count++;
-                        }
+                                var twithID = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getTeacherWithID".PostJsonAsync(new { teacherID = trCount.teacherID }).ReceiveJson<Teacher>();
+                                if (twithID.activeStatus == 0)
+                                {
+                                    twithID.activeString = "Offline";
+
+                                }
+                                else
+                                {
+                                    twithID.activeString = "Online";
+                                }
+                                item.teacherNameList.Add(twithID);
+                                count++;
+                            }
                     }
 
                     item.isPendingTeacherAvailable = true;
@@ -51,7 +62,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             }
             rqsTeacherCount = "( " +  count.ToString()  +" )";
             liveTuitionList = ntll;
-
+            }
         }
         public ICommand ViewTeacherInfo
         {
@@ -59,9 +70,10 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 return new Command<Teacher>((selectedTeacher) =>
                 {
-                    isscTeacherInfoVisible = true;
+                   
                     searchedTeacher = selectedTeacher;
                     TeacherRiviewInfo(selectedTeacher.teacherID);
+                   
                 });
             }
         }
@@ -70,7 +82,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             var rvWithID = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTeacherReviewWithTeacherID".PostJsonAsync(new { teacherID = tid }).ReceiveJson<List<TeacherReview>>();
             reviewList = rvWithID;
-
+            isscTeacherInfoVisible = true;
         }
         private void PerformpopouyTeacherInfo()
         {
