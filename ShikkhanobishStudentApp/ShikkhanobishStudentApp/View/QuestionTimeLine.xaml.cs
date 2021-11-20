@@ -17,23 +17,7 @@ namespace ShikkhanobishStudentApp.View
         {
             InitializeComponent();
             tagFrid.IsVisible = false;
-            List<string> gg = new List<string>();
-            gg.Add("Bal");
-            gg.Add("sal");
-            gg.Add("Bal");
-            gg.Add("sal");
-            gg.Add("Bal");
-            gg.Add("sal");
-            gg.Add("Bal");
-            gg.Add("sal");
-            gg.Add("Bal");
-            gg.Add("sal");
-            gg.Add("Bal");
-            gg.Add("sal");
-            gg.Add("Bal");
-            gg.Add("sal");
-            schoolCheckBoxGroup.Choices = gg;
-            collegeBoxGroup.Choices = gg;
+            
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
