@@ -25,8 +25,10 @@ namespace ShikkhanobishStudentApp.ViewModel
             var tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
             
 
-            foreach(var item in tlist)
+           
+            foreach (var item in tlist)
             {
+                
                 if (plist.tagID == item.tagID)
                 {
                     plist.tagName = item.tagName;
@@ -38,13 +40,21 @@ namespace ShikkhanobishStudentApp.ViewModel
         }
         public async Task GetAnswer(Post plist)
         {
-            var list = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswer".GetJsonAsync<List<Answer>>();
+            var alist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswer".GetJsonAsync<List<Answer>>();
+            var postlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPost".GetJsonAsync<List<Post>>();
+
             List<Answer> updatedAnsList = new List<Answer>();
-            foreach(var item in list)
+            foreach(var item in alist)
             {
+                item.riviewImg = "nocorrectriview.png";
                 if (plist.postID==item.postID)
                 {
                     plist.numOFCmt++;
+
+                    if (item.review == 1)
+                    {
+                        item.riviewImg = "correctreview.png";
+                    }
                     updatedAnsList.Add(item);
                 }
                 

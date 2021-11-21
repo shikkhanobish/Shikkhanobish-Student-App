@@ -8,5 +8,7 @@ namespace ShikkhanobishStudentApp.Model
     {
         public int userID { get; set; }
         public int tagID { get; set; }
+        public string tagName { get; set; }
+    
     }
 }

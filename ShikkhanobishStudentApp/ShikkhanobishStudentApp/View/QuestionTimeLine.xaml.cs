@@ -16,25 +16,12 @@ namespace ShikkhanobishStudentApp.View
         public QuestionTimeLine()
         {
             InitializeComponent();
-            tagFrid.IsVisible = false;
+           // tagFrid.IsVisible = false;
             
             NavigationPage.SetHasNavigationBar(this, false);
         }
 
-        private void MaterialButton_Clicked(object sender, EventArgs e)
-        {
-            tagFrid.IsVisible = true;
-        }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            tagFrid.IsVisible = false;
-        }
-
-        private void MaterialButton_Clicked_1(object sender, EventArgs e)
-        {
-            tagFrid.IsVisible = false;
-        }
+       
         protected override bool OnBackButtonPressed()
         {
             EndOrBackBtn();
@@ -55,10 +42,6 @@ namespace ShikkhanobishStudentApp.View
 
         }
 
-        private void MaterialCard_Clicked(object sender, EventArgs e)
-        {
-            tagFrid.IsVisible = true;
-
-        }
+        
     }
 }

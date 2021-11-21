@@ -18,6 +18,7 @@ namespace ShikkhanobishStudentApp.Model
         public int numOFCmt { get; set; }
         public int tagID { get; set; }
         public string tagName { get; set; }
+        public string ansIcon { get; set; }
         public string Response { get; set; }
     }
 }

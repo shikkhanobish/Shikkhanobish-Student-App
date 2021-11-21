@@ -57,22 +57,14 @@
 
                     <Grid Grid.Row="2" Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="50"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                   
                         </Grid.RowDefinitions>
 
                         <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center"  Text="{Binding post.post}" FontSize="12" ></Label>
-                        <Image Grid.Row="1" Source="{Binding post.imgSrc}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="10"/>
-                                <ColumnDefinition Width="15"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12" TextColor="Black" Text="{Binding post.numOFCmt}"></Label>
-                            <Image Source="wrong.png" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
-                        </Grid>
+                        <Image Grid.Row="1" Source="{Binding post.answerIcon}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                        
                     </Grid>
                 </Grid>
             </Grid>
@@ -112,7 +104,7 @@
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
 
-                                        <Image  Source="answericon.png" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" ></Image>
+                                        <Image  Source="{Binding riviewImg}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" ></Image>
                                         <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" >
                                             <Label.FormattedText>
                                                 <FormattedString>
@@ -123,18 +115,26 @@
                                             </Label.FormattedText>
                                         </Label>
                                     </Grid>
-                                    <Label  Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Gray" Text="{Binding answer}"></Label>
-                                    <Grid Grid.Row="2" Grid.Column="1">
+                                    <Grid Grid.Row="1" Grid.Column="1">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="120"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="20"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Label  Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Black" Text="Edit"></Label>
-                                        <Label  Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Black" Text="Teacher Info"></Label>
-                                        <Label  Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Black" Text="Reply"></Label>
+                                        <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Gray" Text="{Binding answer}"></Label>
 
+                                    </Grid>
+                                    <Grid Grid.Row="2" Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="130"></ColumnDefinition>
+                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                            <ColumnDefinition Width="100"></ColumnDefinition>
+                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <material:MaterialButton Grid.Column="1" Text="Edit" HorizontalOptions="Start" VerticalOptions="Center" ButtonType="Text" FontSize="9" TextColor="Black" FontAttributes="Bold" />
+                                        <material:MaterialButton Grid.Column="2" Text="TeacherInfo" HorizontalOptions="Start" VerticalOptions="Center" ButtonType="Text"  FontSize="9" TextColor="Black" FontAttributes="Bold" />
+                                        <material:MaterialButton Grid.Column="3" Text="Reply" HorizontalOptions="Start" VerticalOptions="Center" ButtonType="Text" FontSize="9" TextColor="Black" FontAttributes="Bold"/>
+
+                 
                                     </Grid>
 
                                 </Grid>
