@@ -20,13 +20,14 @@ namespace ShikkhanobishStudentApp.ViewModel
         Teacher thisSelectedTeacher = new Teacher();
         public LiveTuitionViewModel()
         {
+            IsnumberofTeacherShow = false;
             GetLogList();
         }
         public async Task GetLogList()
         {
             using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
             {
-            
+
             isscTeacherInfoVisible = false;
             lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
             var tList = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getAllTeacher".PostJsonAsync(new { }).ReceiveJson<List<Teacher>>();
@@ -74,16 +75,22 @@ namespace ShikkhanobishStudentApp.ViewModel
                 return new Command<Teacher>((selectedTeacher) =>
                 {
                    
-                    searchedTeacher = selectedTeacher;
-                    foreach (var tui in lList)
-                    {
-                        if (tui.teacherName == searchedTeacher.name && StaticPageToPassData.thisStudentInfo.name == tui.studentName)
-                        {
-                            thisTuition = tui;
-                        }
-                    }
+                    searchedTeacher = selectedTeacher;                    
                     TeacherRiviewInfo(selectedTeacher.teacherID);
                    
+                });
+            }
+        }
+        public ICommand seeAllTeacher
+        {
+            get
+            {
+                return new Command<TuiTionLog>((thistuition) =>
+                {
+
+                    thisTuition = thistuition;
+                    IsnumberofTeacherShow = true;
+
                 });
             }
         }

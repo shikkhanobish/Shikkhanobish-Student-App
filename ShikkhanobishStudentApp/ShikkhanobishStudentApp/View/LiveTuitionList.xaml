@@ -90,7 +90,7 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <material:MaterialButton Text="See All->" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center" FontSize="10" ButtonType="Text"/>
+                                    <material:MaterialButton Text="See All->" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center" FontSize="10" ButtonType="Text" Command="{Binding Source={x:Reference LiveTuition}, Path=BindingContext.seeAllTeacher}" CommandParameter="{Binding .}"/>
                                     <Frame BackgroundColor="#50000000" Grid.Row="0" />
                                    
                                     
