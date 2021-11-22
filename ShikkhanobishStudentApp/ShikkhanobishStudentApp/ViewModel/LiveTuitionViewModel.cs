@@ -14,6 +14,10 @@ namespace ShikkhanobishStudentApp.ViewModel
     public class LiveTuitionViewModel: BaseViewModel, INotifyPropertyChanged
     {
         #region Methods
+        private RealTimeApiMethods realtimeapi = new RealTimeApiMethods();
+        List<TuiTionLog> lList = new List<TuiTionLog>();
+        TuiTionLog thisTuition = new TuiTionLog();
+        Teacher thisSelectedTeacher = new Teacher();
         public LiveTuitionViewModel()
         {
             GetLogList();
@@ -24,7 +28,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
             
             isscTeacherInfoVisible = false;
-            var lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
+            lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
             var tList = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getAllTeacher".PostJsonAsync(new { }).ReceiveJson<List<Teacher>>();
             var trList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuitionRequestCount".GetJsonAsync<List<TutionRequestCount>>();
 
@@ -60,7 +64,6 @@ namespace ShikkhanobishStudentApp.ViewModel
                     ntll.Add(item);
                 }
             }
-            rqsTeacherCount = "( " +  count.ToString()  +" )";
             liveTuitionList = ntll;
             }
         }
@@ -72,6 +75,13 @@ namespace ShikkhanobishStudentApp.ViewModel
                 {
                    
                     searchedTeacher = selectedTeacher;
+                    foreach (var tui in lList)
+                    {
+                        if (tui.teacherName == searchedTeacher.name && StaticPageToPassData.thisStudentInfo.name == tui.studentName)
+                        {
+                            thisTuition = tui;
+                        }
+                    }
                     TeacherRiviewInfo(selectedTeacher.teacherID);
                    
                 });
@@ -81,6 +91,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         public async Task TeacherRiviewInfo(int tid)
         {
             var rvWithID = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTeacherReviewWithTeacherID".PostJsonAsync(new { teacherID = tid }).ReceiveJson<List<TeacherReview>>();
+           
             reviewList = rvWithID;
             isscTeacherInfoVisible = true;
         }
@@ -91,6 +102,11 @@ namespace ShikkhanobishStudentApp.ViewModel
         private void Performgobakc()
         {
             Application.Current.MainPage.Navigation.PopAsync();
+        }
+        private async Task PerformacceptTeacherTuition()
+        {
+            string uriToCAllTeacher = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishSignalR/CallTeacherForTuition?&teacherID=" + searchedTeacher.teacherID + "&tuitionID=" + thisTuition.tuitionLogID + "&name=" + StaticPageToPassData.thisStudentInfo.name + "&studentID=" + StaticPageToPassData.thisStudentInfo.studentID;
+            await realtimeapi.ExecuteRealTimeApi(uriToCAllTeacher);
         }
         #endregion
 
@@ -150,7 +166,26 @@ namespace ShikkhanobishStudentApp.ViewModel
         private List<TeacherReview> reviewList1;
 
         public List<TeacherReview> reviewList { get => reviewList1; set => SetProperty(ref reviewList1, value); }
+        private bool IsnumberofTeacherShow1;
 
+        public bool IsnumberofTeacherShow { get => IsnumberofTeacherShow1; set => SetProperty(ref IsnumberofTeacherShow1, value); }
+
+        private Command acceptTeacherTuition1;
+
+        public ICommand acceptTeacherTuition
+        {
+            get
+            {
+                if (acceptTeacherTuition1 == null)
+                {
+                    acceptTeacherTuition1 = new Command( async => PerformacceptTeacherTuition());
+                }
+
+                return acceptTeacherTuition1;
+            }
+        }
+
+       
 
         #endregion
     }

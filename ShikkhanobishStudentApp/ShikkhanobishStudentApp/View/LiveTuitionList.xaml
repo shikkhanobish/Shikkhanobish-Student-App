@@ -11,7 +11,7 @@
     <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="200"/>
+            <RowDefinition Height="150"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -36,16 +36,18 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Label Text="List Of Live Tuitions" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="13"/>
+            <Image Source="livehirerequest.gif" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" IsAnimationPlaying="True" Margin="4"/>
             <Frame BackgroundColor="Black" Grid.Row="1"/>
-            <ListView Grid.Row="2" RowHeight="230" ItemsSource="{Binding liveTuitionList}">
+            <ListView Grid.Row="2" RowHeight="200" ItemsSource="{Binding liveTuitionList}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="40"/>
-                                    <RowDefinition Height="70"/>
-                                    <RowDefinition Height="100"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="10"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*"/>
@@ -74,38 +76,24 @@
                                 <Label Text="{Binding description}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="11"/>
                                 <Grid Grid.Row="2" Grid.Column="1">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="20"/>
                                         <RowDefinition Height="1"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
-                                    <Label  Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12">
+                                    <Label  Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="Requested Teacher "/>
-                                                <Span Text="{Binding rqsTeacherCount}" FontAttributes="Bold"/>
+                                                <Span Text="Requested Teacher "  FontSize="12"/>
+                                                <Span Text="( "/>
+                                                <Span Text="{Binding pendingTeacherID}" FontAttributes="Bold"  FontSize="12"/>
+                                                <Span Text=" )"/>
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Frame BackgroundColor="#50000000" Grid.Row="1" />
+                                    <material:MaterialButton Text="See All->" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center" FontSize="10" ButtonType="Text"/>
+                                    <Frame BackgroundColor="#50000000" Grid.Row="0" />
                                    
-                                    <ListView Grid.Row="2" RowHeight="30" ItemsSource="{Binding teacherNameList}" IsVisible="{Binding isPendingTeacherAvailable}">
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <ViewCell>
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="2*"/>
-                                                            <ColumnDefinition Width="1*"/>
-                                                        </Grid.ColumnDefinitions>
-                                                        <Label Text="{Binding name}"  Grid.ColumnSpan="2" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="12"/>
-                                                        <Label Text="{Binding activeString}" Grid.Column="1" HorizontalTextAlignment="End" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="10"/>
-                                                        <material:MaterialButton  Grid.ColumnSpan="2" PressedBackgroundColor="#5039EC5E" BackgroundColor="Transparent"  Command="{Binding Source={x:Reference LiveTuition}, Path=BindingContext.ViewTeacherInfo}" CommandParameter="{Binding .}"/>
-                                                    </Grid>
-                                                </ViewCell>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>
+                                    
                                 </Grid>
                             </Grid>
                         </ViewCell>
@@ -200,6 +188,40 @@
                     <Label Text="Video Call" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#380D83" FontAttributes="Bold" Margin="2" />
                     <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" Grid.RowSpan="2" ClickCommand="{Binding acceptTeacherTuition}" ClickCommandParameter="2" />
                 </Grid>
+            </Grid>
+        </Grid>
+        
+        <!--Popup teacher number-->
+        <Grid Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3" IsVisible="{Binding IsnumberofTeacherShow}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="400"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button BackgroundColor="#50000000" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <material:MaterialCard BackgroundColor="White" CornerRadius="10"/>
+                <ListView Grid.Row="2" RowHeight="30" ItemsSource="{Binding teacherNameList}" IsVisible="{Binding isPendingTeacherAvailable}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding name}"  Grid.ColumnSpan="2" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="12"/>
+                                    <material:MaterialButton Text="View"  Grid.Column="1" PressedBackgroundColor="#30662DDD" ButtonType="Text" FontSize="10" BackgroundColor="Transparent"  Command="{Binding Source={x:Reference LiveTuition}, Path=BindingContext.ViewTeacherInfo}" CommandParameter="{Binding .}"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </Grid>
     </Grid>
