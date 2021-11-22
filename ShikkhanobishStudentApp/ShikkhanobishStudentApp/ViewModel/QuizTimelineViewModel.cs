@@ -16,6 +16,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         List<UserTimelineTag> userTmTg = new List<UserTimelineTag>();
         List<Post> plist = new List<Post>();
         List<Tag> tlist = new List<Tag>();
+        List<Answer> anslist = new List<Answer>();
         public QuizTimelineViewModel()
         {
             //List<int> a = new List<int>();
@@ -26,6 +27,7 @@ namespace ShikkhanobishStudentApp.ViewModel
 
 
             //postList = a;
+            showTag = false;
             GetPostList();
         }
 
@@ -36,38 +38,105 @@ namespace ShikkhanobishStudentApp.ViewModel
             userTmTg = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getUserTimelineTagWithUserID".PostJsonAsync(new { userID = 10000152 }).ReceiveJson<List<UserTimelineTag>>();
             plist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPost".GetJsonAsync<List<Post>>();
             tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
+            anslist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswer".GetJsonAsync<List<Answer>>();
 
-            
+
 
             List<Post> updatedPostList = new List<Post>();
+
             
             foreach (var post in plist)
             {
-                foreach(var tag in tlist)
+                post.ansIcon = "noanswericon.png";
+                foreach (var ans in anslist)
+                {
+                    
+              
+                    if (post.postID == ans.postID)
+                    {
+                        post.numOFCmt++;
+                        if (ans.review == 1)
+                        {
+                            post.ansIcon = "answericon.png";
+                        }
+                    }
+
+                }
+                foreach (var tag in tlist)
                 {
                     foreach(var utt in userTmTg)
                     {
-                        if (post.tagID == utt.tagID)
+                        if (post.tagID == utt.tagID && tag.tagID == utt.tagID)
                         {
                             post.tagName = tag.tagName;
+
                             updatedPostList.Add(post);
                         }
+                        
+                        
                     }
                     
                 }
             }
+      
             postList = updatedPostList;
             await GetTagChip();
+            //await GetAnsIcon();
 
-
-            List<Tag> popUpTagList = new List<Tag>();
-            
+            BindSelectedTagList();
+        }
+        public async Task BindSelectedTagList()
+        {
+            userTmTg = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getUserTimelineTagWithUserID".PostJsonAsync(new { userID = 10000152 }).ReceiveJson<List<UserTimelineTag>>();
+            List<Tag> updatedTagList = new List<Tag>();
             foreach (var item in tlist)
             {
-                popUpTagList.Add(item);
+                item.popUpSelected = false;
+                
+                foreach (var item2 in userTmTg)
+                {
+                    if (item.tagID == item2.tagID)
+                    {
+                        
+                        item.popUpSelected = true;
+
+                    }
+                }
+                updatedTagList.Add(item);
             }
-            popUptagList = popUpTagList;
+            if (popUptagList != null)
+            {
+                popUptagList.Clear();
+            }
+            
+            popUptagList = updatedTagList;
+            
         }
+        //public async Task GetAnsIcon()
+        //{
+        //    List<Post> p = new List<Post>();
+        //    foreach(var post in plist)
+        //    {
+        //        post.ansIcon = "noanswericon.png";
+        //        foreach (var ans in anslist)
+        //        {
+                    
+        //            if (ans.postID == post.postID)
+        //            {
+        //                post.numOFCmt++;
+        //                if (ans.review==1)
+        //                {
+        //                    post.ansIcon = "answericon.png";
+        //                    p.Add(post);
+        //                }
+        //            }
+                   
+        //        }
+        //    }
+        //    postList = p;
+
+
+        //}
         public async Task GetTagChip()
         {
             List<TagChip> thisTagChipList = new List<TagChip>();
@@ -127,7 +196,16 @@ namespace ShikkhanobishStudentApp.ViewModel
             tagList = thisTagChipList;
 
         }
-
+        public async Task PerformshowTagList()
+        {
+           
+            await BindSelectedTagList();
+            showTag = true;
+        }
+        public void PerformcloseTagPopUp()
+        {
+            showTag = false;
+        }
         public void TagBackColor() {
 
             TagChip tc = new TagChip();
@@ -193,9 +271,41 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public List<TagChip> tagList { get => tagList1; set => SetProperty(ref tagList1, value); }
 
+        private bool showTag1;
+
+        public bool showTag { get => showTag1; set => SetProperty(ref showTag1, value); }
         private List<Tag> popUptagList1;
 
         public List<Tag> popUptagList { get => popUptagList1; set => SetProperty(ref popUptagList1, value); }
+        
+        private ICommand showTagList1;
+
+        public ICommand showTagList
+        {
+            get
+            {
+                if (showTagList1 == null)
+                {
+                    showTagList1 = new Command( async => PerformshowTagList());
+                }
+
+                return showTagList1;
+            }
+        }
+        private ICommand closeTagPopUp1;
+
+        public ICommand closeTagPopUp
+        {
+            get
+            {
+                if (closeTagPopUp1 == null)
+                {
+                    closeTagPopUp1 = new Command(PerformcloseTagPopUp);
+                }
+
+                return closeTagPopUp1;
+            }
+        }
         #endregion
     }
 

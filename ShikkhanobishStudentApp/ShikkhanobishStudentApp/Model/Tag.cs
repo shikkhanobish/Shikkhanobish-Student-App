@@ -8,5 +8,7 @@ namespace ShikkhanobishStudentApp.Model
     {
         public int tagID { get; set; }
         public string tagName { get; set; }
+        public bool popUpSelected { get; set; }
+        public bool popUpSelectEnable { get; set; }
     }
 }

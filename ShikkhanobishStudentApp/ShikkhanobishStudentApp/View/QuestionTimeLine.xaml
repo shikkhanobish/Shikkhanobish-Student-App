@@ -48,8 +48,8 @@
             </ListView>
 
             <material:MaterialCard BackgroundColor="#14C290" Grid.Row="2" Grid.Column="2" IsClickable="True" />
-            <Image Source="editicon.png" Grid.Row="2"  Aspect="AspectFit" Grid.Column="2"/>
-            <material:MaterialCard BackgroundColor="Transparent" Grid.Row="2" Grid.Column="2"  IsClickable="True" Clicked="MaterialCard_Clicked" />
+            <Image Source="editicon.png" Grid.Row="2" Aspect="AspectFit" Grid.Column="2" />
+            <material:MaterialCard BackgroundColor="Transparent" Grid.Row="2" Grid.Column="2"  IsClickable="True" ClickCommand="{Binding showTagList}" />
         </Grid>
 
         <Grid Grid.Row="1">
@@ -106,16 +106,17 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"  Text="{Binding post}" ></Label>
-                                        <Image Grid.Row="1" Source="loginback.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                                        <Image Grid.Row="1" Source="imgSrc" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
 
                                         <Grid Grid.Row="2">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="10"/>
+                                                <ColumnDefinition Width="0"/>
                                                 <ColumnDefinition Width="15"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <Label Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12" TextColor="Black" Text="60"></Label>
-                                            <Image Source="wrong.png" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
+                                            <Image Source="{Binding ansIcon}" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
+                                            <Label Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12" TextColor="Black" Text="{Binding numOFCmt}"></Label>
+                                            
 
                                         </Grid>
 
@@ -132,8 +133,8 @@
             </ListView>
         </Grid>
         
-        <Grid x:Name="tagFrid" Grid.RowSpan="2" BackgroundColor="#50000000">
-            <Button BackgroundColor="Transparent" Clicked="Button_Clicked"/>
+        <Grid Grid.RowSpan="2" BackgroundColor="#50000000" IsVisible="{Binding showTag}">
+            <Button BackgroundColor="Transparent" Command="{Binding closeTagPopUp}"/>
             
             <Grid  Margin="40,60,40,60">
                 <Grid.RowDefinitions>
@@ -142,7 +143,7 @@
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                 <material:MaterialCard BackgroundColor="White" Grid.RowSpan="3" Elevation="10"/>
-                <material:MaterialButton  Text="Close" HorizontalOptions="End" VerticalOptions="Start" ButtonType="Text" TextColor="Red" Clicked="MaterialButton_Clicked_1" FontSize="9"/>
+                <material:MaterialButton  Text="Close" HorizontalOptions="End" VerticalOptions="Start" ButtonType="Text" TextColor="Red"  FontSize="9" Command="{Binding closeTagPopUp}"/>
                 <Label Text="Select your prefered tags:" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End" FontAttributes="Bold" FontSize="15"/>
                 <Grid Grid.Row="1">
                     
@@ -151,14 +152,14 @@
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Text="Select Tags From School" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0"/>
+                        <Label Text="Select Tags " Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0"/>
                         <material:MaterialCard BackgroundColor="#FBFBFB" Grid.Row="1" />
                         
                         <ListView Grid.Row="1" ItemsSource="{Binding popUptagList}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <material:MaterialCheckbox Text="{Binding tagName}" FontSize="12" IsSelected="True"></material:MaterialCheckbox>
+                                        <material:MaterialCheckbox Text="{Binding tagName}" FontSize="12" IsSelected="{Binding popUpSelected}"></material:MaterialCheckbox>
                                     </ViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -169,7 +170,7 @@
                     
                    
                 </Grid>
-                <material:MaterialButton Text="Select" Grid.Row="2"/>
+                <material:MaterialButton Text="Select" Grid.Row="2" IsEnabled="{Binding popUpSelectEnable}"/>
             </Grid>
             
         </Grid>
