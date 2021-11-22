@@ -111,13 +111,11 @@
                                         <Grid Grid.Row="2">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="0"/>
-                                                <ColumnDefinition Width="15"/>
+                                                <ColumnDefinition Width="20"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
                                             <Image Source="{Binding ansIcon}" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
-                                            <Label Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12" TextColor="Black" Text="{Binding numOFCmt}"></Label>
-                                            
-
+                                            <Label Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding numOFCmt}"></Label>
                                         </Grid>
 
 
@@ -146,7 +144,7 @@
                 <material:MaterialButton  Text="Close" HorizontalOptions="End" VerticalOptions="Start" ButtonType="Text" TextColor="Red"  FontSize="9" Command="{Binding closeTagPopUp}"/>
                 <Label Text="Select your prefered tags:" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="End" FontAttributes="Bold" FontSize="15"/>
                 <Grid Grid.Row="1">
-                    
+
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
@@ -154,23 +152,32 @@
                         </Grid.RowDefinitions>
                         <Label Text="Select Tags " Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0"/>
                         <material:MaterialCard BackgroundColor="#FBFBFB" Grid.Row="1" />
-                        
+
                         <ListView Grid.Row="1" ItemsSource="{Binding popUptagList}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <material:MaterialCheckbox Text="{Binding tagName}" FontSize="12" IsSelected="{Binding popUpSelected}"></material:MaterialCheckbox>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="correctreview.png" Grid.Column="0" IsVisible="{Binding popUpSelected}" Margin="5"/>
+                                            <Label Text="{Binding tagName}" Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                            <material:MaterialButton Grid.ColumnSpan="2" PressedBackgroundColor="#30000000" BackgroundColor="Transparent" Command="{Binding Source={x:Reference qTimeline}, Path=BindingContext.changeTagCmd}" CommandParameter="{Binding .}"/>
+                                        </Grid>
+
+
                                     </ViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
 
                     </Grid>
-                    
-                    
-                   
+
+
+
                 </Grid>
-                <material:MaterialButton Text="Select" Grid.Row="2" IsEnabled="{Binding popUpSelectEnable}"/>
             </Grid>
             
         </Grid>
