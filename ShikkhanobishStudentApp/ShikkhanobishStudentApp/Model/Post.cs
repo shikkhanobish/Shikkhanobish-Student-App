@@ -15,10 +15,12 @@ namespace ShikkhanobishStudentApp.Model
         public string imgSrc { get; set; }
         public string postTitle { get; set; }
         public int noOfComment { get; set; }
-        public int numOFCmt { get; set; }
+        public int numOFCmtR { get; set; }
+        public int numOFCmtN { get; set; }
         public int tagID { get; set; }
         public string tagName { get; set; }
-        public string ansIcon { get; set; }
+        public string ansIconR { get; set; }
+        public string ansIconN { get; set; }
         public string Response { get; set; }
         
     }

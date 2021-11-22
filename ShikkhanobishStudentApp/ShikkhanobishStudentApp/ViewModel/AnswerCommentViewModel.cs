@@ -50,7 +50,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 item.riviewImg = "";
                 if (plist.postID==item.postID)
                 {
-                    plist.numOFCmt++;
+                  
 
                     if (item.review == 1)
                     {

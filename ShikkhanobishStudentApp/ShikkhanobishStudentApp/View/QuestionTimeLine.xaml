@@ -100,21 +100,26 @@
                                     <Grid Grid.Row="2" Grid.Column="1">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="3*"/>
-                                            <RowDefinition Height="3*"/>
+                                            <RowDefinition Height="4*"/>
                                             <RowDefinition Height="20"/>
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"  Text="{Binding post}" ></Label>
-                                        <Image Grid.Row="1" Source="imgSrc" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
-
+                                        <Image Grid.Row="1" Source="{Binding imgSrc}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                                        <material:MaterialCard BackgroundColor="Transparent" Grid.Row="1"  IsClickable="True" ClickCommand="{Binding showImage}" />
                                         <Grid Grid.Row="2">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="0"/>
                                                 <ColumnDefinition Width="20"/>
-                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="20"/>
                                             </Grid.ColumnDefinitions>
-                                            <Image Source="{Binding ansIcon}" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
-                                            <Label Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding numOFCmt}"></Label>
+                                            <Image Source="noanswericon.png" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
+                                            <Label Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding numOFCmtN}"></Label>
+                                            <Image Source="answericon.png" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
+                                            <Label Grid.Column="4" HorizontalOptions="Start" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding numOFCmtR}"></Label>
+                            
                                         </Grid>
 
 
@@ -171,15 +176,29 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-
                     </Grid>
-
-
-
                 </Grid>
             </Grid>
             
         </Grid>
+
+        <Grid Grid.RowSpan="2" BackgroundColor="#50000000" IsVisible="{Binding showImg}">
+            <Button BackgroundColor="Transparent" Command="{Binding closeImgPopUp}"/>
+
+            <Grid  Margin="40,60,40,60">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                 
+                </Grid.RowDefinitions>
+                
+                <material:MaterialButton Grid.Row="0"  Text="Close" HorizontalOptions="End" VerticalOptions="Start" ButtonType="Text" TextColor="Red"  FontSize="9" Command="{Binding closeImgPopUp}"/>
+                
+                <Image Grid.Row="1" Source="answericon.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+            </Grid>
+
+        </Grid>
+
     </Grid>
     
 </ContentPage>
