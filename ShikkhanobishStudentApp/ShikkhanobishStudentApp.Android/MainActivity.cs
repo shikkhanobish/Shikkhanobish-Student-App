@@ -17,9 +17,17 @@ namespace ShikkhanobishStudentApp.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
-            NotificationCenter.CreateNotificationChannel(new NotificationChannelRequest { Importance = NotificationImportance.High });
+            base.OnCreate(savedInstanceState);          
             PlatformVonage.Init(this);
+            NotificationCenter.CreateNotificationChannel(new Func<Plugin.LocalNotification.Platform.Droid.NotificationChannelRequestBuilder, Plugin.LocalNotification.Platform.Droid.NotificationChannelRequest>((x) => {
+                x.WithBadges(true);
+                x.WithImportance(NotificationImportance.Max);
+                x.WithVibration(true);
+                x.WithDescription("GG Noob");
+                x.WithChannelId("ShikkhanobishTeacher");
+                x.WithLockScreenVisibility(NotificationVisibility.Public);
+                return new Plugin.LocalNotification.Platform.Droid.NotificationChannelRequest { Description = "asdasdas", Importance = NotificationImportance.Max, Id = "ShikkhanobishTeacher" };
+            }));
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             XF.Material.Droid.Material.Init(this, savedInstanceState);

@@ -104,7 +104,7 @@
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
 
-                                        <Image  Source="{Binding riviewImg}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" ></Image>
+                                        <Image  Source="{Binding riviewImg}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" IsAnimationPlaying="True" ></Image>
                                         <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" >
                                             <Label.FormattedText>
                                                 <FormattedString>

@@ -3,6 +3,7 @@ using ShikkhanobishStudentApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,21 +47,24 @@ namespace ShikkhanobishStudentApp.ViewModel
             List<Answer> updatedAnsList = new List<Answer>();
             foreach(var item in alist)
             {
-                item.riviewImg = "nocorrectriview.png";
+                item.riviewImg = "";
                 if (plist.postID==item.postID)
                 {
                     plist.numOFCmt++;
 
                     if (item.review == 1)
                     {
-                        item.riviewImg = "correctreview.png";
+                        item.riviewImg = "correctreview.gif";
                     }
                     updatedAnsList.Add(item);
                 }
                 
             }
+            List<Answer> SortedList = new List<Answer>();
+            SortedList = updatedAnsList.OrderBy(x => x.review).ToList();
+            SortedList.Reverse();
             post = plist;
-            ansList = updatedAnsList;
+            ansList = SortedList;
         }
         #endregion
 

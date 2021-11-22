@@ -14,21 +14,20 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <material:MaterialCard Grid.Row="0" Elevation="5"/>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="55"/>
             </Grid.ColumnDefinitions>
-            <Label Text="Interest" Grid.Row="0" Grid.Column="1" TextColor="#90000000"  HorizontalOptions="Start" VerticalOptions="Center" FontSize="15" FontAttributes="Bold"/>
+            <Label Text="Interest" Grid.Row="0" Grid.Column="0" TextColor="#90000000"  HorizontalOptions="Start" VerticalOptions="Center" FontSize="15" FontAttributes="Bold"/>
 
-            <ListView  ItemsSource="{Binding tagList}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"  RowHeight="30"  SeparatorColor="White" >
+            <ListView  ItemsSource="{Binding tagList}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"  RowHeight="30"  SeparatorColor="White" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -46,10 +45,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
-            <material:MaterialCard BackgroundColor="#14C290" Grid.Row="2" Grid.Column="2" IsClickable="True" />
-            <Image Source="editicon.png" Grid.Row="2" Aspect="AspectFit" Grid.Column="2" />
-            <material:MaterialCard BackgroundColor="Transparent" Grid.Row="2" Grid.Column="2"  IsClickable="True" ClickCommand="{Binding showTagList}" />
+            <material:MaterialCard Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HasShadow="False" Elevation="2" CornerRadius="10"/>
+            <Label Text="Add Tag" Grid.Row="2" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center"/>
+            <Image Source="editicon.gif" Grid.Row="2" Aspect="AspectFit" Grid.Column="2" IsAnimationPlaying="True" Margin="0"/>
+            <material:MaterialCard BackgroundColor="Transparent" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"  IsClickable="True" ClickCommand="{Binding showTagList}" />
         </Grid>
 
         <Grid Grid.Row="1">
