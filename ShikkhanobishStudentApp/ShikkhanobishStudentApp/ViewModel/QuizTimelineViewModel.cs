@@ -4,6 +4,7 @@ using ShikkhanobishStudentApp.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -106,7 +107,9 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 popUptagList.Clear();
             }
-            
+            List<Tag> SortedList = new List<Tag>();
+            SortedList = updatedTagList.OrderBy(x => x.popUpSelected).ToList();
+            SortedList.Reverse();
             popUptagList = updatedTagList;
            
 
