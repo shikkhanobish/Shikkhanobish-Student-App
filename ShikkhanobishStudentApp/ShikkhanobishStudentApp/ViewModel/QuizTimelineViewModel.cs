@@ -26,6 +26,7 @@ namespace ShikkhanobishStudentApp.ViewModel
 
             showTag = false;
             showImg = false;
+      
             GetPostList();
         }
 
@@ -41,11 +42,19 @@ namespace ShikkhanobishStudentApp.ViewModel
 
 
             List<Post> updatedPostList = new List<Post>();
-
+            
             
             foreach (var post in plist)
             {
-                
+                if (post.imgSrc == "" || post.imgSrc == null)
+                {
+                    post.imgButtonEnable = false;
+                }
+                else if (post.imgSrc != "" || post.imgSrc != null)
+                {
+                    post.imgButtonEnable = true;
+                }
+
                 foreach (var ans in anslist)
                 {
                     if (post.postID == ans.postID)
@@ -61,6 +70,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                             post.numOFCmtN++;
                             post.ansIconN = "noanswericon.png";
                         }
+                       
                     }
 
                 }
@@ -72,6 +82,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                         {
                             post.tagName = tag.tagName;
 
+                            
                             updatedPostList.Add(post);
                         }
                     }
@@ -184,11 +195,9 @@ namespace ShikkhanobishStudentApp.ViewModel
                 item.popUpSelected = false;
                 foreach (var item2 in userTmTg)
                 {
-                    
                     if (item.tagID == item2.tagID)
                     {
                         item.popUpSelected = true;
-                        
                     }
                 }
                 updatedTagList.Add(item);
@@ -256,13 +265,22 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public async Task PerformshowImg()
         {
-
             showImg = true;
         }
 
         public async Task PerformcloseImgPopUp()
         {
             showImg = false;
+        }
+        public async Task DeleteUserTmTg(UserTimelineTag t)
+        {
+            await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteUserTimelineTagWithBothID".PostJsonAsync(new { userID = t.userID, tagID = t.tagID }).ReceiveJson<UserTimelineTag>();
+
+        }
+        public async Task AddUserTmTg(UserTimelineTag t)
+        {
+            await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setUserTimelineTag".PostJsonAsync(new { userID = t.userID, tagID = t.tagID }).ReceiveJson<UserTimelineTag>();
+
         }
         public void TagBackColor() {
 
@@ -340,7 +358,8 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         private List<Tag> popUptagList1;
         public List<Tag> popUptagList { get => popUptagList1; set => SetProperty(ref popUptagList1, value); }
-        
+
+
         private ICommand showTagList1;
 
         public ICommand showTagList
@@ -406,16 +425,7 @@ namespace ShikkhanobishStudentApp.ViewModel
 
 
 
-        public async Task DeleteUserTmTg(UserTimelineTag t)
-        {
-             await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteUserTimelineTagWithBothID".PostJsonAsync(new { userID =  t.userID, tagID=t.tagID}).ReceiveJson<UserTimelineTag>();
-
-        }
-        public async Task AddUserTmTg(UserTimelineTag t)
-        {
-            await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setUserTimelineTag".PostJsonAsync(new { userID = t.userID, tagID = t.tagID }).ReceiveJson<UserTimelineTag>();
-
-        }
+       
         #endregion
     }
 

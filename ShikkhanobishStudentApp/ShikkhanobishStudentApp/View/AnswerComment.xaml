@@ -3,24 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Name="ansComment"
              x:Class="ShikkhanobishStudentApp.View.AnswerComment">
- 
 
     <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="1"></RowDefinition>
-            <RowDefinition Height="400"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid  Grid.Row="0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="10"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="10"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="1">
+        <Grid BackgroundColor="White" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="1"></RowDefinition>
+                <RowDefinition Height="400"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid  Grid.Row="0">
+                <Grid >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="30"/>
@@ -59,97 +59,170 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
-                   
+
                         </Grid.RowDefinitions>
 
                         <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center"  Text="{Binding post.post}" FontSize="12" ></Label>
                         <Image Grid.Row="1" Source="{Binding post.answerIcon}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
-                        
+
                     </Grid>
                 </Grid>
+
             </Grid>
+            <Label Text="Answers" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0" FontAttributes="Bold"></Label>
+            <Frame BackgroundColor="#50000000" Grid.Row="2"></Frame>
+            <Grid Grid.Row="3" >
 
-        </Grid>
-        <Label Text="Answers" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0" FontAttributes="Bold"></Label>
-        <Frame BackgroundColor="#50000000" Grid.Row="2"></Frame>
-        <Grid Grid.Row="3" >
+                <ListView  ItemsSource="{Binding ansList}" RowHeight="160" SeparatorColor="Black" >
+                    <ListView.ItemTemplate >
+                        <DataTemplate>
+                            <ViewCell >
+                                <Grid >
 
-            <ListView  ItemsSource="{Binding ansList}" RowHeight="160" SeparatorColor="Black" >
-                <ListView.ItemTemplate >
-                    <DataTemplate>
-                        <ViewCell >
-                            <Grid >
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="10"/>
-                                </Grid.RowDefinitions>
-                                <Frame BackgroundColor="White" Grid.RowSpan="3"></Frame>
-                                <Grid Grid.Row="1">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="10"/>
                                         <RowDefinition Height="*"/>
-                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
                                     </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="10"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="10"/>
-                                    </Grid.ColumnDefinitions>
-                                    <material:MaterialCard Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="10,0,10,0"  Elevation="2" BackgroundColor="#FAFAFAFA" CornerRadius="10"/>
-                                    <Grid Grid.Row="0" Grid.Column="1">
+                                    <Frame BackgroundColor="White" Grid.RowSpan="3"></Frame>
+                                    <Grid Grid.Row="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="40"/>
+                                        </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="20"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="10"/>
                                         </Grid.ColumnDefinitions>
+                                        <material:MaterialCard Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="10,0,10,0"  Elevation="2" BackgroundColor="#FAFAFAFA" CornerRadius="10"/>
+                                        <Grid Grid.Row="0" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
 
-                                        <Image  Source="{Binding riviewImg}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" IsAnimationPlaying="True" ></Image>
-                                        <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" >
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{Binding name}" FontAttributes="Bold" FontSize="15"/>
-                                                    <Span Text="  Date: " FontSize="9" />
-                                                    <Span Text="{Binding answerDate}" FontSize="9" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                    </Grid>
-                                    <Grid Grid.Row="1" Grid.Column="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="20"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Gray" Text="{Binding answer}"></Label>
+                                            <Image  Source="{Binding riviewImg}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" IsAnimationPlaying="True" ></Image>
+                                            <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" >
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding name}" FontAttributes="Bold" FontSize="15"/>
+                                                        <Span Text="  Date: " FontSize="9" />
+                                                        <Span Text="{Binding answerDate}" FontSize="9" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </Grid>
+                                        <Grid Grid.Row="1" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Gray" Text="{Binding answer}"></Label>
 
-                                    </Grid>
-                                    <Grid Grid.Row="2" Grid.Column="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="130"></ColumnDefinition>
-                                            <ColumnDefinition Width="60"></ColumnDefinition>
-                                            <ColumnDefinition Width="100"></ColumnDefinition>
-                                            <ColumnDefinition Width="60"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <material:MaterialButton Grid.Column="1" Text="Edit" HorizontalOptions="Start" VerticalOptions="Center" ButtonType="Text" FontSize="9" TextColor="Black" FontAttributes="Bold" />
-                                        <material:MaterialButton Grid.Column="2" Text="TeacherInfo" HorizontalOptions="Start" VerticalOptions="Center" ButtonType="Text"  FontSize="9" TextColor="Black" FontAttributes="Bold" />
-                                        <material:MaterialButton Grid.Column="3" Text="Reply" HorizontalOptions="Start" VerticalOptions="Center" ButtonType="Text" FontSize="9" TextColor="Black" FontAttributes="Bold"/>
+                                        </Grid>
+                                        <Grid Grid.Row="2" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="130"></ColumnDefinition>
+                                                <ColumnDefinition Width="60"></ColumnDefinition>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="60"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <material:MaterialButton Grid.Column="1" Text="Edit" IsVisible="{Binding editVisible}" HorizontalOptions="Start" VerticalOptions="Center" ButtonType="Text" FontSize="9" TextColor="Black" FontAttributes="Bold" Command="{Binding Source={x:Reference ansComment}, Path=BindingContext.showEditPopUp}" CommandParameter="{Binding .}" />
+                                            <material:MaterialButton Grid.Column="2" Text="TeacherInfo" HorizontalOptions="Start" VerticalOptions="Center" ButtonType="Text"  FontSize="9" TextColor="Black" FontAttributes="Bold" Command="{Binding Source={x:Reference ansComment}, Path=BindingContext.showTinfoPopUp}" CommandParameter="{Binding .}" />
+                                            <material:MaterialButton Grid.Column="3" Text="Reply" HorizontalOptions="Start" VerticalOptions="Center" ButtonType="Text" FontSize="9" TextColor="Black" FontAttributes="Bold" Command="{Binding Source={x:Reference ansComment}, Path=BindingContext.showReplyPopUp}" CommandParameter="{Binding .}"/>
 
-                 
+
+                                        </Grid>
+
                                     </Grid>
 
                                 </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+
+            </Grid>
 
 
         </Grid>
 
+        <Grid Grid.RowSpan="3" BackgroundColor="#50000000" IsVisible="{Binding showEdit}">
+            <Button BackgroundColor="Transparent" Command="{Binding closeEditPopUp}"/>
+
+            <Grid  Margin="20,50,20,50">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <material:MaterialCard BackgroundColor="White" Grid.RowSpan="2" Elevation="10"/>
+                    <Image  Grid.Row="0" Source="imagecross.png" HorizontalOptions="End" VerticalOptions="Center" Margin="5, 5, 5, 5" ></Image>
+                    <material:MaterialButton BackgroundColor="Transparent" Grid.Row="0"  HorizontalOptions="End" VerticalOptions="Center" Command="{Binding closeEditPopUp}" />
+                    <Image Grid.Row="1"  Source="" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+        <Grid Grid.RowSpan="3" BackgroundColor="#50000000" IsVisible="{Binding showTinfo}">
+            <Button BackgroundColor="Transparent" Command="{Binding closeTinfoPopUp}"/>
+
+            <Grid  Margin="20,50,20,50">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <material:MaterialCard BackgroundColor="White" Grid.RowSpan="2" Elevation="10"/>
+                    <Image  Grid.Row="0" Source="imagecross.png" HorizontalOptions="End" VerticalOptions="Center"  Margin="5,5,5,5"></Image>
+                    <material:MaterialButton BackgroundColor="Transparent" Grid.Row="0"  HorizontalOptions="End" VerticalOptions="Center" Command="{Binding closeTinfoPopUp}" />
+                    <Image Grid.Row="1"  Source="" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+        <Grid Grid.RowSpan="3" BackgroundColor="#50000000" IsVisible="{Binding showReply}">
+            <Button BackgroundColor="Transparent" Command="{Binding closeReplyPopUp}"/>
+
+            <Grid  Margin="20,50,20,50">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <material:MaterialCard BackgroundColor="White" Grid.RowSpan="2" Elevation="10"/>
+                    <Image  Grid.Row="0" Source="imagecross.png" HorizontalOptions="End" VerticalOptions="Center"  Margin="5,5,5,5"></Image>
+                    <material:MaterialButton BackgroundColor="Transparent" Grid.Row="0"  HorizontalOptions="End" VerticalOptions="Center" Command="{Binding closeReplyPopUp}" />
+                    <Image Grid.Row="1"  Source="" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
         
     </Grid>
+    
+
 
 
 </ContentPage>
