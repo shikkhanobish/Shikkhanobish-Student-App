@@ -15,6 +15,7 @@ namespace ShikkhanobishStudentApp.ViewModel
     public class AnswerCommentViewModel : BaseViewModel, INotifyPropertyChanged
     
     {
+     
         List<Teacher> teacherList = new List<Teacher>();
         public AnswerCommentViewModel(string pid)
         {
@@ -45,6 +46,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 }
 
                 await GetAnswer(plist);
+               
             }
         }
         public async Task GetAnswer(Post plist)
@@ -118,9 +120,10 @@ namespace ShikkhanobishStudentApp.ViewModel
             showReply = false;
         }
 
-        public async Task PerformshowImg()
+        public async Task PerformshowImgPopUp()
         {
             showImg = true;
+    
         }
 
         public async Task PerformcloseImgPopUp()
@@ -256,18 +259,17 @@ namespace ShikkhanobishStudentApp.ViewModel
             }
         }
 
-        private ICommand showImage1;
-
-        public ICommand showImage
+        private ICommand showImagePopUp1;
+        public ICommand showImagePopUp
         {
             get
             {
-                if (showImage1 == null)
+                if (showImagePopUp1 == null)
                 {
-                    showImage1 = new Command(async => PerformshowImg());
+                    showImagePopUp1 = new Command(async => PerformshowImgPopUp());
                 }
 
-                return showImage1;
+                return showImagePopUp1;
             }
         }
 

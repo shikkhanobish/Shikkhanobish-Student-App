@@ -265,9 +265,10 @@ namespace ShikkhanobishStudentApp.ViewModel
         }
 
 
-        public async Task PerformshowImg()
+        public async Task PerformshowImgPopUp(Post imgpost)
         {
             showImg = true;
+            post = imgpost;
         }
 
         public async Task PerformcloseImgPopUp()
@@ -336,10 +337,14 @@ namespace ShikkhanobishStudentApp.ViewModel
             return colorName[index];
         }
 
-       
+
         #endregion
 
         #region Bindings
+
+        private Post post1;
+
+        public Post post{ get => post1; set => SetProperty(ref post1, value); }
 
         private List<Post> postList1;
 
@@ -395,18 +400,17 @@ namespace ShikkhanobishStudentApp.ViewModel
         }
 
 
-        private ICommand showImage1;
-
-        public ICommand showImage
+        private ICommand showImagePopUp1;
+        public ICommand showImagePopUp
         {
             get
             {
-                if (showImage1 == null)
+                return new Command<Post>(async (p) =>
                 {
-                    showImage1 = new Command(async => PerformshowImg());
-                }
 
-                return showImage1;
+                    await PerformshowImgPopUp(p);
+                });
+              
             }
         }
 

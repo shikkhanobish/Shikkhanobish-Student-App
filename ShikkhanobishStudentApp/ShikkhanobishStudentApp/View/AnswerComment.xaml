@@ -64,7 +64,7 @@
 
                         <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center"  Text="{Binding post.post}" FontSize="12" ></Label>
                         <Image Grid.Row="1" Source="{Binding post.imgSrc}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
-                        <material:MaterialButton BackgroundColor="Transparent" Grid.Row="1"  Command="{Binding showImage}"/>
+                        <material:MaterialButton BackgroundColor="Transparent" Grid.Row="1"   Command="{Binding showImagePopUp}"/>
 
                     </Grid>
                 </Grid>
@@ -308,7 +308,7 @@
                     <material:MaterialCard BackgroundColor="Black" Grid.RowSpan="2" Elevation="10"/>
                     <Image  Grid.Row="0" Source="imagecross.png" HorizontalOptions="End" VerticalOptions="Center"  Margin="5,5,5,5"></Image>
                     <material:MaterialButton BackgroundColor="Transparent" Grid.Row="0"  HorizontalOptions="End" VerticalOptions="Center" Command="{Binding closeImgPopUp}" />
-                    <Image Grid.Row="1"  Source="https://ichef.bbci.co.uk/news/976/cpsprodpb/67CF/production/_108857562_mediaitem108857561.jpg" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                    <Image Grid.Row="1"  Source="{Binding post.imgSrc}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
                 </Grid>
 
             </Grid>
