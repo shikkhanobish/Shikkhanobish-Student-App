@@ -22,14 +22,15 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             IsnumberofTeacherShow = false;
             GetLogList();
+            
         }
         public async Task GetLogList()
         {
             using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
             {
-
-            isscTeacherInfoVisible = false;
-            lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
+               
+                isscTeacherInfoVisible = false;
+                lList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
             var tList = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getAllTeacher".PostJsonAsync(new { }).ReceiveJson<List<Teacher>>();
             var trList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuitionRequestCount".GetJsonAsync<List<TutionRequestCount>>();
 
@@ -68,13 +69,14 @@ namespace ShikkhanobishStudentApp.ViewModel
             liveTuitionList = ntll;
             }
         }
+       
         public ICommand ViewTeacherInfo
         {
             get
             {
                 return new Command<Teacher>((selectedTeacher) =>
                 {
-                   
+                    
                     searchedTeacher = selectedTeacher;                    
                     TeacherRiviewInfo(selectedTeacher.teacherID);
                    
@@ -85,14 +87,66 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             get
             {
-                return new Command<TuiTionLog>((thistuition) =>
+                return new Command<TuiTionLog>(async (thistuition) =>
                 {
 
                     thisTuition = thistuition;
+                    ContinueCheckingTeacherActivity();
                     IsnumberofTeacherShow = true;
 
                 });
             }
+        }
+        public async Task ContinueCheckingTeacherActivity()
+        {
+            while (true)
+            {
+                if (thisTuition.tuitionLogID != null)
+                {
+                    var activests = await CheckPureActive();
+                    for (int i = 0; i < thisTuition.teacherNameList.Count; i++)
+                    {
+                        for (int j = 0; j < activests.Count; j++)
+                        {
+                            if (activests[j].teacherID == thisTuition.teacherNameList[i].teacherID)
+                            {
+                                thisTuition.teacherNameList[i].activeString = "Online";
+                            }
+                            else
+                            {
+                                thisTuition.teacherNameList[i].activeString = "Offline";
+                            }
+                        }
+                    }
+                    teacherNameList = thisTuition.teacherNameList;
+                }               
+            }
+            
+        }
+        public async Task<List<TeacherActivityStatus>> CheckPureActive()
+        {
+            var rightNowActiveTeacher = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getTeacherActivityStatus".GetJsonAsync<List<TeacherActivityStatus>>();
+            await Task.Delay(1000);
+            var AfterOneSecActiveTeacher = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getTeacherActivityStatus".GetJsonAsync<List<TeacherActivityStatus>>();
+
+            List<TeacherActivityStatus> pureActive = new List<TeacherActivityStatus>();
+
+            for (int i = 0; i < AfterOneSecActiveTeacher.Count; i++)
+            {
+                for (int j = 0; j < rightNowActiveTeacher.Count; j++)
+                {
+                    if (AfterOneSecActiveTeacher[i].teacherID == rightNowActiveTeacher[j].teacherID)
+                    {
+                        pureActive.Add(AfterOneSecActiveTeacher[i]);
+                        break;
+                    }
+                }
+            }
+            return pureActive;
+        }
+        private void PerformpopuotTeacherCount()
+        {
+            IsnumberofTeacherShow = false;
         }
 
         public async Task TeacherRiviewInfo(int tid)
@@ -173,6 +227,9 @@ namespace ShikkhanobishStudentApp.ViewModel
         private List<TeacherReview> reviewList1;
 
         public List<TeacherReview> reviewList { get => reviewList1; set => SetProperty(ref reviewList1, value); }
+        private List<Teacher> teacherNameList1;
+
+        public List<Teacher> teacherNameList { get => teacherNameList1; set => SetProperty(ref teacherNameList1, value); }
         private bool IsnumberofTeacherShow1;
 
         public bool IsnumberofTeacherShow { get => IsnumberofTeacherShow1; set => SetProperty(ref IsnumberofTeacherShow1, value); }
@@ -191,8 +248,21 @@ namespace ShikkhanobishStudentApp.ViewModel
                 return acceptTeacherTuition1;
             }
         }
+        private Command popuotTeacherCount1;
+        public ICommand popuotTeacherCount
+        {
+            get
+            {
+                if (popuotTeacherCount1 == null)
+                {
+                    popuotTeacherCount1 = new Command(PerformpopuotTeacherCount);
+                }
 
-       
+                return popuotTeacherCount1;
+            }
+        }
+
+
 
         #endregion
     }

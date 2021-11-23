@@ -2841,6 +2841,9 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public List<TuiTionLog> livetuitionList { get => livetuitionList1; set => SetProperty(ref livetuitionList1, value); }
 
+      
+
+        
 
         #endregion Binding Garbage
     }
