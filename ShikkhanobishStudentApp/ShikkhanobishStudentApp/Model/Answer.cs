@@ -17,6 +17,8 @@ namespace ShikkhanobishStudentApp.Model
         public string postID { get; set; }
         public string riviewImg { get; set; }
         public bool editVisible { get; set; }
+        public bool tinfoVisible { get; set; }
+        
         public string Response { get; set; }
     }
 }

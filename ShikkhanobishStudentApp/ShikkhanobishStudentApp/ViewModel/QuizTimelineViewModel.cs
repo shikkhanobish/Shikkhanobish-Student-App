@@ -34,64 +34,66 @@ namespace ShikkhanobishStudentApp.ViewModel
         #region Methods
         public async Task GetPostList()
         {
-            userTmTg = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getUserTimelineTagWithUserID".PostJsonAsync(new { userID = 10000152 }).ReceiveJson<List<UserTimelineTag>>();
-            plist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPost".GetJsonAsync<List<Post>>();
-            tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
-            anslist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswer".GetJsonAsync<List<Answer>>();
-
-
-
-            List<Post> updatedPostList = new List<Post>();
-            
-            
-            foreach (var post in plist)
+            using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
             {
-                if (post.imgSrc == "" || post.imgSrc == null)
-                {
-                    post.imgButtonEnable = false;
-                }
-                else if (post.imgSrc != "" || post.imgSrc != null)
-                {
-                    post.imgButtonEnable = true;
-                }
+                userTmTg = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getUserTimelineTagWithUserID".PostJsonAsync(new { userID = 10000152 }).ReceiveJson<List<UserTimelineTag>>();
+                plist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPost".GetJsonAsync<List<Post>>();
+                tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
+                anslist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswer".GetJsonAsync<List<Answer>>();
 
-                foreach (var ans in anslist)
+
+
+                List<Post> updatedPostList = new List<Post>();
+
+
+                foreach (var post in plist)
                 {
-                    if (post.postID == ans.postID)
+                    if (post.imgSrc == "" || post.imgSrc == null)
                     {
-                        
-                        if (ans.review == 1)
-                        {
-                            post.numOFCmtR++;
-                            post.ansIconR = "answericon.png";
-                        }
-                        else if(ans.review == 0)
-                        {
-                            post.numOFCmtN++;
-                            post.ansIconN = "noanswericon.png";
-                        }
-                       
+                        post.imgButtonEnable = false;
+                    }
+                    else if (post.imgSrc != "" || post.imgSrc != null)
+                    {
+                        post.imgButtonEnable = true;
                     }
 
-                }
-                foreach (var tag in tlist)
-                {
-                    foreach(var utt in userTmTg)
+                    foreach (var ans in anslist)
                     {
-                        if (post.tagID == utt.tagID && tag.tagID == utt.tagID)
+                        if (post.postID == ans.postID)
                         {
-                            post.tagName = tag.tagName;
 
-                            
-                            updatedPostList.Add(post);
+                            if (ans.review == 1)
+                            {
+                                post.numOFCmtR++;
+                                post.ansIconR = "answericon.png";
+                            }
+                            else if (ans.review == 0)
+                            {
+                                post.numOFCmtN++;
+                                post.ansIconN = "noanswericon.png";
+                            }
+
                         }
+
                     }
-                    
+                    foreach (var tag in tlist)
+                    {
+                        foreach (var utt in userTmTg)
+                        {
+                            if (post.tagID == utt.tagID && tag.tagID == utt.tagID)
+                            {
+                                post.tagName = tag.tagName;
+
+
+                                updatedPostList.Add(post);
+                            }
+                        }
+
+                    }
                 }
+                GetTagChip();
+                postList = updatedPostList;
             }
-            GetTagChip();
-            postList = updatedPostList;
-           
 
             
         }

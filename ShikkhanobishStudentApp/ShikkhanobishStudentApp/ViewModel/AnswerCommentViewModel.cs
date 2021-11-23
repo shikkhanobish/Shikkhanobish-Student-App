@@ -8,15 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace ShikkhanobishStudentApp.ViewModel
 {
     public class AnswerCommentViewModel : BaseViewModel, INotifyPropertyChanged
     
     {
-
+        List<Teacher> teacherList = new List<Teacher>();
         public AnswerCommentViewModel(string pid)
         {
+           
             GetPost(pid);
             
         }
@@ -24,22 +26,26 @@ namespace ShikkhanobishStudentApp.ViewModel
         #region Methods
         public async Task GetPost(string pid)
         {
-            var plist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPostWithID".PostJsonAsync(new { postID =  pid}).ReceiveJson<Post>();
-            var tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
-            
-
-           
-            foreach (var item in tlist)
+            using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
             {
-                
-                if (plist.tagID == item.tagID)
+                var plist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPostWithID".PostJsonAsync(new { postID = pid }).ReceiveJson<Post>();
+                var tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
+                teacherList = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getAllTeacher".PostJsonAsync(new { }).ReceiveJson<List<Teacher>>();
+
+
+
+                foreach (var item in tlist)
                 {
-                    plist.tagName = item.tagName;
-                    
+
+                    if (plist.tagID == item.tagID)
+                    {
+                        plist.tagName = item.tagName;
+
+                    }
                 }
+
+                await GetAnswer(plist);
             }
-            
-            await GetAnswer(plist);
         }
         public async Task GetAnswer(Post plist)
         {
@@ -67,6 +73,14 @@ namespace ShikkhanobishStudentApp.ViewModel
                 {
                     item.editVisible = false;
                 }
+                if (item.userType == 2)
+                {
+                    item.tinfoVisible = true;
+                }
+                else
+                {
+                    item.tinfoVisible = false;
+                }
                 
             }
             List<Answer> SortedList = new List<Answer>();
@@ -85,9 +99,10 @@ namespace ShikkhanobishStudentApp.ViewModel
             showEdit = false;
         }
 
-        public async Task PerformshowTinfoPopup()
+        public async Task PerformshowTinfoPopup(Teacher tch)
         {
             showTinfo = true;
+            teacher = tch;
         }
         public async Task PerformcloseTinfoPopup()
         {
@@ -103,6 +118,16 @@ namespace ShikkhanobishStudentApp.ViewModel
             showReply = false;
         }
 
+        public async Task PerformshowImg()
+        {
+            showImg = true;
+        }
+
+        public async Task PerformcloseImgPopUp()
+        {
+            showImg = false;
+        }
+
 
         #endregion
 
@@ -116,6 +141,9 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public List<Answer> ansList { get => ansList1; set => SetProperty(ref ansList1, value); }
 
+        private Teacher teacher1;
+
+        public Teacher teacher { get => teacher1; set => SetProperty(ref teacher1, value); }
 
         private bool showEdit1;
         public bool showEdit { get => showEdit1; set => SetProperty(ref showEdit1, value); }
@@ -126,6 +154,8 @@ namespace ShikkhanobishStudentApp.ViewModel
         private bool showReply1;
         public bool showReply { get => showReply1; set => SetProperty(ref showReply1, value); }
 
+        private bool showImg1;
+        public bool showImg { get => showImg1; set => SetProperty(ref showImg1, value); }
 
         //Edit
         private ICommand showEditPopUp1;
@@ -165,12 +195,17 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             get
             {
-                if (showTinfoPopUp1 == null)
+                return new Command<Answer>(async (a) =>
                 {
-                    showTinfoPopUp1 = new Command(async => PerformshowTinfoPopup());
-                }
-
-                return showTinfoPopUp1;
+                    
+                    foreach(var item in teacherList)
+                    {
+                        if (a.userID == item.teacherID)
+                        {
+                            await PerformshowTinfoPopup(item);
+                        }
+                    }
+                });
             }
         }
 
@@ -221,6 +256,35 @@ namespace ShikkhanobishStudentApp.ViewModel
             }
         }
 
+        private ICommand showImage1;
+
+        public ICommand showImage
+        {
+            get
+            {
+                if (showImage1 == null)
+                {
+                    showImage1 = new Command(async => PerformshowImg());
+                }
+
+                return showImage1;
+            }
+        }
+
+        private ICommand closeImgPopUp1;
+
+        public ICommand closeImgPopUp
+        {
+            get
+            {
+                if (closeImgPopUp1 == null)
+                {
+                    closeImgPopUp1 = new Command(async => PerformcloseImgPopUp());
+                }
+
+                return closeImgPopUp1;
+            }
+        }
 
 
         #endregion
