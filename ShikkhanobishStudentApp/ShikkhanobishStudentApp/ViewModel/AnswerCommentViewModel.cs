@@ -92,9 +92,10 @@ namespace ShikkhanobishStudentApp.ViewModel
             ansList = SortedList;
         }
 
-        public async Task PerformshowEditPopup()
+        public async Task PerformshowEditPopup(Answer ans)
         {
             showEdit = true;
+            answer = ans;
         }
         public async Task PerformcloseEditPopUp()
         {
@@ -136,6 +137,11 @@ namespace ShikkhanobishStudentApp.ViewModel
 
 
         #region Bindings
+
+        private Answer answer1;
+
+        public Answer answer { get => answer1; set => SetProperty(ref answer1, value); }
+
         private Post post1;
 
         public Post post{ get => post1; set => SetProperty(ref post1, value); }
@@ -147,6 +153,11 @@ namespace ShikkhanobishStudentApp.ViewModel
         private Teacher teacher1;
 
         public Teacher teacher { get => teacher1; set => SetProperty(ref teacher1, value); }
+
+
+        private bool editAbleAnswer1;
+        public bool editAbleAnswer { get => editAbleAnswer1; set => SetProperty(ref editAbleAnswer1, value); }
+        
 
         private bool showEdit1;
         public bool showEdit { get => showEdit1; set => SetProperty(ref showEdit1, value); }
@@ -167,13 +178,14 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             get
             {
-                if (showEditPopUp1 == null)
+                return new Command<Answer>(async (a) =>
                 {
-                    showEditPopUp1 = new Command(async => PerformshowEditPopup());
-                }
 
-                return showEditPopUp1;
+                    await PerformshowEditPopup(a);
+                });
+
             }
+           
         }
 
         private ICommand closeEditPopUp1;
