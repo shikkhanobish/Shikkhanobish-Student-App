@@ -87,13 +87,28 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             get
             {
-                return new Command<TuiTionLog>(async (thistuition) =>
+                return new Command<TuiTionLog>(async (thist) =>
                 {
 
-                    thisTuition = thistuition;
-                    ContinueCheckingTeacherActivity();
+                    
+                    for(int i =0; i < thist.teacherNameList.Count; i++)
+                    {
+                        if(thist.teacherNameList[i].activeStatus == 0)
+                        {
+                            thist.teacherNameList[i].activeString = "Offline";
+                        }
+                        else if (thist.teacherNameList[i].activeStatus == 1)
+                        {
+                            thist.teacherNameList[i].activeString = "Online";
+                        }
+                        else if (thist.teacherNameList[i].activeStatus == 2)
+                        {
+                            thist.teacherNameList[i].activeString = "On Tuition";
+                        }
+                    }
                     IsnumberofTeacherShow = true;
-
+                    thisTuition = thist;
+                    teacherNameList = thisTuition.teacherNameList;
                 });
             }
         }
@@ -118,7 +133,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                             }
                         }
                     }
-                    teacherNameList = thisTuition.teacherNameList;
+                   
                 }               
             }
             

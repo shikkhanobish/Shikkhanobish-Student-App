@@ -151,29 +151,29 @@
 
 
         </Grid>
-
+        <!-- Edit ans PopUp-->
         <Grid Grid.RowSpan="3" BackgroundColor="#50000000" IsVisible="{Binding showEdit}">
             
 
             <Grid  Margin="20,50,20,50">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="260"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="260"/>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button BackgroundColor="Transparent" Command="{Binding closeEditPopUp}"/>
+                <Button Grid.RowSpan="3" BackgroundColor="Transparent" Command="{Binding closeEditPopUp}"/>
                 <Grid Grid.Row="1">
                     <Grid >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="10"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="50"/>
                             <RowDefinition Height="10"/>
                         </Grid.RowDefinitions>
-                        <Frame BackgroundColor="White" Grid.RowSpan="3"></Frame>
+                        <material:MaterialCard BackgroundColor="White" Grid.RowSpan="3" CornerRadius="10" Elevation="10"></material:MaterialCard>
                         <Grid Grid.Row="1">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="20"/>
                                 <RowDefinition Height="*"/>
                               
                             </Grid.RowDefinitions>
@@ -182,10 +182,11 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="5"/>
                             </Grid.ColumnDefinitions>
-                            <material:MaterialCard Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="10,0,10,0"  Elevation="2" BackgroundColor="White" CornerRadius="10"/>
+                          
+                            
                             <Grid Grid.Row="0" Grid.Column="1">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                    <ColumnDefinition Width="10"></ColumnDefinition>
                                     <ColumnDefinition Width="150"></ColumnDefinition>
                                     <ColumnDefinition Width="190"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
@@ -205,17 +206,18 @@
                             </Grid>
                             <Grid Grid.Row="1" Grid.Column="1">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                    <ColumnDefinition Width="10"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Gray" Text="{Binding answer.answer}"></Label>
+
+                                <Entry Grid.Column="1"  FontAttributes="Bold" FontSize="12" TextColor="Gray" Text="{Binding answer.answer}"></Entry>
 
                             </Grid>
                             
                         </Grid>
-
+                        <material:MaterialButton Grid.Row="2"  Text="Update" HorizontalOptions="End" VerticalOptions="Center"  FontSize="9" ButtonType="Text" FontAttributes="Bold"  />
                     </Grid>
-                    <material:MaterialButton  Text="Update" HorizontalOptions="End" VerticalOptions="End"  FontSize="9" ButtonType="Text" FontAttributes="Bold"  />
+                    
 
                 </Grid>
 
@@ -316,7 +318,7 @@
                 </Grid>
             </Grid>
         </Grid>
-
+          
         <Grid Grid.RowSpan="3" BackgroundColor="#50000000" IsVisible="{Binding showReply}">
             <Button BackgroundColor="Transparent" Command="{Binding closeReplyPopUp}"/>
 
