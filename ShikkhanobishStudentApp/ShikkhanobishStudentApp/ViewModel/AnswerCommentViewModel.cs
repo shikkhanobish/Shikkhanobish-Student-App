@@ -17,6 +17,7 @@ namespace ShikkhanobishStudentApp.ViewModel
     {
      
         List<Teacher> teacherList = new List<Teacher>();
+        List<Answer> alist = new List<Answer>();
         public string thisPostID { get; set; }
         public AnswerCommentViewModel(string pid)
         {
@@ -50,19 +51,10 @@ namespace ShikkhanobishStudentApp.ViewModel
                
             }
         }
-        private async Task PerformupdateEdit()
-        {
-            showEdit = false;
-            using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Updateing Answer. Please Wait..."))
-            {
-                await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerWithID".PostJsonAsync(new { answerID = answer.answerID, name = answer.name, answer = answer.answer, userID = answer.userID, userType = answer.userType, imgSrc = answer.imgSrc, review = answer.review, postID = answer.postID }).ReceiveJson<Answer>();
-                await GetPost(thisPostID);
-            }
-                
-        }
+        
         public async Task GetAnswer(Post plist)
         {
-            var alist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswer".GetJsonAsync<List<Answer>>();
+            alist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswer".GetJsonAsync<List<Answer>>();
             var postlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPost".GetJsonAsync<List<Post>>();
 
             List<Answer> updatedAnsList = new List<Answer>();
@@ -78,7 +70,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                     }
                     updatedAnsList.Add(item);
                 }
-                if (plist.userID == item.userID)
+                if (StaticPageToPassData.thisStudentInfo.studentID == item.userID)
                 {
                     item.editVisible = true;
                 }
@@ -103,6 +95,25 @@ namespace ShikkhanobishStudentApp.ViewModel
             ansList = SortedList;
         }
 
+        private async Task PerformsendAnswer()
+        {
+            using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
+            {
+                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswer".PostJsonAsync(new { answerID = StaticPageToPassData.GenarateIDString(50), name = StaticPageToPassData.thisStudentInfo.name, answer = newComment, userID = StaticPageToPassData.thisStudentInfo.studentID, userType = 1, imgSrc = "n/a", review = 0, postID = thisPostID, answerDate = "n/a" }).ReceiveJson<Response>();
+                await GetPost(thisPostID);
+            }
+                
+        }
+        private async Task PerformupdateEdit()
+        {
+            showEdit = false;
+            using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Updating Answer. Please Wait..."))
+            {
+                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerWithID".PostJsonAsync(new { answerID = answer.answerID, name = answer.name, answer = answer.answer, userID = answer.userID, userType = answer.userType, imgSrc = answer.imgSrc, review = answer.review, postID = answer.postID, answerDate = answer.answerDate }).ReceiveJson<Response>();
+                await GetPost(thisPostID);
+            }
+
+        }
         public async Task PerformshowEditPopup(Answer ans)
         {
             showEdit = true;
@@ -142,6 +153,8 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             showImg = false;
         }
+
+      
 
 
         #endregion
@@ -326,7 +339,27 @@ namespace ShikkhanobishStudentApp.ViewModel
             }
         }
 
-        
+        private Command sendAnswer1;
+
+        public ICommand sendAnswer
+        {
+            get
+            {
+                if (sendAnswer1 == null)
+                {
+                    sendAnswer1 = new Command(async =>PerformsendAnswer());
+                }
+
+                return sendAnswer1;
+            }
+        }
+
+        private string newComment1;
+
+        public string newComment { get => newComment1; set => SetProperty(ref newComment1, value); }
+
+
+
 
         #endregion
 

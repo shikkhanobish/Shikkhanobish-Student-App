@@ -5,7 +5,11 @@
              SelectedTabColor="#633CFF" 
              BackgroundColor="White"
              x:Class="ShikkhanobishStudentApp.View.RootPage">
-    
+    <NavigationPage  IconImageSource="questiondeedicon.png" >
+        <x:Arguments>
+            <local:QuestionTimeLine />
+        </x:Arguments>
+    </NavigationPage>
     <NavigationPage  IconImageSource="taketuition.png" >
         <x:Arguments>
             <local:TakeTuitionView />
