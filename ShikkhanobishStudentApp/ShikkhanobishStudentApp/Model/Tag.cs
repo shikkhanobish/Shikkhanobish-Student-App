@@ -10,5 +10,6 @@ namespace ShikkhanobishStudentApp.Model
         public string tagName { get; set; }
         public bool popUpSelected { get; set; }
         public bool popUpSelectEnable { get; set; }
+       
     }
 }

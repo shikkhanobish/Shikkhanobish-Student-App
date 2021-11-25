@@ -3,24 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Name="ansComment"
              x:Class="ShikkhanobishStudentApp.View.AnswerComment">
- 
 
     <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="1"></RowDefinition>
-            <RowDefinition Height="400"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid  Grid.Row="0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="10"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="10"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="1">
+        <Grid BackgroundColor="White" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="1"></RowDefinition>
+                <RowDefinition Height="400"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid  Grid.Row="0">
+                <Grid >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="30"/>
@@ -57,99 +57,316 @@
 
                     <Grid Grid.Row="2" Grid.Column="1">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                   
+
                         </Grid.RowDefinitions>
 
                         <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center"  Text="{Binding post.post}" FontSize="12" ></Label>
-                        <Image Grid.Row="1" Source="{Binding post.answerIcon}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
-                        
+                        <Image Grid.Row="1" Source="{Binding post.imgSrc}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                        <material:MaterialButton BackgroundColor="Transparent" Grid.Row="1"   Command="{Binding showImagePopUp}"/>
+
                     </Grid>
                 </Grid>
+
             </Grid>
+            <Label Text="Answers" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0" FontAttributes="Bold"></Label>
+            <Frame BackgroundColor="#50000000" Grid.Row="2"></Frame>
+            <Grid Grid.Row="3" >
 
-        </Grid>
-        <Label Text="Answers" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0" FontAttributes="Bold"></Label>
-        <Frame BackgroundColor="#50000000" Grid.Row="2"></Frame>
-        <Grid Grid.Row="3" >
+                <ListView  ItemsSource="{Binding ansList}" RowHeight="160" SeparatorColor="Black" >
+                    <ListView.ItemTemplate >
+                        <DataTemplate>
+                            <ViewCell >
+                                <Grid >
 
-            <ListView  ItemsSource="{Binding ansList}" RowHeight="160" SeparatorColor="Black" >
-                <ListView.ItemTemplate >
-                    <DataTemplate>
-                        <ViewCell >
-                            <Grid >
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="10"/>
-                                </Grid.RowDefinitions>
-                                <Frame BackgroundColor="White" Grid.RowSpan="3"></Frame>
-                                <Grid Grid.Row="1">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="10"/>
                                         <RowDefinition Height="*"/>
-                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
                                     </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="10"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="10"/>
-                                    </Grid.ColumnDefinitions>
-                                    <material:MaterialCard Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="10,0,10,0"  Elevation="2" BackgroundColor="#FAFAFAFA" CornerRadius="10"/>
-                                    <Grid Grid.Row="0" Grid.Column="1">
+                                    <Frame BackgroundColor="White" Grid.RowSpan="3"></Frame>
+                                    <Grid Grid.Row="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="40"/>
+                                        </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="20"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="10"/>
                                         </Grid.ColumnDefinitions>
+                                        <material:MaterialCard Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="10,0,10,0"  Elevation="2" BackgroundColor="White" CornerRadius="10"/>
+                                        <Grid Grid.Row="0" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                                <ColumnDefinition Width="190"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
 
-                                        <Image  Source="{Binding riviewImg}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" IsAnimationPlaying="True" ></Image>
-                                        <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" >
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{Binding name}" FontAttributes="Bold" FontSize="15"/>
-                                                    <Span Text="  Date: " FontSize="9" />
-                                                    <Span Text="{Binding answerDate}" FontSize="9" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                    </Grid>
-                                    <Grid Grid.Row="1" Grid.Column="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="20"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Gray" Text="{Binding answer}"></Label>
+                                            <Image  Source="{Binding riviewImg}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" IsAnimationPlaying="True" ></Image>
+                                            <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" >
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding name}" FontAttributes="Bold" FontSize="15"/>
+                                                        <Span Text="  Date: " FontSize="9" />
+                                                        <Span Text="{Binding answerDate}" FontSize="9" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <material:MaterialButton Grid.Column="2" Text="Edit Answer" IsVisible="{Binding editVisible}" HorizontalOptions="End" VerticalOptions="End" ButtonType="Text" FontSize="9" TextColor="Black" FontAttributes="Bold" Command="{Binding Source={x:Reference ansComment}, Path=BindingContext.showEditPopUp}" CommandParameter="{Binding .}" />
 
-                                    </Grid>
-                                    <Grid Grid.Row="2" Grid.Column="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="130"></ColumnDefinition>
-                                            <ColumnDefinition Width="60"></ColumnDefinition>
-                                            <ColumnDefinition Width="100"></ColumnDefinition>
-                                            <ColumnDefinition Width="60"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <material:MaterialButton Grid.Column="1" Text="Edit" HorizontalOptions="Start" VerticalOptions="Center" ButtonType="Text" FontSize="9" TextColor="Black" FontAttributes="Bold" />
-                                        <material:MaterialButton Grid.Column="2" Text="TeacherInfo" HorizontalOptions="Start" VerticalOptions="Center" ButtonType="Text"  FontSize="9" TextColor="Black" FontAttributes="Bold" />
-                                        <material:MaterialButton Grid.Column="3" Text="Reply" HorizontalOptions="Start" VerticalOptions="Center" ButtonType="Text" FontSize="9" TextColor="Black" FontAttributes="Bold"/>
+                                        </Grid>
+                                        <Grid Grid.Row="1" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Gray" Text="{Binding answer}"></Label>
 
-                 
+                                        </Grid>
+                                        <Grid Grid.Row="2" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                             
+                                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                                <ColumnDefinition Width="120"></ColumnDefinition>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <material:MaterialButton Grid.Column="1" Text="TeacherInfo" IsVisible="{Binding tinfoVisible}" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#1006EE98"  FontSize="9" TextColor="Black" FontAttributes="Bold" Command="{Binding Source={x:Reference ansComment}, Path=BindingContext.showTinfoPopUp}" CommandParameter="{Binding .}" />
+                                            <material:MaterialButton Grid.Column="2" Text="Reply" HorizontalOptions="Start" VerticalOptions="Center"  BackgroundColor="#10B80885" FontSize="9" TextColor="Black" FontAttributes="Bold" Command="{Binding Source={x:Reference ansComment}, Path=BindingContext.showReplyPopUp}" CommandParameter="{Binding .}"/>
+                                        </Grid>
                                     </Grid>
 
                                 </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+
+            </Grid>
+
+           
 
 
         </Grid>
 
+        <Grid Grid.RowSpan="3" BackgroundColor="#50000000" IsVisible="{Binding showEdit}">
+            
+
+            <Grid  Margin="20,50,20,50">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="260"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="260"/>
+                </Grid.RowDefinitions>
+                <Button BackgroundColor="Transparent" Command="{Binding closeEditPopUp}"/>
+                <Grid Grid.Row="1">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="10"/>
+                        </Grid.RowDefinitions>
+                        <Frame BackgroundColor="White" Grid.RowSpan="3"></Frame>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="*"/>
+                              
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
+                            </Grid.ColumnDefinitions>
+                            <material:MaterialCard Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="10,0,10,0"  Elevation="2" BackgroundColor="White" CornerRadius="10"/>
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                    <ColumnDefinition Width="190"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Image  Source="{Binding riviewImg}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" IsAnimationPlaying="True" ></Image>
+                                <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" >
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding answer.name}" FontAttributes="Bold" FontSize="15"/>
+                                            <Span Text="  Date: " FontSize="9" />
+                                            <Span Text="{Binding answer.answerDate}" FontSize="9" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Gray" Text="{Binding answer.answer}"></Label>
+
+                            </Grid>
+                            
+                        </Grid>
+
+                    </Grid>
+                    <material:MaterialButton  Text="Update" HorizontalOptions="End" VerticalOptions="End"  FontSize="9" ButtonType="Text" FontAttributes="Bold"  />
+
+                </Grid>
+
+
+            </Grid>
+
+        </Grid>
+
+     
         
+
+        <!--popup TeacherInfo-->
+        <Grid Grid.RowSpan="3" IsVisible="{Binding showTinfo}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="500" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button BackgroundColor="#50000000" Grid.RowSpan="3" Command="{Binding closeTinfoPopUp}"/>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="1" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="20*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <material:MaterialCard BackgroundColor="#ffffff" Grid.RowSpan="5" Grid.ColumnSpan="3" Margin="10,0,10,0" Elevation="20" CornerRadius="15"/>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <material:MaterialButton Text="Close" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" ButtonType="Text" Command="{Binding closeTinfoPopUp}" FontSize="9"/>
+                    <Label Text="{Binding teacher.name}" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="14" />
+
+                    <Label Text="4.6" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" />
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="popuptotaltuition.png" Grid.Row="0" Grid.Column="0" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Label Text="{Binding teacher.totalTuition}" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" />
+                        <Label Text="Total Tuition" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" />
+
+                        <Image Source="popupfavteacher.png" Grid.Row="0" Grid.Column="1" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Label Text="{Binding searchedTeacher.favTeacherCount}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" />
+                        <Label Text="Favourite Teacher" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" />
+
+                        <Image Source="popuptotaltime.png" Grid.Row="0" Grid.Column="2" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Label Text="{Binding teacher.totalMinuite}" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" />
+                        <Label Text="Total Minute" Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" />
+                    </Grid>
+                </Grid>
+                <Frame BackgroundColor="#60000000" Grid.Row="1" Grid.Column="1" HasShadow="False" />
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Text="Review" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" />
+                    <ListView Grid.Row="1" RowHeight="30" ItemsSource="{Binding reviewList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Label Text="{Binding review}"  HorizontalTextAlignment="Start" VerticalTextAlignment="Center"  FontSize="12"/>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" ColumnSpacing="0"  Margin="10,0,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+
+
+
+                    <Frame BackgroundColor="#EDE9FF"  Grid.RowSpan="2" CornerRadius="10" />
+                    <Image Source="videocall.png"  Grid.Row="0" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,4,0,0"/>
+                    <Label Text="Video Call" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#380D83" FontAttributes="Bold" Margin="2" />
+                    <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" Grid.RowSpan="2" ClickCommand="{Binding acceptTeacherTuition}" ClickCommandParameter="2" />
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.RowSpan="3" BackgroundColor="#50000000" IsVisible="{Binding showReply}">
+            <Button BackgroundColor="Transparent" Command="{Binding closeReplyPopUp}"/>
+
+            <Grid  Margin="20,50,20,50">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <material:MaterialCard BackgroundColor="White" Grid.RowSpan="2" Elevation="10"/>
+                    <Image  Grid.Row="0" Source="imagecross.png" HorizontalOptions="End" VerticalOptions="Center"  Margin="5,5,5,5"></Image>
+                    <material:MaterialButton BackgroundColor="Transparent" Grid.Row="0"  HorizontalOptions="End" VerticalOptions="Center" Command="{Binding closeReplyPopUp}" />
+                    <Image Grid.Row="1"  Source="" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+
+        <Grid Grid.RowSpan="2" BackgroundColor="#50000000" IsVisible="{Binding showImg}">
+            <Button BackgroundColor="Transparent" Command="{Binding closeImgPopUp}"/>
+
+            <Grid  Margin="20,50,20,50">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <material:MaterialCard BackgroundColor="Black" Grid.RowSpan="2" Elevation="10"/>
+                    <Image  Grid.Row="0" Source="imagecross.png" HorizontalOptions="End" VerticalOptions="Center"  Margin="5,5,5,5"></Image>
+                    <material:MaterialButton BackgroundColor="Transparent" Grid.Row="0"  HorizontalOptions="End" VerticalOptions="Center" Command="{Binding closeImgPopUp}" />
+                    <Image Grid.Row="1"  Source="{Binding post.imgSrc}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                </Grid>
+
+            </Grid>
+        </Grid>
+
     </Grid>
+    
+
 
 
 </ContentPage>
