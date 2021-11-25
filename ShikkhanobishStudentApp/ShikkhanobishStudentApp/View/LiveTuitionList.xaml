@@ -107,7 +107,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="1"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="120"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -127,19 +127,18 @@
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
 
-                <ListView Grid.Column="1" RowHeight="30" ItemsSource="{Binding teacherNameList}" >
+                <ListView Grid.Column="1" RowHeight="35" ItemsSource="{Binding teacherNameList}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="60"/>
-                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="1"/>
+                                        <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
                                     <Label Text="{Binding name}"  Grid.ColumnSpan="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="11"/>
-                                    <Label Text="Online" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" FontSize="9" FontAttributes="Bold" TextColor="Green"/>
-                                    <material:MaterialButton Text="View"  Grid.Column="1" PressedBackgroundColor="#30662DDD" ButtonType="Text" FontSize="8" BackgroundColor="Transparent"  Command="{Binding Source={x:Reference LiveTuition}, Path=BindingContext.ViewTeacherInfo}" CommandParameter="{Binding .}"/>
+                                    <material:MaterialButton Text="View Info"  Grid.Column="2" PressedBackgroundColor="#30662DDD" ButtonType="Text" FontSize="8" BackgroundColor="Transparent"  Command="{Binding Source={x:Reference LiveTuition}, Path=BindingContext.ViewTeacherInfo}" CommandParameter="{Binding .}"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

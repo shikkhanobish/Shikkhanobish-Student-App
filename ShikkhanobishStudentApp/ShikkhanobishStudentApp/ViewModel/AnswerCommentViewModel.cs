@@ -17,9 +17,10 @@ namespace ShikkhanobishStudentApp.ViewModel
     {
      
         List<Teacher> teacherList = new List<Teacher>();
+        public string thisPostID { get; set; }
         public AnswerCommentViewModel(string pid)
         {
-           
+            thisPostID = pid;
             GetPost(pid);
             
         }
@@ -48,6 +49,16 @@ namespace ShikkhanobishStudentApp.ViewModel
                 await GetAnswer(plist);
                
             }
+        }
+        private async Task PerformupdateEdit()
+        {
+            showEdit = false;
+            using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Updateing Answer. Please Wait..."))
+            {
+                await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerWithID".PostJsonAsync(new { answerID = answer.answerID, name = answer.name, answer = answer.answer, userID = answer.userID, userType = answer.userType, imgSrc = answer.imgSrc, review = answer.review, postID = answer.postID }).ReceiveJson<Answer>();
+                await GetPost(thisPostID);
+            }
+                
         }
         public async Task GetAnswer(Post plist)
         {
@@ -300,6 +311,22 @@ namespace ShikkhanobishStudentApp.ViewModel
             }
         }
 
+        private Command updateEdit1;
+
+        public ICommand updateEdit
+        {
+            get
+            {
+                if (updateEdit1 == null)
+                {
+                    updateEdit1 = new Command(async => PerformupdateEdit());
+                }
+
+                return updateEdit1;
+            }
+        }
+
+        
 
         #endregion
 

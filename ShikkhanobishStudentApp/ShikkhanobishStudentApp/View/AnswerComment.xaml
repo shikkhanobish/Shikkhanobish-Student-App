@@ -3,6 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+              xmlns:sharedTransitions="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions" 
+             sharedTransitions:SharedTransitionNavigationPage.TransitionSelectedGroup="gg"
+             sharedTransitions:SharedTransitionNavigationPage.BackgroundAnimation="SlideFromRight"
+             
              x:Name="ansComment"
              x:Class="ShikkhanobishStudentApp.View.AnswerComment">
 
@@ -215,7 +219,7 @@
                             </Grid>
                             
                         </Grid>
-                        <material:MaterialButton Grid.Row="2"  Text="Update" HorizontalOptions="End" VerticalOptions="Center"  FontSize="9" ButtonType="Text" FontAttributes="Bold"  />
+                        <material:MaterialButton Grid.Row="2"  Text="Update" HorizontalOptions="End" VerticalOptions="Center"  FontSize="9" ButtonType="Text" FontAttributes="Bold" Command="{Binding updateEdit}" />
                     </Grid>
                     
 

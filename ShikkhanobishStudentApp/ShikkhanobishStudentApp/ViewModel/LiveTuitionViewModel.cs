@@ -159,6 +159,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             }
             return pureActive;
         }
+
         private void PerformpopuotTeacherCount()
         {
             IsnumberofTeacherShow = false;
