@@ -138,8 +138,8 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-        
-        <Grid Grid.RowSpan="2" BackgroundColor="#50000000" IsVisible="{Binding showTag}">
+
+            <Grid Grid.RowSpan="2" BackgroundColor="#50000000" IsVisible="{Binding showTag}">
             <Button BackgroundColor="Transparent" Command="{Binding closeTagPopUp}"/>
             
             <Grid  Margin="40,60,40,60">

@@ -102,7 +102,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswer".PostJsonAsync(new { answerID = StaticPageToPassData.GenarateIDString(50), name = StaticPageToPassData.thisStudentInfo.name, answer = newComment, userID = StaticPageToPassData.thisStudentInfo.studentID, userType = 1, imgSrc = "n/a", review = 0, postID = thisPostID, answerDate = "n/a" }).ReceiveJson<Response>();
                 await GetPost(thisPostID);
             }
-                
+            newComment = "";
         }
         private async Task PerformupdateEdit()
         {
@@ -112,7 +112,16 @@ namespace ShikkhanobishStudentApp.ViewModel
                 var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerWithID".PostJsonAsync(new { answerID = answer.answerID, name = answer.name, answer = answer.answer, userID = answer.userID, userType = answer.userType, imgSrc = answer.imgSrc, review = answer.review, postID = answer.postID, answerDate = answer.answerDate }).ReceiveJson<Response>();
                 await GetPost(thisPostID);
             }
-
+         
+        }
+        private async Task PerformdeleteAnswer()
+        {
+            showEdit = false;
+            using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Deleting Answer. Please Wait..."))
+            {
+                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerWithID".PostJsonAsync(new { answerID=answer.answerID }).ReceiveJson<Response>();
+                await GetPost(thisPostID);
+            }
         }
         public async Task PerformshowEditPopup(Answer ans)
         {
@@ -358,9 +367,22 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public string newComment { get => newComment1; set => SetProperty(ref newComment1, value); }
 
+        
+        
+        private Command deleteAnswer1;
 
+        public ICommand deleteAnswer
+        {
+            get
+            {
+                if (deleteAnswer1 == null)
+                {
+                    deleteAnswer1 = new Command(async=> PerformdeleteAnswer());
+                }
 
-
+                return deleteAnswer1;
+            }
+        }
         #endregion
 
     }

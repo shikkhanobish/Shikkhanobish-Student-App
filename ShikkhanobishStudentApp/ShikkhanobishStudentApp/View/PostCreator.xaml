@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Class="ShikkhanobishStudentApp.View.PostCreator">
+
+    <ContentPage.BindingContext>
+        <viewmodel:PostCreatorViewModel/>
+    </ContentPage.BindingContext>
+        
+    <Grid BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="200"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="15"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Text="Ask your Question" TextColor="Black" FontSize="20" FontAttributes="Bold"></Label>
+            <material:MaterialButton Grid.Row="2" HorizontalOptions="Start" VerticalOptions="Center" CornerRadius="10" Text="Select Subject" Command="{Binding showTagList}" FontSize="12" FontAttributes="Bold" TextColor="#0A85F5" BackgroundColor="#100A85F5"></material:MaterialButton>
+          
+            <Label Grid.Row="4" Text="Write Here" ></Label>
+            <material:MaterialCard Grid.Row="5" CornerRadius="10" BackgroundColor="#10000000"></material:MaterialCard>
+            <Editor Grid.Row="5" TextColor="Black" FontSize="13"></Editor>
+            <material:MaterialButton Grid.Row="6" HorizontalOptions="Start" VerticalOptions="Center" CornerRadius="10" Text="Add Image " FontSize="10" FontAttributes="Bold" TextColor="#0A85F5" BackgroundColor="#100A85F5" ></material:MaterialButton>
+            <material:MaterialButton Grid.Row="8"  HorizontalOptions="End" VerticalOptions="Center" CornerRadius="10" Text="Post " FontSize="12" FontAttributes="Bold" TextColor="White" BackgroundColor="#24F50A"></material:MaterialButton>
+
+        </Grid>
+        
+        <Grid Grid.RowSpan="3" Grid.ColumnSpan="3" BackgroundColor="#50000000" IsVisible="{Binding showTag}">
+            <Button BackgroundColor="Transparent" Command="{Binding closeTagPopUp}"/>
+
+            <Grid  Margin="40,60,40,60">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <material:MaterialCard BackgroundColor="White" Grid.RowSpan="3" Elevation="10"/>
+                <material:MaterialButton  Text="Close" HorizontalOptions="End" VerticalOptions="Start" ButtonType="Text" TextColor="Red"  FontSize="9" Command="{Binding closeTagPopUp}"/>
+                <Label Text="Select your prefered tags:" Grid.Row="0" TextColor="Black" HorizontalOptions="Center" VerticalOptions="End" FontAttributes="Bold" FontSize="12"/>
+                <Grid Grid.Row="1">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Select Tags " Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Margin="10,0,0,0"/>
+                        <material:MaterialCard BackgroundColor="#FBFBFB" Grid.Row="1" />
+
+                        <ListView Grid.Row="1" ItemsSource="{Binding popUptagList}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="correctreview.png" Grid.Column="0" IsVisible="{Binding popUpSelected}" Margin="5"/>
+                                            <Label Text="{Binding tagName}" Grid.Column="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</ContentPage>

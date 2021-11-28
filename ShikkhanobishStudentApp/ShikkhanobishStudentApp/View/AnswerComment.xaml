@@ -111,7 +111,7 @@
                                                 <ColumnDefinition Width="190"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
 
-                                            <Image  Source="{Binding riviewImg}" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" IsAnimationPlaying="True" ></Image>
+                                            
                                             <Label Grid.Column="1" Grid.ColumnSpan="3" HorizontalOptions="Start" VerticalOptions="Center" >
                                                 <Label.FormattedText>
                                                     <FormattedString>
@@ -132,16 +132,8 @@
                                             <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Gray" Text="{Binding answer}"></Label>
 
                                         </Grid>
-                                        <Grid Grid.Row="2" Grid.Column="1">
-                                            <Grid.ColumnDefinitions>
-                                             
-                                                <ColumnDefinition Width="150"></ColumnDefinition>
-                                                <ColumnDefinition Width="120"></ColumnDefinition>
-                                                <ColumnDefinition Width="100"></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
-                                            <material:MaterialButton Grid.Column="1" Text="TeacherInfo" IsVisible="{Binding tinfoVisible}" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="#1006EE98"  FontSize="9" TextColor="Black" FontAttributes="Bold" Command="{Binding Source={x:Reference ansComment}, Path=BindingContext.showTinfoPopUp}" CommandParameter="{Binding .}" />
-                                            <material:MaterialButton Grid.Column="2" Text="Reply" HorizontalOptions="Start" VerticalOptions="Center"  BackgroundColor="#10B80885" FontSize="9" TextColor="Black" FontAttributes="Bold" Command="{Binding Source={x:Reference ansComment}, Path=BindingContext.showReplyPopUp}" CommandParameter="{Binding .}"/>
-                                        </Grid>
+                                        <material:MaterialButton Grid.Row="2" Grid.Column="1" Text="TeacherInfo" IsVisible="{Binding tinfoVisible}" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="#1006EE98"  FontSize="9" TextColor="Black" FontAttributes="Bold" Command="{Binding Source={x:Reference ansComment}, Path=BindingContext.showTinfoPopUp}" CommandParameter="{Binding .}" />
+
                                     </Grid>
 
                                 </Grid>
@@ -186,7 +178,7 @@
                   
                     <Label Grid.Row="0" Grid.ColumnSpan="2" HorizontalOptions="Start" FontAttributes="Bold" VerticalOptions="Center" Text="Comment" FontSize="15" TextColor="Black"></Label>
                     <Frame BackgroundColor="Transparent" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" CornerRadius="20"/>
-                    <Entry Grid.Row="2" Grid.Column="0" FontSize="12" TextColor="Black" Text="{Binding newComment}" Margin="5,0,5,0"></Entry>
+                    <Entry Grid.Row="2" Grid.Column="0" FontSize="12" TextColor="Black" Text="{Binding newComment}"  Margin="5,0,5,0"></Entry>
                     <Image Grid.Row="2" Grid.Column="1" Source="sendreply.png"></Image>
                     <material:MaterialCard Grid.Column="1" Grid.Row="2" BackgroundColor="Transparent" IsClickable="True" ClickCommand="{Binding sendAnswer}"/>
                 </Grid>
@@ -249,7 +241,7 @@
                                     </Label.FormattedText>
                                 </Label>
                                 
-                                <material:MaterialButton Grid.Column="2" FontAttributes="Bold" TextColor="Red" Text="Delete" ButtonType="Text"  FontSize="10"></material:MaterialButton>
+                                <material:MaterialButton Grid.Column="2" FontAttributes="Bold" TextColor="Crimson" Text="Delete" Padding="35,0,0,0" BackgroundColor="Transparent" FontSize="10"  Command="{Binding deleteAnswer}"></material:MaterialButton>
 
                             </Grid>
                             <Grid Grid.Row="1" Grid.Column="1">
