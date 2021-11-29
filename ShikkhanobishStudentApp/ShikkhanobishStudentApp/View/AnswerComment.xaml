@@ -70,7 +70,7 @@
 
                         <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center"  Text="{Binding post.post}" FontSize="12" ></Label>
                         <Image Grid.Row="1" Source="{Binding post.imgSrc}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
-                        <material:MaterialButton BackgroundColor="Transparent" Grid.Row="1"   Command="{Binding showImagePopUp}"/>
+                        <material:MaterialButton BackgroundColor="Transparent" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"   Command="{Binding showImagePopUp}"/>
 
                     </Grid>
                 </Grid>

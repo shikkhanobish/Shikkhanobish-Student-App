@@ -21,7 +21,6 @@ namespace ShikkhanobishStudentApp.Model
         public string tagName { get; set; }
         public string ansIconR { get; set; }
         public string ansIconN { get; set; }
-        public bool imgButtonEnable { get; set; }
         public string Response { get; set; }
         
     }

@@ -24,34 +24,20 @@ namespace ShikkhanobishStudentApp.ViewModel
         #region Methods
         public async Task BindSelectedTagList()
         {
-            //userTmTg = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getUserTimelineTagWithUserID".PostJsonAsync(new { userID = 10000152 }).ReceiveJson<List<UserTimelineTag>>();
-            //List<Tag> updatedTagList = new List<Tag>();
-
-            //foreach (var item in tlist)
-            //{
-            //    item.popUpSelected = false;
-            //    foreach (var item2 in userTmTg)
-            //    {
-            //        if (item.tagID == item2.tagID)
-            //        {
-            //            item.popUpSelected = true;
-            //        }
-            //    }
-            //    updatedTagList.Add(item);
-
-            //}
-            //if (popUptagList != null)
-            //{
-            //    popUptagList.Clear();
-            //}
-            //List<Tag> SortedList = new List<Tag>();
-            //SortedList = updatedTagList.OrderBy(x => x.popUpSelected).ToList();
-            //SortedList.Reverse();
-            //popUptagList = SortedList;
+            
             tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
-
+           
             popUptagList = tlist;
 
+        }
+
+  
+        public async Task PerformselectTagCmd(Tag tag)
+        {
+
+            tag.popUpSelected = true;
+            selectedTag = tag;
+            showTag = false;
         }
 
         public async Task PerformshowTagList()
@@ -64,9 +50,15 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             showTag = false;
         }
-       
-    
-        
+
+        private async Task PerformsendPost()
+        {
+            var res= await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setPost".PostJsonAsync(new { postID = StaticPageToPassData.GenarateIDString(15), name = StaticPageToPassData.thisStudentInfo.name, post=newPost, postDate="n/a", userID= StaticPageToPassData.thisStudentInfo.studentID, userType=1, imgSrc="n/a", postTitle= titleText, noOfComment=0, tagID =selectedTag.tagID,}).ReceiveJson<Response>();
+            selectedTag.tagName = "";
+
+            Application.Current.MainPage.Navigation.PopAsync();
+        }
+
 
 
         #endregion
@@ -82,7 +74,20 @@ namespace ShikkhanobishStudentApp.ViewModel
         private List<Tag> popUptagList1;
         public List<Tag> popUptagList { get => popUptagList1; set => SetProperty(ref popUptagList1, value); }
 
+        public ICommand selectTagCmd
+        {
+            get
+            {
+                return new Command<Tag>(async (t) =>
+                {
 
+                    await PerformselectTagCmd(t);
+                });
+
+            }
+
+        }
+        
         public ICommand showTagList
         {
             get
@@ -109,6 +114,35 @@ namespace ShikkhanobishStudentApp.ViewModel
                 return closeTagPopUp1;
             }
         }
+
+        private Tag selectedTag1;
+
+        public Tag selectedTag { get => selectedTag1; set => SetProperty(ref selectedTag1, value); }
+
+        
+        private Command sendPost1;
+
+        public ICommand sendPost
+        {
+            get
+            {
+                if (sendPost1 == null)
+                {
+                    sendPost1 = new Command(async=> PerformsendPost());
+                }
+
+                return sendPost1;
+            }
+        }
+
+        private string newPost1;
+
+        public string newPost { get => newPost1; set => SetProperty(ref newPost1, value); }
+
+        private string titleText1;
+
+        public string titleText { get => titleText1; set => SetProperty(ref titleText1, value); }
+
 
         #endregion
     }

@@ -36,7 +36,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
             {
-                userTmTg = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getUserTimelineTagWithUserID".PostJsonAsync(new { userID = 10000152 }).ReceiveJson<List<UserTimelineTag>>();
+                userTmTg = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getUserTimelineTagWithUserID".PostJsonAsync(new { userID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<List<UserTimelineTag>>();
                 plist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPost".GetJsonAsync<List<Post>>();
                 tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
                 anslist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswer".GetJsonAsync<List<Answer>>();
@@ -48,15 +48,12 @@ namespace ShikkhanobishStudentApp.ViewModel
 
                 foreach (var post in plist)
                 {
-                    if (post.imgSrc == "" || post.imgSrc == null)
-                    {
-                        post.imgButtonEnable = false;
-                    }
-                    else if (post.imgSrc != "" || post.imgSrc != null)
-                    {
-                        post.imgButtonEnable = true;
-                    }
 
+                    if (post.post.Length >=150)
+                    {
+                        dotDotDot = ".........";
+                        post.post.Split().Take(10);
+                    }
                     foreach (var ans in anslist)
                     {
                         if (post.postID == ans.postID)
@@ -72,6 +69,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                                 post.numOFCmtN++;
                                 post.ansIconN = "noanswericon.png";
                             }
+                            
 
                         }
 
@@ -87,9 +85,10 @@ namespace ShikkhanobishStudentApp.ViewModel
 
                                 updatedPostList.Add(post);
                             }
-                        }
+                                                                                                                                                        }
 
                     }
+                    
                 }
                 GetTagChip();
                 postList = updatedPostList;
@@ -189,7 +188,7 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public async Task BindSelectedTagList()
         {
-            userTmTg = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getUserTimelineTagWithUserID".PostJsonAsync(new { userID = 10000152 }).ReceiveJson<List<UserTimelineTag>>();
+            userTmTg = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getUserTimelineTagWithUserID".PostJsonAsync(new { userID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<List<UserTimelineTag>>();
             List<Tag> updatedTagList = new List<Tag>();
 
             foreach (var item in tlist)
@@ -228,14 +227,14 @@ namespace ShikkhanobishStudentApp.ViewModel
                     {
                         var thisustt = new UserTimelineTag();
                         thisustt.tagID = t.tagID;
-                        thisustt.userID = 10000152;  //StaticPageToPassData.thisStudentInfo.studentID;
+                        thisustt.userID = StaticPageToPassData.thisStudentInfo.studentID;  //StaticPageToPassData.thisStudentInfo.studentID;
                         await DeleteUserTmTg(thisustt);
                     }
                     if(!t.popUpSelected)
                     {
                         var thisustt = new UserTimelineTag();
                         thisustt.tagID = t.tagID;
-                        thisustt.userID = 10000152;  //StaticPageToPassData.thisStudentInfo.studentID;
+                        thisustt.userID = StaticPageToPassData.thisStudentInfo.studentID;  //StaticPageToPassData.thisStudentInfo.studentID;
                         await AddUserTmTg(thisustt);
                     }
                     isTagChanged = true;
@@ -338,9 +337,17 @@ namespace ShikkhanobishStudentApp.ViewModel
         }
 
 
+
+
+
+
         #endregion
 
         #region Bindings
+
+        private string dotDotDot1;
+
+        public string dotDotDot { get => dotDotDot1; set => SetProperty(ref dotDotDot1, value); }
 
         private Post post1;
 
@@ -428,10 +435,19 @@ namespace ShikkhanobishStudentApp.ViewModel
                 return closeImgPopUp1;
             }
         }
+        private ICommand goToPostCreator1;
 
+        public ICommand goToPostCreator
+        {
+            get
+            {
+                return new Command<Post>((thisPost) =>
+                {
+                    Application.Current.MainPage.Navigation.PushAsync(new PostCreator());
+                });
+            }
+        }
 
-
-       
         #endregion
     }
 

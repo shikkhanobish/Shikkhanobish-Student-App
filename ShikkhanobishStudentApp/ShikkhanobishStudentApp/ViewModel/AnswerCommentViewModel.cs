@@ -19,11 +19,13 @@ namespace ShikkhanobishStudentApp.ViewModel
         List<Teacher> teacherList = new List<Teacher>();
         List<Answer> alist = new List<Answer>();
         public string thisPostID { get; set; }
+
         public AnswerCommentViewModel(string pid)
         {
             thisPostID = pid;
             GetPost(pid);
-            
+            showImg = false;
+            //imgButtonEnable = false;
         }
 
         #region Methods
@@ -34,7 +36,6 @@ namespace ShikkhanobishStudentApp.ViewModel
                 var plist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPostWithID".PostJsonAsync(new { postID = pid }).ReceiveJson<Post>();
                 var tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
                 teacherList = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getAllTeacher".PostJsonAsync(new { }).ReceiveJson<List<Teacher>>();
-
 
 
                 foreach (var item in tlist)
@@ -60,6 +61,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             List<Answer> updatedAnsList = new List<Answer>();
             foreach(var item in alist)
             {
+
                 item.riviewImg = "";
                 if (plist.postID==item.postID)
                 {
@@ -86,6 +88,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 {
                     item.tinfoVisible = false;
                 }
+
                 
             }
             List<Answer> SortedList = new List<Answer>();
@@ -154,13 +157,24 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public async Task PerformshowImgPopUp()
         {
-            showImg = true;
-    
+            if (post.imgSrc == "" || post.imgSrc == null)
+            {
+                //imgButtonEnable = false;
+                showImg = false;
+               
+            }
+            else if (post.imgSrc != "" || post.imgSrc != null)
+            {
+                //imgButtonEnable = true;
+                showImg = true;
+                
+            }
         }
 
         public async Task PerformcloseImgPopUp()
         {
             showImg = false;
+
         }
 
       
@@ -204,6 +218,9 @@ namespace ShikkhanobishStudentApp.ViewModel
         private bool showImg1;
         public bool showImg { get => showImg1; set => SetProperty(ref showImg1, value); }
 
+        
+        private bool imgButtonEnable1;
+        public bool imgButtonEnable { get => imgButtonEnable1; set => SetProperty(ref imgButtonEnable1, value); }
         //Edit
         private ICommand showEditPopUp1;
 
