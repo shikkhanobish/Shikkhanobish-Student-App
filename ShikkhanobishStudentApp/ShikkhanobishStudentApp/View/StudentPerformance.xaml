@@ -1,9 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
-             x:Class="ShikkhanobishStudentApp.View.TestUI">
-    <Grid>
+             x:Class="ShikkhanobishStudentApp.View.StudentPerformance">
+    
+    <ContentPage.BindingContext>
+        <viewmodel:StudentPerformanceViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid BackgroundColor="White">
         <Grid.RowDefinitions >
             <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -25,34 +31,34 @@
                 <RowDefinition Height="20"></RowDefinition>
                 <RowDefinition Height="200"></RowDefinition>
                 <RowDefinition Height="100"></RowDefinition>
-                <RowDefinition Height="200"></RowDefinition>
+                <RowDefinition Height="300"></RowDefinition>
             </Grid.RowDefinitions>
-            
+
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Text="Name" HorizontalOptions="Start" VerticalOptions="Center"></Label>
-                <Label Grid.Column="1" Text="Subscibed" HorizontalOptions="End" VerticalOptions="Center"></Label>
+                <Label Grid.Column="0" Text="{Binding sName}" HorizontalOptions="Start" VerticalOptions="Center" TextColor="Black" FontSize="14" FontAttributes="Bold"></Label>
+                <Label Grid.Column="1" Text="Subscibed" TextColor="#0D94D5" HorizontalOptions="End" VerticalOptions="Center"></Label>
             </Grid>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Text="Class" HorizontalOptions="Start" VerticalOptions="Center"></Label>
-                <Label Grid.Column="1" Text="Group" HorizontalOptions="Start" VerticalOptions="Center"></Label>
+                <Label Grid.Column="0" Text="{Binding className}" FontSize="14" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"></Label>
+                <Label Grid.Column="1" Text="Group" FontSize="14" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"></Label>
             </Grid>
 
-            <Grid Grid.Row="2" Margin="10,0,10,0">
+            <Grid Grid.Row="2" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="15"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
-                    
+
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Text="Title" ></Label>
+                <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" Padding="5,0,0,0" Text="Title" TextColor="#660DD5" FontSize="14"></Label>
                 <material:MaterialCard Grid.Row="1" CornerRadius="10"/>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -65,24 +71,20 @@
                             <RowDefinition Height="30"></RowDefinition>
                             <RowDefinition Height="30"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Text="SName" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                        <Label Grid.Row="0" Text="SName" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"></Label>
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="20"></ColumnDefinition>
                                 <ColumnDefinition Width="20"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="1" Text="TA" HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                            <Label Grid.Column="2" Text="AC" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                            <Label Grid.Column="1" Text="30" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                            <Label Grid.Column="2" Text="80" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"></Label>
                         </Grid>
                     </Grid>
-                    <Label Grid.Column="1" Text="=" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                    <Label Grid.Column="1" Text="=" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"></Label>
 
-                    <Label Grid.Column="2" Text="=" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                    <Label Grid.Column="2" Text="=" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"></Label>
                 </Grid>
-                
-                
-                
-
             </Grid>
 
             <Grid Grid.Row="3" >
@@ -90,15 +92,15 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Text="B.." HorizontalOptions="Center" VerticalOptions="Center"></Label>
-                <Label Grid.Column="1" Text="Sub" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+                <Label Grid.Column="0" Text="Best Subject : " TextColor="Black" HorizontalOptions="End" VerticalOptions="Center"></Label>
+                <Label Grid.Column="1" Text="Physics" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"></Label>
 
             </Grid>
 
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
@@ -106,8 +108,8 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Text="Title"  HorizontalOptions="Start" VerticalOptions="Center"></Label>
-                    
+                    <Label Grid.Row="0" Text="Title" Padding="5,0,0,0" TextColor="#660DD5" FontSize="14" HorizontalOptions="Start" VerticalOptions="Center"></Label>
+
                     <material:MaterialCard Grid.Row="1" CornerRadius="10" BackgroundColor="#10000000"/>
                     <Grid Grid.Row="1" >
 
@@ -123,15 +125,21 @@
                     <material:MaterialCard Grid.Row="1" CornerRadius="10" BackgroundColor="#10000000"/>
                     <Grid Grid.Row="1" >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="20"></RowDefinition>
+                            <RowDefinition Height="25"></RowDefinition>
+                            <RowDefinition Height="1"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Label Grid.Column="0" Text="Predict" HorizontalOptions="Start" VerticalOptions="Center" Padding="5,0,0,0"></Label>
+                        <Label Grid.Column="0" Text="Predict" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center" Padding="10,5,0,0"></Label>
+                        
+                        <Frame Grid.Row="1" BackgroundColor="Black"></Frame>
+                
                     </Grid>
                 </Grid>
-            
+
             </Grid>
 
+
+            <material:MaterialCard BackgroundColor="White" Grid.Row="5" />
             <Grid Grid.Row="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
@@ -139,57 +147,47 @@
                     <RowDefinition Height="100"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Text="Line Chart" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold"></Label>
-                <Label Grid.Row="1" Text="Title" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12"></Label>
+                <Label Grid.Row="1" Text="Title" Padding="5,0,0,0" TextColor="#660DD5"  HorizontalOptions="Start" VerticalOptions="Center" FontSize="14"></Label>
 
             </Grid>
-            
-            <Grid Grid.Row="6">
+            <material:MaterialCard Grid.Row="6" Background="white"/>
+            <Grid Grid.Row="6" Margin="0,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition Height="20"></RowDefinition>
-                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Text="Bar Chart" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold"></Label>
-                <Label Grid.Row="1" Text="Title" HorizontalOptions="Start" VerticalOptions="Center" FontSize="12"></Label>
+                <Label Grid.Row="1" Text="Title" Padding="5,0,0,0" TextColor="#660DD5" HorizontalOptions="Start" VerticalOptions="Center"  FontSize="14"></Label>
 
                 <material:MaterialCard BackgroundColor="#FBFBFB" Grid.Row="2" />
-                <ListView Grid.Row="2" >
+                <ListView Grid.Row="2" ItemsSource="{Binding barChartList}" SeparatorColor="Black" RowHeight="100" Margin="10,0,10,0">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="20"></RowDefinition>
-                                        <RowDefinition Height="40"></RowDefinition>
-                                        <RowDefinition Height="20"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                  
                                     </Grid.RowDefinitions>
                                     <Grid Grid.Row="0">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="30"></ColumnDefinition>
-                                            <ColumnDefinition Width="50"></ColumnDefinition>
-                                            <ColumnDefinition Width="30"></ColumnDefinition>
-                                            <ColumnDefinition Width="30"></ColumnDefinition>
-                                            <ColumnDefinition Width="30"></ColumnDefinition>
+                                            <ColumnDefinition Width="220"></ColumnDefinition>
+                                            <ColumnDefinition Width="40"></ColumnDefinition>
+                                            <ColumnDefinition Width="40"></ColumnDefinition>
+                                            <ColumnDefinition Width="40"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Text="Sub1" HorizontalOptions="Start" VerticalOptions="Center"></Label>
-                                        <Label Grid.Column="2" Text="TA" HorizontalOptions="Start" VerticalOptions="Center"></Label>
-                                        <Label Grid.Column="3" Text="Sp" HorizontalOptions="Start" VerticalOptions="Center"></Label>
-                                        <Label Grid.Column="4" Text="Acc" HorizontalOptions="Start" VerticalOptions="Center"></Label>
+                                        <Label Grid.Column="0" Text="{Binding tagName}" Padding="5,0,0,0" HorizontalOptions="Start" VerticalOptions="Center"></Label>
+                                        <Label Grid.Column="1" Text="30" HorizontalOptions="Start" VerticalOptions="Center"></Label>
+                                        <Label Grid.Column="2" Text="2" HorizontalOptions="Start" VerticalOptions="Center"></Label>
+                                        <Label Grid.Column="3" Text="80" HorizontalOptions="Start" VerticalOptions="Center"></Label>
                                     </Grid>
-                                    <Grid Grid.Row="2">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="20"></ColumnDefinition>
-                                            <ColumnDefinition Width="20"></ColumnDefinition>
-                                            <ColumnDefinition Width="20"></ColumnDefinition>
-                                            <ColumnDefinition Width="20"></ColumnDefinition>
-                                            <ColumnDefinition Width="20"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Text="c1" HorizontalOptions="Start" VerticalOptions="Center"></Label>
-                                        <Label Grid.Column="1" Text="c2" HorizontalOptions="Start" VerticalOptions="Center"></Label>
-                                        <Label Grid.Column="2" Text="c3" HorizontalOptions="Start" VerticalOptions="Center"></Label>
-                                        <Label Grid.Column="3" Text="c4" HorizontalOptions="Start" VerticalOptions="Center"></Label>
-                                        <Label Grid.Column="4" Text="c5" HorizontalOptions="Start" VerticalOptions="Center"></Label>
+                                    <material:MaterialCard Grid.Row="1" BackgroundColor="White"/>
+                                    <Grid Grid.Row="1">
+
                                     </Grid>
+                                    
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
@@ -199,5 +197,5 @@
         </Grid>
 
     </Grid>
-    
+
 </ContentPage>

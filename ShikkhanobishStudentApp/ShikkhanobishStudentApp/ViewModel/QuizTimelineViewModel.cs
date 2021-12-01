@@ -26,7 +26,7 @@ namespace ShikkhanobishStudentApp.ViewModel
 
             showTag = false;
             showImg = false;
-      
+           
             GetPostList();
         }
 
@@ -44,16 +44,26 @@ namespace ShikkhanobishStudentApp.ViewModel
 
 
                 List<Post> updatedPostList = new List<Post>();
-
+               
 
                 foreach (var post in plist)
                 {
-
-                    if (post.post.Length >=150)
+                    string postString = "";
+                    for (int i = 0; i < post.post.Length; i++)
                     {
-                        dotDotDot = ".........";
-                        post.post.Split().Take(10);
+                        postString = postString + post.post[i].ToString();
+                       
+                        if (i==150)
+                        {
+                            post.dotDotDot = " ....See more";
+                            break;
+                            
+                        }
+
                     }
+                  
+                    post.post = postString;
+
                     foreach (var ans in anslist)
                     {
                         if (post.postID == ans.postID)
@@ -345,9 +355,9 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         #region Bindings
 
-        private string dotDotDot1;
+        //private string dotDotDot1;
 
-        public string dotDotDot { get => dotDotDot1; set => SetProperty(ref dotDotDot1, value); }
+        //public string dotDotDot { get => dotDotDot1; set => SetProperty(ref dotDotDot1, value); }
 
         private Post post1;
 

@@ -39,7 +39,7 @@
             <Label Grid.Row="3" HorizontalOptions="End" VerticalOptions="Center"  Padding="10,5,10,5" >
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="Subject : " FontSize="12"/>
+                        <Span Text="{Binding SubTxt}" FontSize="12"/>
                         <Span Text="{Binding selectedTag.tagName}" TextColor="#F50A58"  FontSize="12" FontAttributes="Bold"/>
                     </FormattedString>
                 </Label.FormattedText>

@@ -161,7 +161,6 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 //imgButtonEnable = false;
                 showImg = false;
-               
             }
             else if (post.imgSrc != "" || post.imgSrc != null)
             {

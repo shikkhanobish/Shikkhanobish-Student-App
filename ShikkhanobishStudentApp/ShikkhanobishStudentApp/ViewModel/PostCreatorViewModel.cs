@@ -37,6 +37,7 @@ namespace ShikkhanobishStudentApp.ViewModel
 
             tag.popUpSelected = true;
             selectedTag = tag;
+            SubTxt = "Subject : ";
             showTag = false;
         }
 
@@ -55,7 +56,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             var res= await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setPost".PostJsonAsync(new { postID = StaticPageToPassData.GenarateIDString(15), name = StaticPageToPassData.thisStudentInfo.name, post=newPost, postDate="n/a", userID= StaticPageToPassData.thisStudentInfo.studentID, userType=1, imgSrc="n/a", postTitle= titleText, noOfComment=0, tagID =selectedTag.tagID,}).ReceiveJson<Response>();
             selectedTag.tagName = "";
-
+            
             Application.Current.MainPage.Navigation.PopAsync();
         }
 
@@ -142,6 +143,10 @@ namespace ShikkhanobishStudentApp.ViewModel
         private string titleText1;
 
         public string titleText { get => titleText1; set => SetProperty(ref titleText1, value); }
+
+        private string subTxt;
+
+        public string SubTxt { get => subTxt; set => SetProperty(ref subTxt, value); }
 
 
         #endregion
