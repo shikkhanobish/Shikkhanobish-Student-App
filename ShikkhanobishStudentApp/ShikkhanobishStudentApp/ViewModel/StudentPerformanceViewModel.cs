@@ -11,17 +11,26 @@ namespace ShikkhanobishStudentApp.ViewModel
 {
     public class StudentPerformanceViewModel: BaseViewModel, INotifyPropertyChanged
     {
+        List<Tag> tlist = new List<Tag>();
+        List<PerformancePrediction> prdFinalList = new List<PerformancePrediction>();
+
         ClassChoice classChoice = new ClassChoice();
         public StudentPerformanceViewModel()
         {
-            
-            GetBarList();
+            getAllInfo();
+        }
+
+        public async Task getAllInfo()
+        {
+            await GetBarList();
+            await GetPredictionList();
         }
 
         #region Methods
+       
         public async Task GetBarList()
         {
-            var tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
+            tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
             barChartList = tlist;
             var classList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getClassInfo".GetJsonAsync<List<ClassInfo>>();
             var classChoiceobj = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getClassChoiceWithID".PostJsonAsync(new { studentID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<ClassChoice>();
@@ -38,11 +47,19 @@ namespace ShikkhanobishStudentApp.ViewModel
             sName = StaticPageToPassData.thisStudentInfo.name;
           
         }
-
-        public void GetInfo()
+        public async Task GetPredictionList()
         {
-
+            List<PerformancePrediction> prdList = new List<PerformancePrediction>();
+           foreach(var item in tlist)
+            {
+                PerformancePrediction obj = new PerformancePrediction();
+                obj.subject = item.tagName;
+                obj.predictNumber = 50;
+                prdList.Add(obj);
+            }
+            predictionList = prdList;
         }
+
         #endregion
 
         #region Binding
@@ -58,6 +75,9 @@ namespace ShikkhanobishStudentApp.ViewModel
         private string className1;
 
         public string className { get => className1; set => SetProperty(ref className1, value); }
+
+        private List<PerformancePrediction> predictionList1;
+        public List<PerformancePrediction> predictionList { get => predictionList1; set => SetProperty(ref predictionList1, value); }
         #endregion
 
     }
