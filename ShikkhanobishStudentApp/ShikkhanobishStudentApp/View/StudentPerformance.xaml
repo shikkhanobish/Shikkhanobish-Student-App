@@ -176,29 +176,25 @@
                     </Grid.RowDefinitions>
                     <material:MaterialCard BackgroundColor="#FBFBFB" Grid.RowSpan="3" />
                     <Label Grid.Row="0" Text="Predict" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center" FontSize="12" FontAttributes="Bold"></Label>
-                    
 
-                    
-                    <Grid Grid.Row="1">
-                        <ListView ItemsSource="{Binding predictionList}" SeparatorColor="Black" RowHeight="20" Margin="5,0,5,0">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="70"></ColumnDefinition>
-                                                <ColumnDefinition Width="25"></ColumnDefinition>
+                    <ListView ItemsSource="{Binding predictionList}" SeparatorColor="Black" RowHeight="20" Margin="5,0,5,0" Grid.Row="1" IsEnabled="True" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="70"></ColumnDefinition>
+                                            <ColumnDefinition Width="25"></ColumnDefinition>
 
-                                            </Grid.ColumnDefinitions>
-                                            <Label Grid.Column="0" Text="{Binding subject}" FontSize="10" TextColor="Black" Padding="5,0,0,0" HorizontalOptions="Start" VerticalOptions="Center"></Label>
-                                            <Label Grid.Column="1" Text="{Binding predictNumber}" FontSize="10" TextColor="Black" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center"></Label>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Text="{Binding subject}" FontSize="10" TextColor="Black" Padding="5,0,0,0" HorizontalOptions="Start" VerticalOptions="Center"></Label>
+                                        <Label Grid.Column="1" Text="{Binding predictNumber}" FontSize="10" TextColor="Black" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center"></Label>
 
-                                        </Grid>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Grid>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
 
             </Grid>
@@ -223,7 +219,7 @@
                 <Label Grid.Row="0" Text="Title" Padding="5,0,0,0" TextColor="#660DD5" HorizontalOptions="Start" VerticalOptions="Center"  FontSize="12" FontAttributes="Bold"></Label>
 
                 <material:MaterialCard BackgroundColor="#FBFBFB" Grid.Row="2" />
-                <ListView Grid.Row="1" ItemsSource="{Binding barChartList}" SeparatorColor="Black" RowHeight="120" Margin="10,0,10,0">
+                <ListView Grid.Row="1" ItemsSource="{Binding barChartList}" SeparatorColor="Black" RowHeight="120" Margin="10,0,10,0" IsEnabled="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

@@ -49,8 +49,8 @@
                         <ColumnDefinition  Width="6*" />
                     </Grid.ColumnDefinitions>
 
-                    <!--
-                    <Grid Grid.Column="0">
+                    
+                    <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="1*" />
@@ -64,7 +64,7 @@
                         <Label Text="12" Grid.RowSpan="2" Grid.ColumnSpan="2" TextColor="White" FontAttributes="Bold" HorizontalOptions="End" Margin="0,0,6,0" />
                         <Button BackgroundColor="Transparent" Grid.RowSpan="2" Grid.ColumnSpan="2" Clicked="Button_Clicked" />
                     </Grid>
-                    -->
+                    
                     <material:MaterialButton BackgroundColor="Transparent" PressedBackgroundColor="#40000000" Grid.Column="0" />
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
