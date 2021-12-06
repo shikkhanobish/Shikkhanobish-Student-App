@@ -17,8 +17,10 @@ namespace ShikkhanobishStudentApp.Model
         public string refIDFour { get; set; }
         public string notificationDate { get; set; }
         public string titleColor { get; set; }
+        public string titleName { get; set; }
         public string spanOne { get; set; }
         public string spanTwo { get; set; }
         public string spanThree { get; set; }
+
     }
 }

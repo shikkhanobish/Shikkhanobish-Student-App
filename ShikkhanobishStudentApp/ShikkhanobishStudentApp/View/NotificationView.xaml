@@ -36,9 +36,9 @@
             </Image.GestureRecognizers>
         </Image>
         <Label Grid.Row="1" Grid.Column="1" Text="Notifications" TextColor="Black" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"></Label>
-        <Label Text="এই উইন্ডোতে আপনি দেখবেন আপনাকে কোন টিচার রিপোর্ট করেছে। শিক্ষানবিশ শিক্ষার গুনগত মান নিয়ন্ত্রণের জন্য শিক্ষক এবং শিক্ষার্থী উভয়ের জন্যই রিপোর্ট সিস্টেম চালু করেছে। আশা করি আপনারা শিক্ষানবিশে শিক্ষার পরিবেশ বজায় রাখবেন" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Label FontSize="11" Text="এই উইন্ডোতে আপনি দেখবেন আপনাকে কোন টিচার রিপোর্ট করেছে। শিক্ষানবিশ শিক্ষার গুনগত মান নিয়ন্ত্রণের জন্য শিক্ষক এবং শিক্ষার্থী উভয়ের জন্যই রিপোর্ট সিস্টেম চালু করেছে। আশা করি আপনারা শিক্ষানবিশে শিক্ষার পরিবেশ বজায় রাখবেন" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
         <Frame BackgroundColor="Gray" Grid.Row="3" Grid.Column="1"> </Frame>
-        <ListView  Grid.Row="4" Grid.Column="1" RowHeight="110"  SeparatorColor="White" ItemsSource="{Binding notificationList}">
+        <ListView  Grid.Row="4" Grid.Column="1" RowHeight="130"  SeparatorColor="White" ItemsSource="{Binding notificationList}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -60,15 +60,16 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" TextColor="{Binding titleColor}" Text="Title" FontAttributes="Bold"  HorizontalOptions="Start" VerticalOptions="Center"></Label>
-                                <Label Grid.Column="1" Text="20-11-21" HorizontalOptions="End" VerticalOptions="Center"></Label>
+                                <Label Grid.Column="0" Text="{Binding titleName}" TextColor="{Binding titleColor}" FontAttributes="Bold"  HorizontalOptions="Start" VerticalOptions="Center"></Label>
+                                <Label Grid.Column="1" Text="{Binding notificationDate}" FontSize="10" HorizontalOptions="End" VerticalOptions="Center"></Label>
                             </Grid>
                             <Label Grid.Row="2" Grid.Column="1" FontSize="12" IsVisible="true">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="Mahir" FontAttributes="Bold" />
-                                        <Span Text="accepted your tuition request on "/>
-                                        <Span Text="Physics: Bolbidda" FontAttributes="Bold" />
+                                        <Span Text="{Binding spanOne}" FontAttributes="Bold" />
+                                        <Span Text="{Binding spanTwo}"/>
+                                        <Span Text="{Binding spanThree}" FontAttributes="Bold" />
+                                        
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
