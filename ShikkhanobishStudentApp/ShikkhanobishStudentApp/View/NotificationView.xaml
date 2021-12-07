@@ -5,6 +5,7 @@
              xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
              sharedTransitions:SharedTransitionNavigationPage.BackgroundAnimation="SlideFromRight"
                xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Name="notificationObj"
              x:Class="ShikkhanobishStudentApp.View.NotificationView">
     
     <ContentPage.BindingContext>
@@ -73,7 +74,7 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                            <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" Grid.RowSpan="3"  Grid.ColumnSpan="3" CornerRadius="10"/>
+                            <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" Grid.RowSpan="3"  Grid.ColumnSpan="3" CornerRadius="10" ClickCommand ="{Binding Source={x:Reference notificationObj}, Path=BindingContext.notificationObject}" ClickCommandParameter ="{Binding .}" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
