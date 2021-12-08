@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sharedTransitions="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions"
-             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel" 
              sharedTransitions:SharedTransitionNavigationPage.BackgroundAnimation="SlideFromRight"
              x:Name="tuitionView"
               
@@ -61,7 +61,7 @@
                         </Grid.ColumnDefinitions>
                         <Frame BackgroundColor="#15000000" Grid.RowSpan="2" Grid.ColumnSpan="2" CornerRadius="10" />
                         <Image Source="noticon.png" Grid.RowSpan="2" Grid.ColumnSpan="2" Aspect="AspectFit"  VerticalOptions="Center" Margin="7,2,0,2" HorizontalOptions="Start" />
-                        <Label Text="12" Grid.RowSpan="2" Grid.ColumnSpan="2" TextColor="White" FontAttributes="Bold" HorizontalOptions="End" Margin="0,0,6,0" />
+                        <Label Text="{Binding notificationCount}" Grid.RowSpan="2" Grid.ColumnSpan="2" TextColor="White" FontAttributes="Bold" HorizontalOptions="End" Margin="0,0,6,0" />
                         <Button BackgroundColor="Transparent" Grid.RowSpan="2" Grid.ColumnSpan="2" Clicked="Button_Clicked" />
                     </Grid>
                     
@@ -77,7 +77,7 @@
                         </Grid.ColumnDefinitions>
                         <Frame BackgroundColor="#15000000" Grid.RowSpan="2" Grid.ColumnSpan="2" CornerRadius="10" />
                         <Image Source="streporticon.png" Grid.RowSpan="2" Grid.ColumnSpan="2" Aspect="AspectFit"  VerticalOptions="Center" Margin="6,2,0,2" HorizontalOptions="Start" />
-                        <Label Text="{Binding reportCount}" Grid.RowSpan="2" Grid.ColumnSpan="2" TextColor="White" FontAttributes="Bold" HorizontalOptions="End" Margin="0,0,6,0" />
+                        <Label Text="" Grid.RowSpan="2" Grid.ColumnSpan="2" TextColor="White" FontAttributes="Bold" HorizontalOptions="End" Margin="0,0,6,0" />
                         <Button BackgroundColor="Transparent" Grid.RowSpan="2" Grid.ColumnSpan="2" Clicked="Button_Clicked_1" sharedTransitions:Transition.Name="report" sharedTransitions:Transition.Group="gg" />
                     </Grid>
                 </Grid>

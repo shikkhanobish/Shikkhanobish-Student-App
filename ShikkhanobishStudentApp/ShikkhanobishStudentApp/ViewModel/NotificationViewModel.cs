@@ -102,7 +102,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                         {
                             foreach (var ans in ansList)
                             {
-                                if (item.refIDTwo == ans.answerID)
+                                if (item.refIDOne == ans.answerID)
                                 {
 
                                     foreach (var post in postList)
@@ -173,7 +173,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 if (studentID == StaticPageToPassData.thisStudentInfo.studentID)
                 {
-
+                    //show notification
                 }
 
             });

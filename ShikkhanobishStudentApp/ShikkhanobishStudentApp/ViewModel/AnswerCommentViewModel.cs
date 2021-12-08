@@ -102,9 +102,19 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
             {
-                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswer".PostJsonAsync(new { answerID = StaticPageToPassData.GenarateIDString(50), name = StaticPageToPassData.thisStudentInfo.name, answer = newComment, userID = StaticPageToPassData.thisStudentInfo.studentID, userType = 1, imgSrc = "n/a", review = 0, postID = thisPostID, answerDate = "n/a" }).ReceiveJson<Response>();
+                string ansID = StaticPageToPassData.GenarateIDString(20);
+                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswer".PostJsonAsync(new { answerID = ansID, name = StaticPageToPassData.thisStudentInfo.name, answer = newComment, userID = StaticPageToPassData.thisStudentInfo.studentID, userType = 1, imgSrc = "n/a", review = 0, postID = thisPostID, answerDate = "n/a" }).ReceiveJson<Response>();
                 await GetPost(thisPostID);
+
+
+          
+                var res2= await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setNotification".PostJsonAsync(new { notificationID = StaticPageToPassData.GenarateIDString(50), userId = StaticPageToPassData.thisStudentInfo.studentID, userType = 1, notificationType = 2, 
+                    
+                    description = "n/a", refIDOne = ansID, refIDTwo = "n/a", refIDThree = "n/a", refIDFour = "n/a", notificationDate = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+                }).ReceiveJson<Response>();
             }
+
+
             newComment = "";
         }
         private async Task PerformupdateEdit()

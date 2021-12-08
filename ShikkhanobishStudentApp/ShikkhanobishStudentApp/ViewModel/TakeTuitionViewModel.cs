@@ -218,6 +218,15 @@ namespace ShikkhanobishStudentApp.ViewModel
               })
               .ReceiveJson<List<StudentReport>>();
             reportCount = "" + regRes.Count;
+
+            var notifyRes = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getNotificationWithUserIDAndUserType"
+              .PostUrlEncodedAsync(new
+              {
+                  userID = StaticPageToPassData.thisStudentInfo.studentID,
+                  userType=1
+              })
+              .ReceiveJson<List<Notifications>>();
+            notificationCount = "" + notifyRes.Count();
         }
 
         public async Task PerformshowSuggestion()
@@ -2841,9 +2850,13 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public List<TuiTionLog> livetuitionList { get => livetuitionList1; set => SetProperty(ref livetuitionList1, value); }
 
-      
+        private string notificationCount1;
 
-        
+        public string notificationCount { get => notificationCount1; set => SetProperty(ref notificationCount1, value); }
+
+
+
+
 
         #endregion Binding Garbage
     }

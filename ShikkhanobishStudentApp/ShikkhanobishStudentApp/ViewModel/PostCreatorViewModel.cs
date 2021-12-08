@@ -54,7 +54,7 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         private async Task PerformsendPost()
         {
-            var res= await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setPost".PostJsonAsync(new { postID = StaticPageToPassData.GenarateIDString(15), name = StaticPageToPassData.thisStudentInfo.name, post=newPost, postDate="n/a", userID= StaticPageToPassData.thisStudentInfo.studentID, userType=1, imgSrc="n/a", postTitle= titleText, noOfComment=0, tagID =selectedTag.tagID,}).ReceiveJson<Response>();
+            var res= await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setPost".PostJsonAsync(new { postID = StaticPageToPassData.GenarateIDString(20), name = StaticPageToPassData.thisStudentInfo.name, post=newPost, postDate="n/a", userID= StaticPageToPassData.thisStudentInfo.studentID, userType=1, imgSrc="n/a", postTitle= titleText, noOfComment=0, tagID =selectedTag.tagID,}).ReceiveJson<Response>();
             selectedTag.tagName = "";
             
             Application.Current.MainPage.Navigation.PopAsync();
