@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
+             x:Class="ShikkhanobishStudentApp.View.CallingPage">
+    <Grid BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="170"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Frame Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" BackgroundColor="#09000000" CornerRadius="10"/>
+            <Frame Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" BackgroundColor="#09000000" CornerRadius="10"/>
+            <Label Text="Subject" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13"/>
+            <Label Text="{Binding subjectName}" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Start" FontSize="13" FontAttributes="Bold"  TextColor="#783AEF" Margin="5,0,5,0"/>
+            <Label Text="{Binding chapterName}" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Start" FontSize="13" FontAttributes="Bold" TextColor="#3A8BEF" Margin="5,0,5,0"/>
+            <Label Text="Chapter" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="13"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Label Text="Description" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold"/>
+            <Frame BackgroundColor="Black" Grid.Row="1" HasShadow="False"/>
+            <Label Text="{Binding description}" Grid.Row="2" FontSize="13" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+            <Grid Grid.Row="3" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+               
+                <Image Source="takaicon.png" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center"  Aspect="AspectFit" Margin="0,5,0,0"/>
+                <Label Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start" >
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding cost}" FontAttributes="Bold" FontSize="11" TextColor="#0B9E3C"/>
+                            <Span Text=" Taka/Min" FontAttributes="Bold" FontSize="11" TextColor="#0B9E3C"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Grid>
+            <Frame BackgroundColor="Black" Grid.Row="4" HasShadow="False"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Massage your teacher before starting your tuition" Grid.Row="0" Grid.ColumnSpan="2" FontSize="12"/>
+                <ListView Grid.Row="1" Grid.ColumnSpan="2" RowHeight="60" SeparatorColor="White" ItemsSource="{Binding smsList}" Margin="10">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid RowDefinitions="*,*,*" IsVisible="{Binding isThisUser}">
+                                        <Label Text="{Binding name}" Grid.Row="0" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" TextColor="{Binding lblColor}" FontSize="11"/>
+                                        <Label Text="{Binding date}" Grid.Row="2" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" FontSize="10" TextColor="Gray"/>
+                                        <Label Text="{Binding msg}" Grid.Row="1" HorizontalOptions="End" VerticalOptions="Center" FontSize="11" TextColor="Black"/>
+                                    </Grid>
+                                    <Grid RowDefinitions="*,*,*" IsVisible="{Binding isOtherUser}">
+                                        <Label Text="{Binding name}" Grid.Row="0" FontAttributes="Bold" HorizontalOptions="Start" VerticalOptions="Center" TextColor="{Binding lblColor}" FontSize="11"/>
+                                        <Label Text="{Binding date}" Grid.Row="2" FontAttributes="Bold" HorizontalOptions="Start" VerticalOptions="Center" FontSize="10" TextColor="Gray"/>
+                                        <Label Text="{Binding msg}" Grid.Row="1" HorizontalOptions="Start" VerticalOptions="Center" FontSize="11" TextColor="Black"/>
+                                    </Grid>
+                                </Grid>
+                               
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Frame BackgroundColor="#09000000" Grid.Row="2" Grid.Column="0" CornerRadius="10"/>
+                <Entry Text="{Binding smstxt}" Grid.Row="2" Grid.Column="0" FontSize="12"/>
+                <Image Source="sendmsg.png" Grid.Row="2" Grid.Column="1" Aspect="AspectFit" Margin="5"/>
+                <material:MaterialCard Grid.Row="2" Grid.Column="1" BackgroundColor="Transparent" IsClickable="True" CornerRadius="20" ClickCommand="{Binding sendSms}"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="{Binding studntName}" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="End" FontAttributes="Bold"/>
+                <Label Text="Ready" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Start" TextColor="#09A153" FontAttributes="Bold"/>
+
+                <Label Text="{Binding teacherName}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="End" FontAttributes="Bold"/>
+                <Label Text="Calling Teacher..." Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Start" TextColor="Gray"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <material:MaterialCard BackgroundColor="Transparent" Grid.ColumnSpan="4" CornerRadius="10" BorderColor="#605500FF"/>
+
+                <Label Text="Start Tuitino" TextColor="#5500FF" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" FontAttributes="Bold"/>
+                <material:MaterialCard Grid.ColumnSpan="4" IsClickable="True" BackgroundColor="Transparent" CornerRadius="10" />
+            </Grid>
+
+        </Grid>
+    </Grid>
+</ContentPage>

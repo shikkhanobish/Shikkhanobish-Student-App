@@ -43,6 +43,7 @@ namespace ShikkhanobishStudentApp.View
         public async Task GetAllStudent()
         {
             submitbtn.IsEnabled = false;
+            codetxt.IsEnabled = false;
             allStudent = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getStudent".GetJsonAsync<List<Student>>();
             allrefarerral = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getRefferalTable".GetJsonAsync<List<ReferralTable>>();
             bool isGive = false;
@@ -87,6 +88,7 @@ namespace ShikkhanobishStudentApp.View
             if (!isGive)
             {
                 give.Text = "N/A";
+                codetxt.IsEnabled = false;
                 submitbtn.IsEnabled = true;
             }
         }

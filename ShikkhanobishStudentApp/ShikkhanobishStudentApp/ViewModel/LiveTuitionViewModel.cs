@@ -1,5 +1,6 @@
 ﻿using Flurl.Http;
 using ShikkhanobishStudentApp.Model;
+using ShikkhanobishStudentApp.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -182,8 +183,13 @@ namespace ShikkhanobishStudentApp.ViewModel
         }
         private async Task PerformacceptTeacherTuition()
         {
-            string uriToCAllTeacher = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishSignalR/CallTeacherForTuition?&teacherID=" + searchedTeacher.teacherID + "&tuitionID=" + thisTuition.tuitionLogID + "&name=" + StaticPageToPassData.thisStudentInfo.name + "&studentID=" + StaticPageToPassData.thisStudentInfo.studentID;
-            await realtimeapi.ExecuteRealTimeApi(uriToCAllTeacher);
+            using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please wait for teacher to response..."))
+            {
+                string uriToCAllTeacher = "https://shikkhanobishrealtimeapi.shikkhanobish.com/api/ShikkhanobishSignalR/CallTeacherForTuition?&teacherID=" + searchedTeacher.teacherID + "&tuitionID=" + thisTuition.tuitionLogID + "&name=" + StaticPageToPassData.thisStudentInfo.name + "&studentID=" + StaticPageToPassData.thisStudentInfo.studentID;
+                await realtimeapi.ExecuteRealTimeApi(uriToCAllTeacher);
+                await Application.Current.MainPage.Navigation.PushAsync(new CallingPage(thisTuition.tuitionLogID));
+            }
+                
         }
         #endregion
 
