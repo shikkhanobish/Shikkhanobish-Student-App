@@ -11,6 +11,16 @@
             <local:TakeTuitionView />
         </x:Arguments>
     </NavigationPage>
+    <NavigationPage  IconImageSource="questiondeedicon.png" >
+        <x:Arguments>
+            <local:StudentPerformance />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage  IconImageSource="questiondeedicon.png" >
+        <x:Arguments>
+            <local:QuestionTimeLine />
+        </x:Arguments>
+    </NavigationPage>
     <NavigationPage  IconImageSource="rechargeicon.png"  >
         <x:Arguments>
             <local:RechargeCoinView />

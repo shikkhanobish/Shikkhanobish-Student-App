@@ -2,12 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
               xmlns:sharedTransitions="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions"
+             xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
              sharedTransitions:SharedTransitionNavigationPage.BackgroundAnimation="SlideFromRight"
                xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Name="notificationObj"
              x:Class="ShikkhanobishStudentApp.View.NotificationView">
-    <Grid>
+    
+    <ContentPage.BindingContext>
+        <viewmodel:NotificationViewModel/>
+    </ContentPage.BindingContext>
+    
+    <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="90"/>
             <RowDefinition Height="1"/>
             <RowDefinition Height="*"/>
@@ -18,47 +26,61 @@
             <ColumnDefinition Width="20*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
+        <!--
         <Label Text="Notification" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="18" FontAttributes="Bold"/>
+        -->
+        
+        
         <Image Source="back.png" Grid.Row="0" Grid.Column="1" Aspect="AspectFit" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,10,0,10">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
             </Image.GestureRecognizers>
         </Image>
-        <Label Text="এই উইন্ডোতে আপনি দেখবেন আপনাকে কোন টিচার রিপোর্ট করেছে। শিক্ষানবিশ শিক্ষার গুনগত মান নিয়ন্ত্রণের জন্য শিক্ষক এবং শিক্ষার্থী উভয়ের জন্যই রিপোর্ট সিস্টেম চালু করেছে। আশা করি আপনারা শিক্ষানবিশে শিক্ষার পরিবেশ বজায় রাখবেন" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
-        <Frame BackgroundColor="#80000000" Grid.Row="2" Grid.Column="1"/>
-        <ListView x:Name="rtitm" RowHeight="150" Grid.Row="3" Grid.Column="1" SeparatorColor="White">
+        <Label Grid.Row="1" Grid.Column="1" Text="Notifications" TextColor="Black" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"></Label>
+        <Label FontSize="11" Text="এই উইন্ডোতে আপনি দেখবেন আপনাকে কোন টিচার রিপোর্ট করেছে। শিক্ষানবিশ শিক্ষার গুনগত মান নিয়ন্ত্রণের জন্য শিক্ষক এবং শিক্ষার্থী উভয়ের জন্যই রিপোর্ট সিস্টেম চালু করেছে। আশা করি আপনারা শিক্ষানবিশে শিক্ষার পরিবেশ বজায় রাখবেন" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Frame BackgroundColor="Gray" Grid.Row="3" Grid.Column="1"> </Frame>
+        <ListView  Grid.Row="4" Grid.Column="1" RowHeight="130"  SeparatorColor="White" ItemsSource="{Binding notificationList}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid>
+                        <Grid Margin="0,5,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10"/>
-                                <RowDefinition Height="1*"/>
-                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="*"/>
                                 <RowDefinition Height="10"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="10*"/>
-                                <ColumnDefinition Width="10*"/>
-                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="5"/>
                             </Grid.ColumnDefinitions>
-                            <Frame BackgroundColor="#08000000" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="4" CornerRadius="10"/>
-                            <Label Text="Aggresive Behave" Grid.Row="1" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="13"/>
-                            <Label Grid.Row="1" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" FontSize="13">
+                           
+                            <Grid Grid.Row="1" Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding titleName}" TextColor="{Binding titleColor}" FontAttributes="Bold"  HorizontalOptions="Start" VerticalOptions="Center"></Label>
+                                <Label Grid.Column="1" Text="{Binding notificationDate}" FontSize="10" HorizontalOptions="End" VerticalOptions="Center"></Label>
+                            </Grid>
+                            <Label Grid.Row="2" Grid.Column="1" FontSize="12" IsVisible="true">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="Report By: " FontSize="13"/>
-                                        <Span Text="Fahim Ahsan" FontAttributes="Bold" FontSize="13"/>
+                                        <Span Text="{Binding spanOne}" FontAttributes="Bold" />
+                                        <Span Text="{Binding spanTwo}"/>
+                                        <Span Text="{Binding spanThree}" FontAttributes="Bold" />
+                                        
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                            <Label Text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-                                       Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="Start" FontSize="11"/>
+                            <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" Grid.RowSpan="3"  Grid.ColumnSpan="3" CornerRadius="10" ClickCommand ="{Binding Source={x:Reference notificationObj}, Path=BindingContext.notificationObject}" ClickCommandParameter ="{Binding .}" />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+
     </Grid>
 </ContentPage>

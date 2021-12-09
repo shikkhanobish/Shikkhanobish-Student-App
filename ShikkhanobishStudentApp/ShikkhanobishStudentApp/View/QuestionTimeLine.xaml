@@ -15,6 +15,7 @@
     <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <material:MaterialCard Grid.Row="0" Elevation="5"/>
@@ -54,9 +55,16 @@
             <Image Source="editicon.gif" Grid.Row="2" Aspect="AspectFit" Grid.Column="2" IsAnimationPlaying="True" Margin="0"/>
             <material:MaterialCard BackgroundColor="Transparent" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"  IsClickable="True" ClickCommand="{Binding showTagList}" />
         </Grid>
+        <Grid Grid.Row="1" Margin="10,0,10,0">
+            
+            <material:MaterialCard  HasShadow="True" Elevation="2" CornerRadius="10" IsClickable="True" ClickCommand="{Binding goToPostCreator}" BackgroundColor="#10000000" />
+            <Label Text="Create New Post"  Padding="10,0,0,0" HorizontalOptions="Center" VerticalOptions="Center"  FontAttributes="Bold"/>
+            
+        </Grid>
+       
 
-        <Grid Grid.Row="1">
-            <ListView  ItemsSource="{Binding postList}"  RowHeight="400" SeparatorColor="Black" >
+        <Grid Grid.Row="2" Margin="0,2,0,0">
+            <ListView  ItemsSource="{Binding postList}"  RowHeight="220" SeparatorColor="Black" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -69,16 +77,17 @@
                                 <Grid Grid.Row="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30"/>
-                                        <RowDefinition Height="30"/>
+                                        
                                         <RowDefinition Height="*"/>
-                                        <RowDefinition Height="40"/>
+                                        
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="20*"/>
                                         <ColumnDefinition Width="1*"/>
                                     </Grid.ColumnDefinitions>
-                                    <material:MaterialCard Grid.RowSpan="4" Grid.ColumnSpan="3" Margin="10,0,10,0" Elevation="2" BackgroundColor="#FAFAFAFA" CornerRadius="10"/>
+                                    <material:MaterialCard Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="10,0,10,0" Elevation="2" BackgroundColor="White" CornerRadius="10"/>
+                                    
                                     <Grid Grid.Row="0" Grid.Column="1">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1*"/>
@@ -89,27 +98,35 @@
                                         <Label Grid.ColumnSpan="4" HorizontalOptions="Start" VerticalOptions="Center" >
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="{Binding name}" FontAttributes="Bold" FontSize="15"/>
-                                                    <Span Text="  Date: " FontSize="9" />
-                                                    <Span Text="{Binding postDate}" FontSize="9" />
+                                                    <Span Text="{Binding name}" FontAttributes="Bold" FontSize="12"/>
+                                                    <Span Text="  " FontSize="10" />
+                                                    <Span Text="{Binding postDate}" FontSize="10" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
 
 
                                     </Grid>
-                                    <Label  Grid.Row="1" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="PaleVioletRed" Text="{Binding tagName}"></Label>
+                                    
+                                    <Label  Grid.Row="0" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="PaleVioletRed" Text="{Binding tagName}"></Label>
 
 
-                                    <Grid Grid.Row="2" Grid.Column="1">
+                                    <Grid Grid.Row="1" Grid.Column="1">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="3*"/>
-                                            <RowDefinition Height="4*"/>
-                                            <RowDefinition Height="20"/>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="50"/>
+                                            <RowDefinition Height="50"/>
                                         </Grid.RowDefinitions>
-
-                                        <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"  Text="{Binding post}" ></Label>
-                                        <Image Grid.Row="1" Source="{Binding imgSrc}" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"></Image>
+                                        <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center"  Text="{Binding postTitle}" FontSize="13" FontAttributes="Bold" TextColor="#660DD5"></Label>
+                                        <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" >
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding post}"/>
+                                                    <Span Text="{Binding dotDotDot}" TextColor="Blue" FontSize="12"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        
                                         <material:MaterialButton BackgroundColor="Transparent" Grid.Row="1" IsVisible="{Binding imgButtonEnable}"  Command="{Binding Source={x:Reference qTimeline}, Path=BindingContext.showImagePopUp}" CommandParameter="{Binding .}" />
                                         <Grid Grid.Row="2">
                                             <Grid.ColumnDefinitions>
@@ -126,20 +143,20 @@
                             
                                         </Grid>
 
-
+                                        
                                     </Grid>
-
-                                    <material:MaterialButton Grid.Row="3" Grid.ColumnSpan="3" ButtonType="Text" FontAttributes="Bold"  Text="Answer" FontSize="11" TextColor="Black" Command="{Binding Source={x:Reference qTimeline}, Path=BindingContext.answerQuestion}" CommandParameter="{Binding .}"/>
+                                   
 
                                 </Grid>
+                                <material:MaterialButton Grid.Row="1" Margin="3,0,3,0" PressedBackgroundColor="#10000000" BackgroundColor="Transparent" Command="{Binding Source={x:Reference qTimeline}, Path=BindingContext.answerQuestion}" CommandParameter="{Binding .}" />
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-        
-        <Grid Grid.RowSpan="2" BackgroundColor="#50000000" IsVisible="{Binding showTag}">
+
+        <Grid Grid.RowSpan="3" BackgroundColor="#50000000" IsVisible="{Binding showTag}">
             <Button BackgroundColor="Transparent" Command="{Binding closeTagPopUp}"/>
             
             <Grid  Margin="40,60,40,60">

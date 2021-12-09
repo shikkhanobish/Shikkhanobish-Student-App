@@ -345,5 +345,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\crossPopup.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\sendreply.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
