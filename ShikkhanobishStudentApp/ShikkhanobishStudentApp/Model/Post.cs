@@ -17,6 +17,7 @@ namespace ShikkhanobishStudentApp.Model
         public int noOfComment { get; set; }
         public int numOFCmtR { get; set; }
         public int numOFCmtN { get; set; }
+        public bool imgButtonEnable { get; set; }
         public int tagID { get; set; }
         public string tagName { get; set; }
         public string ansIconR { get; set; }

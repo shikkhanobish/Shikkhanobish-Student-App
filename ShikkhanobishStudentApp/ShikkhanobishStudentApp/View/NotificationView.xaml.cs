@@ -16,37 +16,7 @@ namespace ShikkhanobishStudentApp.View
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-         
 
-
-            //List<int> b= new List<int>();
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-            //b.Add(0);
-
-            //demoNotifi.ItemsSource = b;
-
-            //Label title = new Label();
-            //title.Text = "Notification";
-            //title.FontSize = 18;
-            //title.FontAttributes = FontAttributes.Bold;
-            //title.HorizontalOptions = LayoutOptions.Center;
-            //title.VerticalOptions = LayoutOptions.Center;
-
-            //mainGrid.Children.Add(title);
         }
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {

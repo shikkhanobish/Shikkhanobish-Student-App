@@ -138,7 +138,7 @@
                 <material:MaterialCard BackgroundColor="Transparent" Grid.ColumnSpan="4" CornerRadius="10" BorderColor="#605500FF"/>
 
                 <Label Text="Start Tuitino" TextColor="#5500FF" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" FontAttributes="Bold"/>
-                <material:MaterialCard Grid.ColumnSpan="4" IsClickable="True" BackgroundColor="Transparent" CornerRadius="10" />
+                <material:MaterialCard Grid.ColumnSpan="4" IsClickable="True" BackgroundColor="Transparent" CornerRadius="10"/>
             </Grid>
 
         </Grid>
