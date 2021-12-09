@@ -219,6 +219,23 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             List<Answer> newAns = new List<Answer>();
             newAns = ansList;
+            foreach (var item in avList)
+            {
+                if (ans.answerID == item.answerID && StaticPageToPassData.thisStudentInfo.studentID == item.userID && item.upOrdownVote == 2)
+                {
+                    for (int i = 0; i < ansList.Count; i++)
+                    {
+                        if (newAns[i].answerID == ans.answerID)
+                        {
+                            newAns[i].downVoteCount--;
+                        }
+                    }
+                    var resp = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerVote".PostJsonAsync(new { answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<Response>();
+
+                }
+            }
+
+           
             for (int i = 0; i < ansList.Count; i++)
             {
                 if (newAns[i].answerID == ans.answerID)
@@ -238,6 +255,24 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             List<Answer> newAns = new List<Answer>();
             newAns = ansList;
+
+            foreach (var item in avList)
+            {
+                if (ans.answerID==item.answerID && StaticPageToPassData.thisStudentInfo.studentID==item.userID && item.upOrdownVote==1)
+                {
+                    for (int i = 0; i < ansList.Count; i++)
+                    {
+                        if (newAns[i].answerID == ans.answerID)
+                        {
+                            newAns[i].upVoteCount--;
+                        }
+                    }
+                    var resp = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerVote".PostJsonAsync(new { answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID}).ReceiveJson<Response>();
+
+                }
+            }
+            
+            
             for (int i = 0; i < ansList.Count; i++)
             {
                 if (newAns[i].answerID == ans.answerID)
