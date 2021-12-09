@@ -26,7 +26,20 @@ namespace ShikkhanobishStudentApp.ViewModel
 
             showTag = false;
             showImg = false;
-           
+            PostEvent thisEvent = new PostEvent();
+            StaticPageToPassData.eventController = thisEvent;
+            StaticPageToPassData.eventController.RefreshPostEvent += (s, args) =>
+            {
+                GetPostList(); ;
+            };
+
+            PostViewEvent thisEvent2 = new PostViewEvent();
+            StaticPageToPassData.postViewEventStatic = thisEvent2;
+            StaticPageToPassData.postViewEventStatic.RefreshPostCountEvent += (s, args) =>
+            {
+                GetPostList(); ;
+            };
+
             GetPostList();
         }
 
@@ -309,6 +322,8 @@ namespace ShikkhanobishStudentApp.ViewModel
             tc.backColortxt3 = "#" + bc3;
 
         }
+
+    
         public ICommand answerQuestion
         {
             get
@@ -316,6 +331,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 return new Command<Post>((thisPost) =>
                 {
                     Application.Current.MainPage.Navigation.PushAsync(new AnswerComment(thisPost.postID));
+                    
                 });
             }
         }

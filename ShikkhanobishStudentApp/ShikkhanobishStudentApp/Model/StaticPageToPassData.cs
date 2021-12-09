@@ -26,6 +26,9 @@ namespace ShikkhanobishStudentApp.Model
         public static favouriteTeacher selectedPopupFavTeacher { get; set; }
         public static bool isFromReg { get; set; }
         public static string LastPaymentRequestID { get; set; }
+        public static PostEvent eventController { get; set; }
+        public static PostViewEvent postViewEventStatic { get; set; }
+
 
         public static int GenarateNewID()
         {

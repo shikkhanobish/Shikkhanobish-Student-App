@@ -20,6 +20,9 @@ namespace ShikkhanobishStudentApp.Model
         public bool tinfoVisible { get; set; }
 
         public string newComment { get; set; }
+
+        public int upVoteCount { get; set; }
+        public int downVoteCount { get; set; }
         public string Response { get; set; }
     }
 }

@@ -132,7 +132,41 @@
                                             <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" FontSize="12" TextColor="Gray" Text="{Binding answer}"></Label>
 
                                         </Grid>
-                                        <material:MaterialButton Grid.Row="2" Grid.Column="1" Text="TeacherInfo" IsVisible="{Binding tinfoVisible}" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="#1006EE98"  FontSize="9" TextColor="Black" FontAttributes="Bold" Command="{Binding Source={x:Reference ansComment}, Path=BindingContext.showTinfoPopUp}" CommandParameter="{Binding .}" />
+                                        <Grid Grid.Row="2" Grid.Column="1" >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="40"></ColumnDefinition>
+                                                    <ColumnDefinition Width="40"></ColumnDefinition>
+                                                    
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="20"></ColumnDefinition>
+                                                        <ColumnDefinition Width="20"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Source="upvote.png" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit" Margin="5,0,0,0"/>
+                                                    <Label Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding upVoteCount}"></Label>
+                                                    <material:MaterialCard Grid.ColumnSpan="2" IsClickable="True" Elevation="2"  BackgroundColor="Transparent" CornerRadius="10"  ClickCommand="{Binding Source={x:Reference ansComment}, Path=BindingContext.upVote}" ClickCommandParameter="{Binding .}"  />
+                                                </Grid>
+                                                <Grid Grid.Column="1">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="20"></ColumnDefinition>
+                                                        <ColumnDefinition Width="20"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Source="downvote.png" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit" Margin="5,0,0,0"/>
+                                                    <Label Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding downVoteCount}"></Label>
+                                                    <material:MaterialCard Grid.ColumnSpan="2" IsClickable="True" Elevation="2"  BackgroundColor="Transparent" CornerRadius="10" ClickCommand="{Binding Source={x:Reference ansComment}, Path=BindingContext.downVote}" ClickCommandParameter="{Binding .}"  />
+                                                </Grid>
+                                               
+                                            </Grid>
+                                            <material:MaterialButton  Grid.Column="1" Text="TeacherInfo" IsVisible="{Binding tinfoVisible}" HorizontalOptions="End" VerticalOptions="Center" BackgroundColor="#1006EE98"  FontSize="9" TextColor="Black" FontAttributes="Bold" Command="{Binding Source={x:Reference ansComment}, Path=BindingContext.showTinfoPopUp}" CommandParameter="{Binding .}" />
+
+                                        </Grid>
 
                                     </Grid>
 

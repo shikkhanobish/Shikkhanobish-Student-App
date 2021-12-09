@@ -18,6 +18,7 @@ namespace ShikkhanobishStudentApp.ViewModel
      
         List<Teacher> teacherList = new List<Teacher>();
         List<Answer> alist = new List<Answer>();
+        List<AnswerVote> avList = new List<AnswerVote>();
         public string thisPostID { get; set; }
 
         public AnswerCommentViewModel(string pid)
@@ -25,10 +26,16 @@ namespace ShikkhanobishStudentApp.ViewModel
             thisPostID = pid;
             GetPost(pid);
             showImg = false;
+            ViewCount();
             //imgButtonEnable = false;
         }
 
         #region Methods
+        public async Task ViewCount()
+        {
+            var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/viewCountWithPostID".PostJsonAsync(new { postID =thisPostID }).ReceiveJson<Response>();
+            StaticPageToPassData.postViewEventStatic.CallPostViewEvent();
+        }
         public async Task GetPost(string pid)
         {
             using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
@@ -58,20 +65,41 @@ namespace ShikkhanobishStudentApp.ViewModel
             alist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswer".GetJsonAsync<List<Answer>>();
             var postlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPost".GetJsonAsync<List<Post>>();
 
+            avList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswerVote".GetJsonAsync<List<AnswerVote>>();
+
             List<Answer> updatedAnsList = new List<Answer>();
             foreach(var item in alist)
             {
-
                 item.riviewImg = "";
                 if (plist.postID==item.postID)
                 {
+                    foreach (var vote in avList)
+                    {
+                        if (item.answerID == vote.answerID)
+                        {
+                            if (vote.upOrdownVote == 1)
+                            {
+                                item.upVoteCount++;
+                            }
 
+                            else if (vote.upOrdownVote == 2)
+                            {
+                                item.downVoteCount++;
+                            }
+                            
+                        }
+                    }
                     if (item.review == 1)
                     {
                         item.riviewImg = "correctreview.gif";
+
+                        
                     }
+                    
                     updatedAnsList.Add(item);
                 }
+
+                
                 if (StaticPageToPassData.thisStudentInfo.studentID == item.userID)
                 {
                     item.editVisible = true;
@@ -114,7 +142,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 }).ReceiveJson<Response>();
             }
 
-
+            //Call Push Notification
             newComment = "";
         }
         private async Task PerformupdateEdit()
@@ -186,7 +214,43 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         }
 
-      
+
+        public async Task PerformupVote(Answer ans)
+        {
+            List<Answer> newAns = new List<Answer>();
+            newAns = ansList;
+            for (int i = 0; i < ansList.Count; i++)
+            {
+                if (newAns[i].answerID == ans.answerID)
+                {
+                    newAns[i].upVoteCount++;
+                }
+            }
+            ansList = new List<Answer>();
+            ansList = newAns;
+            var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerVote".PostJsonAsync(new { ansvoteID = StaticPageToPassData.GenarateNewID(), answerID=ans.answerID, userID=StaticPageToPassData.thisStudentInfo.studentID, upOrdownVote=1 }).ReceiveJson<Response>();
+            
+           
+        }
+
+        public async Task PerformdownVote(Answer ans)
+
+        {
+            List<Answer> newAns = new List<Answer>();
+            newAns = ansList;
+            for (int i = 0; i < ansList.Count; i++)
+            {
+                if (newAns[i].answerID == ans.answerID)
+                {
+                    newAns[i].downVoteCount++;
+                }
+            }
+            ansList = new List<Answer>();
+            ansList = newAns;
+            var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerVote".PostJsonAsync(new { ansvoteID = StaticPageToPassData.GenarateNewID(), answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID, upOrdownVote = 2 }).ReceiveJson<Response>();
+
+        }
+
 
 
         #endregion
@@ -230,6 +294,36 @@ namespace ShikkhanobishStudentApp.ViewModel
         
         private bool imgButtonEnable1;
         public bool imgButtonEnable { get => imgButtonEnable1; set => SetProperty(ref imgButtonEnable1, value); }
+
+        private ICommand upVote1;
+
+        public ICommand upVote
+        {
+            get
+            {
+                return new Command<Answer>(async (a) =>
+                {
+
+                    await PerformupVote(a);
+                });
+                
+            }
+        }
+
+        private ICommand downVote1;
+
+        public ICommand downVote
+        {
+            get
+            {
+                return new Command<Answer>(async (a) =>
+                {
+
+                    await PerformdownVote(a);
+                });
+            }
+        }
+
         //Edit
         private ICommand showEditPopUp1;
 

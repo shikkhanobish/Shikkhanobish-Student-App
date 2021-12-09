@@ -116,7 +116,7 @@ namespace ShikkhanobishStudentApp.ViewModel
 
                                             item.spanOne = ans.name;
 
-                                            item.spanThree = " Question : " + post.post;
+                                            item.spanThree = " Question : " + post.postTitle;
                                             updatedList.Add(item);
                                         }
                                     }

@@ -31,6 +31,7 @@
                 <RowDefinition Height="120"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
 
             </Grid.RowDefinitions>
@@ -58,13 +59,14 @@
                     <RowDefinition Height="100"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Padding="4,0,0,0">Write your question here</Label>
-                <material:MaterialCard Grid.Row="1" CornerRadius="10" BackgroundColor="#10000000"></material:MaterialCard>
+                <material:MaterialCard Grid.Row="1" CornerRadius="10" BackgroundColor="#08000000"></material:MaterialCard>
                 <Editor Grid.Row="1" TextColor="Black" FontSize="14" Text="{Binding newPost}" Margin="10,0,10,0"></Editor>
             </Grid>
             
             <material:MaterialButton Grid.Row="6" HorizontalOptions="Start" VerticalOptions="Center" CornerRadius="10" Text="Add Image " FontSize="10" FontAttributes="Bold" TextColor="Black" ButtonType="Text" />
-            <material:MaterialButton Grid.Row="8"  HorizontalOptions="End" VerticalOptions="Center" CornerRadius="10" Text="Post " FontSize="12" FontAttributes="Bold" TextColor="White" BackgroundColor="#24F50A" Command="{Binding sendPost}"></material:MaterialButton>
 
+            <Label Grid.Row="8" Margin="8,0,8,0" HorizontalOptions="Start"  VerticalOptions="Center" Text="{Binding validationTxt}"  TextColor="Red" FontSize="12" FontAttributes="Bold"></Label>
+            <material:MaterialButton Grid.Row="9"   VerticalOptions="Center" CornerRadius="10" Text="Post " FontSize="12" FontAttributes="Bold" TextColor="White" BackgroundColor="#9024F50A" Command="{Binding sendPost}"></material:MaterialButton>
         </Grid>
         
         <Grid Grid.RowSpan="3" Grid.ColumnSpan="3" BackgroundColor="#50000000" IsVisible="{Binding showTag}">

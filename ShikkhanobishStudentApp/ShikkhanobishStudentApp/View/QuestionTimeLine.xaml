@@ -55,13 +55,9 @@
             <Image Source="editicon.gif" Grid.Row="2" Aspect="AspectFit" Grid.Column="2" IsAnimationPlaying="True" Margin="0"/>
             <material:MaterialCard BackgroundColor="Transparent" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"  IsClickable="True" ClickCommand="{Binding showTagList}" />
         </Grid>
-        <Grid Grid.Row="1" Margin="10,0,10,0">
-            
-            <material:MaterialCard  HasShadow="True" Elevation="2" CornerRadius="10" IsClickable="True" ClickCommand="{Binding goToPostCreator}" BackgroundColor="#10000000" />
-            <Label Text="Create New Post"  Padding="10,0,0,0" HorizontalOptions="Center" VerticalOptions="Center"  FontAttributes="Bold"/>
-            
-        </Grid>
-       
+        <Label Text="Create New Post" Grid.Row="1" Margin="10,0,10,0" Padding="10,0,0,0" HorizontalOptions="Center" VerticalOptions="Center"  FontAttributes="Bold"/>
+        <material:MaterialCard Grid.Row="1" Margin="10,0,10,0" HasShadow="True" Elevation="2" CornerRadius="10" IsClickable="True" ClickCommand="{Binding goToPostCreator}" BackgroundColor="#10000000" />
+
 
         <Grid Grid.Row="2" Margin="0,2,0,0">
             <ListView  ItemsSource="{Binding postList}"  RowHeight="220" SeparatorColor="Black" >
@@ -126,27 +122,20 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        
+
                                         <material:MaterialButton BackgroundColor="Transparent" Grid.Row="1" IsVisible="{Binding imgButtonEnable}"  Command="{Binding Source={x:Reference qTimeline}, Path=BindingContext.showImagePopUp}" CommandParameter="{Binding .}" />
                                         <Grid Grid.Row="2">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="0"/>
-                                                <ColumnDefinition Width="20"/>
-                                                <ColumnDefinition Width="20"/>
-                                                <ColumnDefinition Width="20"/>
-                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="30"/>
+                                                <ColumnDefinition Width="30"/>
+                                                
                                             </Grid.ColumnDefinitions>
-                                            <Image Source="noanswericon.png" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
-                                            <Label Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding numOFCmtN}"></Label>
-                                            <Image Source="answericon.png" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
-                                            <Label Grid.Column="4" HorizontalOptions="Start" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding numOFCmtR}"></Label>
-                            
+                                            <Image Source="viewpost.png" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
+                                            <Label Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding noOfComment}"></Label>
+
                                         </Grid>
-
-                                        
                                     </Grid>
-                                   
-
                                 </Grid>
                                 <material:MaterialButton Grid.Row="1" Margin="3,0,3,0" PressedBackgroundColor="#10000000" BackgroundColor="Transparent" Command="{Binding Source={x:Reference qTimeline}, Path=BindingContext.answerQuestion}" CommandParameter="{Binding .}" />
                             </Grid>

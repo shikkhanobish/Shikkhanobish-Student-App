@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace ShikkhanobishStudentApp.ViewModel
 {
@@ -17,8 +18,10 @@ namespace ShikkhanobishStudentApp.ViewModel
         List<Post> plist = new List<Post>();
         List<Tag> tlist = new List<Tag>();
         List<Answer> anslist = new List<Answer>();
+        
         public PostCreatorViewModel()
         {
+            validationTxt = "";
             showTag = false;
         }
         #region Methods
@@ -54,10 +57,24 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         private async Task PerformsendPost()
         {
-            var res= await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setPost".PostJsonAsync(new { postID = StaticPageToPassData.GenarateIDString(20), name = StaticPageToPassData.thisStudentInfo.name, post=newPost, postDate="n/a", userID= StaticPageToPassData.thisStudentInfo.studentID, userType=1, imgSrc="n/a", postTitle= titleText, noOfComment=0, tagID =selectedTag.tagID,}).ReceiveJson<Response>();
-            selectedTag.tagName = "";
+            if (selectedTag != null && newPost != "" && titleText != "" && newPost != null && titleText != null)
+            {
+                using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
+                {
+                    var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setPost".PostJsonAsync(new { postID = StaticPageToPassData.GenarateIDString(20), name = StaticPageToPassData.thisStudentInfo.name, post = newPost, postDate = "n/a", userID = StaticPageToPassData.thisStudentInfo.studentID, userType = 1, imgSrc = "n/a", postTitle = titleText, noOfComment = 0, tagID = selectedTag.tagID, }).ReceiveJson<Response>();
+                    selectedTag.tagName = "";
+
+                    StaticPageToPassData.eventController.CallEvent();
+
+                    Application.Current.MainPage.Navigation.PopAsync();
+                }
+                
+            }
+            else
+            {
+                validationTxt = "Please Fill up All Requirements";
+            }
             
-            Application.Current.MainPage.Navigation.PopAsync();
         }
 
 
@@ -147,6 +164,10 @@ namespace ShikkhanobishStudentApp.ViewModel
         private string subTxt;
 
         public string SubTxt { get => subTxt; set => SetProperty(ref subTxt, value); }
+
+        private string validationTxt1;
+
+        public string validationTxt { get => validationTxt1; set => SetProperty(ref validationTxt1, value); }
 
 
         #endregion
