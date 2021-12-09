@@ -267,7 +267,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                             newAns[i].upVoteCount--;
                         }
                     }
-                    var resp = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerVote".PostJsonAsync(new { answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID}).ReceiveJson<Response>();
+                    var resp = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerVote".PostJsonAsync(new { answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<Response>();
 
                 }
             }
