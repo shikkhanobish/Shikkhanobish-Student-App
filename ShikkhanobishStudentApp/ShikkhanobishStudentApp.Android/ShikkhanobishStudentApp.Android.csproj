@@ -346,10 +346,7 @@
     <AndroidResource Include="Resources\drawable\crossPopup.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\sendmsg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\takaicon.png" />
+    <AndroidResource Include="Resources\drawable\sendreply.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
