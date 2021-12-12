@@ -29,9 +29,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             GetPost(pid);
             showImg = false;
             ViewCount();
-            obj.voteFrameVisibility = true;
-            
-
+            //obj.voteFrameVisibility = true;
         }
 
         #region Methods
@@ -75,7 +73,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             foreach(var item in alist)
             {
                 item.riviewImg = "";
-                
+                item.voteFrameVisibility = true;
                 if (plist.postID==item.postID)
                 {
                     foreach (var vote in avList)
@@ -85,7 +83,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                            
                             item.upBackColor = "Transparent";
                             item.downBackColor = "Transparent";
-                           
+                            
                             if (StaticPageToPassData.thisStudentInfo.studentID == vote.userID)
                             {
                                 item.voteFrameVisibility = false;
