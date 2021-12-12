@@ -19,6 +19,8 @@ namespace ShikkhanobishStudentApp.ViewModel
         List<Teacher> teacherList = new List<Teacher>();
         List<Answer> alist = new List<Answer>();
         List<AnswerVote> avList = new List<AnswerVote>();
+        Answer obj = new Answer();
+        Post plist = new Post();
         public string thisPostID { get; set; }
 
         public AnswerCommentViewModel(string pid)
@@ -27,7 +29,9 @@ namespace ShikkhanobishStudentApp.ViewModel
             GetPost(pid);
             showImg = false;
             ViewCount();
-            //imgButtonEnable = false;
+            obj.voteFrameVisibility = true;
+            
+
         }
 
         #region Methods
@@ -40,7 +44,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
             {
-                var plist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPostWithID".PostJsonAsync(new { postID = pid }).ReceiveJson<Post>();
+                plist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPostWithID".PostJsonAsync(new { postID = pid }).ReceiveJson<Post>();
                 var tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
                 teacherList = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getAllTeacher".PostJsonAsync(new { }).ReceiveJson<List<Teacher>>();
 
@@ -71,12 +75,33 @@ namespace ShikkhanobishStudentApp.ViewModel
             foreach(var item in alist)
             {
                 item.riviewImg = "";
+                
                 if (plist.postID==item.postID)
                 {
                     foreach (var vote in avList)
                     {
                         if (item.answerID == vote.answerID)
                         {
+                           
+                            item.upBackColor = "Transparent";
+                            item.downBackColor = "Transparent";
+                           
+                            if (StaticPageToPassData.thisStudentInfo.studentID == vote.userID)
+                            {
+                                item.voteFrameVisibility = false;
+                                if (vote.upOrdownVote == 1)
+                                {
+                                    item.upBackColor = "#100DD545";
+                                    item.downBackColor = "Transparent";
+                                }
+                          
+                                if (vote.upOrdownVote == 2)
+                                {
+                                    item.downBackColor = "#10F0140E";
+                                    item.upBackColor = "Transparent";
+                                }
+                            }
+                            item.voteFrameVisibility = true;
                             if (vote.upOrdownVote == 1)
                             {
                                 item.upVoteCount++;
@@ -85,6 +110,8 @@ namespace ShikkhanobishStudentApp.ViewModel
                             else if (vote.upOrdownVote == 2)
                             {
                                 item.downVoteCount++;
+                               
+                                
                             }
                             
                         }
@@ -213,76 +240,114 @@ namespace ShikkhanobishStudentApp.ViewModel
             showImg = false;
 
         }
+        public void GetVote(Answer ans)
+        {
+            
 
+        }
 
         public async Task PerformupVote(Answer ans)
         {
-            List<Answer> newAns = new List<Answer>();
-            newAns = ansList;
+            bool isMatch = false;
             foreach (var item in avList)
             {
-                if (ans.answerID == item.answerID && StaticPageToPassData.thisStudentInfo.studentID == item.userID && item.upOrdownVote == 2)
+                if (ans.answerID == item.answerID && StaticPageToPassData.thisStudentInfo.studentID == item.userID && item.upOrdownVote == 1)
                 {
-                    for (int i = 0; i < ansList.Count; i++)
-                    {
-                        if (newAns[i].answerID == ans.answerID)
-                        {
-                            newAns[i].downVoteCount--;
-                        }
-                    }
+                    isMatch = true;
                     var resp = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerVote".PostJsonAsync(new { answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<Response>();
 
                 }
-            }
 
-           
-            for (int i = 0; i < ansList.Count; i++)
-            {
-                if (newAns[i].answerID == ans.answerID)
-                {
-                    newAns[i].upVoteCount++;
-                }
             }
-            ansList = new List<Answer>();
-            ansList = newAns;
-            var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerVote".PostJsonAsync(new { ansvoteID = StaticPageToPassData.GenarateNewID(), answerID=ans.answerID, userID=StaticPageToPassData.thisStudentInfo.studentID, upOrdownVote=1 }).ReceiveJson<Response>();
-            
-           
+            if (!isMatch)
+            {
+                var resp = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerVote".PostJsonAsync(new { answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<Response>();
+                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerVote".PostJsonAsync(new { ansvoteID = StaticPageToPassData.GenarateNewID(), answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID, upOrdownVote = 1 }).ReceiveJson<Response>();
+            }
+            await GetAnswer(plist);
+            //avList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswerVote".GetJsonAsync<List<AnswerVote>>();
+            //foreach (var item in avList)
+            //{
+            //    if (ans.answerID == item.answerID && StaticPageToPassData.thisStudentInfo.studentID == item.userID)
+            //    {
+            //        for (int i = 0; i < ansList.Count; i++)
+            //        {
+            //            if (newAns[i].answerID == ans.answerID)
+            //            {
+            //                if (item.upOrdownVote == 1)
+            //                {
+            //                    newAns[i].upBackColor = "Transparent";
+            //                    newAns[i].upVoteCount--;
+
+            //                }
+            //                if (item.upOrdownVote == 2)
+            //                {
+            //                    newAns[i].upBackColor = "#100DD545";
+            //                    newAns[i].upVoteCount++;
+            //                    newAns[i].downVoteCount--;
+            //                    newAns[i].downBackColor = "Transparent";
+            //                }
+
+
+            //            }
+            //        }
+            //        ansList = new List<Answer>();
+            //        ansList = newAns;
+            //    }
+            //}
+
         }
 
         public async Task PerformdownVote(Answer ans)
 
         {
-            List<Answer> newAns = new List<Answer>();
-            newAns = ansList;
-
+            bool isMatch = false;
             foreach (var item in avList)
             {
-                if (ans.answerID==item.answerID && StaticPageToPassData.thisStudentInfo.studentID==item.userID && item.upOrdownVote==1)
+                if (ans.answerID == item.answerID && StaticPageToPassData.thisStudentInfo.studentID == item.userID && item.upOrdownVote == 2)
                 {
-                    for (int i = 0; i < ansList.Count; i++)
-                    {
-                        if (newAns[i].answerID == ans.answerID)
-                        {
-                            newAns[i].upVoteCount--;
-                        }
-                    }
+                    isMatch = true;
                     var resp = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerVote".PostJsonAsync(new { answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<Response>();
 
                 }
+                
             }
-            
-            
-            for (int i = 0; i < ansList.Count; i++)
+            if (!isMatch)
             {
-                if (newAns[i].answerID == ans.answerID)
-                {
-                    newAns[i].downVoteCount++;
-                }
+                var resp = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerVote".PostJsonAsync(new { answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<Response>();
+                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerVote".PostJsonAsync(new { ansvoteID = StaticPageToPassData.GenarateNewID(), answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID, upOrdownVote = 2 }).ReceiveJson<Response>();
             }
-            ansList = new List<Answer>();
-            ansList = newAns;
-            var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerVote".PostJsonAsync(new { ansvoteID = StaticPageToPassData.GenarateNewID(), answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID, upOrdownVote = 2 }).ReceiveJson<Response>();
+            await GetAnswer(plist);
+            //avList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswerVote".GetJsonAsync<List<AnswerVote>>();
+            //foreach (var item in avList)
+            //{
+            //    if (ans.answerID == item.answerID && StaticPageToPassData.thisStudentInfo.studentID == item.userID)
+            //    {
+            //        for (int i = 0; i < ansList.Count; i++)
+            //        {
+            //            if (newAns[i].answerID == ans.answerID)
+            //            {
+            //                if (item.upOrdownVote == 1)
+            //                {
+            //                    newAns[i].downBackColor = "#100DD545";
+            //                    newAns[i].downVoteCount++;
+            //                    newAns[i].upVoteCount--;
+            //                    newAns[i].upBackColor = "Transparent";
+            //                }
+            //                if (item.upOrdownVote == 2)
+            //                {
+            //                    newAns[i].downBackColor = "Transparent";
+            //                    newAns[i].downVoteCount--;
+            //                }
+
+
+            //            }
+            //        }
+            //        ansList = new List<Answer>();
+            //        ansList = newAns;
+            //    }
+            //}
+
 
         }
 

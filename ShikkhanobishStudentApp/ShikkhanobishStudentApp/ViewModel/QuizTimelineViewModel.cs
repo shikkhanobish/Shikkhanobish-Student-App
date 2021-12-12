@@ -81,19 +81,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                     {
                         if (post.postID == ans.postID)
                         {
-
-                            if (ans.review == 1)
-                            {
-                                post.numOFCmtR++;
-                                post.ansIconR = "answericon.png";
-                            }
-                            else if (ans.review == 0)
-                            {
-                                post.numOFCmtN++;
-                                post.ansIconN = "noanswericon.png";
-                            }
-                            
-
+                            post.numOFCmtR++;
                         }
 
                     }

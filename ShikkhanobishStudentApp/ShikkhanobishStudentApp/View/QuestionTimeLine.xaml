@@ -126,14 +126,17 @@
                                         <material:MaterialButton BackgroundColor="Transparent" Grid.Row="1" IsVisible="{Binding imgButtonEnable}"  Command="{Binding Source={x:Reference qTimeline}, Path=BindingContext.showImagePopUp}" CommandParameter="{Binding .}" />
                                         <Grid Grid.Row="2">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="0"/>
+                                                <ColumnDefinition Width="30"/>
                                                 <ColumnDefinition Width="30"/>
                                                 <ColumnDefinition Width="30"/>
                                                 
                                             </Grid.ColumnDefinitions>
-                                            <Image Source="viewpost.png" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
-                                            <Label Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding noOfComment}"></Label>
+                                            <Image Source="viewpost.png" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
+                                            <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding noOfComment}"></Label>
+                                            <Image Source="answericon.png" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit"/>
+                                            <Label Grid.Column="3" HorizontalOptions="Start" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding numOFCmtR}"></Label>
 
+                                            
                                         </Grid>
                                     </Grid>
                                 </Grid>

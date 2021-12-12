@@ -138,29 +138,31 @@
                                                 
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-                                            <Grid Grid.Column="0">
+                                            <Grid Grid.Column="0" >
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="40"></ColumnDefinition>
                                                     <ColumnDefinition Width="40"></ColumnDefinition>
                                                     
                                                 </Grid.ColumnDefinitions>
-                                                <Grid Grid.Column="0">
+                                                <Grid Grid.Column="0" IsVisible="{Binding voteFrameVisibility}">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="20"></ColumnDefinition>
                                                         <ColumnDefinition Width="20"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
+                                                    <Frame  BackgroundColor="{Binding upBackColor}" Grid.ColumnSpan="2" CornerRadius="10" HasShadow="False" Margin="3"/>
                                                     <Image Source="upvote.png" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit" Margin="5,0,0,0"/>
                                                     <Label Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding upVoteCount}"></Label>
-                                                    <material:MaterialCard Grid.ColumnSpan="2" IsClickable="True" Elevation="2"  BackgroundColor="Transparent" CornerRadius="10"  ClickCommand="{Binding Source={x:Reference ansComment}, Path=BindingContext.upVote}" ClickCommandParameter="{Binding .}"  />
+                                                    <material:MaterialCard Grid.ColumnSpan="2" IsClickable="True"    CornerRadius="10" BackgroundColor="Transparent" HasShadow="False"  ClickCommand="{Binding Source={x:Reference ansComment}, Path=BindingContext.upVote}" ClickCommandParameter="{Binding .}"  />
                                                 </Grid>
-                                                <Grid Grid.Column="1">
+                                                <Grid Grid.Column="1" IsVisible="{Binding voteFrameVisibility}">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="20"></ColumnDefinition>
                                                         <ColumnDefinition Width="20"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
+                                                    <Frame  BackgroundColor="{Binding downBackColor}" Grid.ColumnSpan="2"  CornerRadius="10" HasShadow="False"  Margin="3"/>
                                                     <Image Source="downvote.png" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFit" Margin="5,0,0,0"/>
                                                     <Label Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="14" TextColor="Black" Text="{Binding downVoteCount}"></Label>
-                                                    <material:MaterialCard Grid.ColumnSpan="2" IsClickable="True" Elevation="2"  BackgroundColor="Transparent" CornerRadius="10" ClickCommand="{Binding Source={x:Reference ansComment}, Path=BindingContext.downVote}" ClickCommandParameter="{Binding .}"  />
+                                                    <material:MaterialCard Grid.ColumnSpan="2" IsClickable="True" BackgroundColor="Transparent" HasShadow="False"   CornerRadius="10" ClickCommand="{Binding Source={x:Reference ansComment}, Path=BindingContext.downVote}" ClickCommandParameter="{Binding .}"  />
                                                 </Grid>
                                                
                                             </Grid>
@@ -275,7 +277,6 @@
                                     </Label.FormattedText>
                                 </Label>
                                 
-                                <material:MaterialButton Grid.Column="2" FontAttributes="Bold" TextColor="Crimson" Text="Delete" Padding="35,0,0,0" BackgroundColor="Transparent" FontSize="10"  Command="{Binding deleteAnswer}"></material:MaterialButton>
 
                             </Grid>
                             <Grid Grid.Row="1" Grid.Column="1">
@@ -289,7 +290,16 @@
                             </Grid>
                             
                         </Grid>
-                        <material:MaterialButton Grid.Row="2"  Text="Update" HorizontalOptions="End" VerticalOptions="Center"  FontSize="9" ButtonType="Text" FontAttributes="Bold" Command="{Binding updateEdit}" />
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <material:MaterialButton Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center" Padding="15,0,0,0"  FontAttributes="Bold" TextColor="Crimson" Text="Delete" BackgroundColor="Transparent" FontSize="10"  Command="{Binding deleteAnswer}"></material:MaterialButton>
+
+                            <material:MaterialButton Grid.Column="1"  Text="Update" HorizontalOptions="End" VerticalOptions="Center"  FontSize="9" ButtonType="Text" FontAttributes="Bold" Command="{Binding updateEdit}" />
+                        </Grid>
+
                     </Grid>
                     
 
