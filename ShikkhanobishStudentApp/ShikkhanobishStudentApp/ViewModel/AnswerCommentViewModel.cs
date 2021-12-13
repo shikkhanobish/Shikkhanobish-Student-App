@@ -13,11 +13,14 @@ using XF.Material.Forms.UI.Dialogs;
 namespace ShikkhanobishStudentApp.ViewModel
 {
     public class AnswerCommentViewModel : BaseViewModel, INotifyPropertyChanged
-    
+
     {
-     
+        //Test
         List<Teacher> teacherList = new List<Teacher>();
         List<Answer> alist = new List<Answer>();
+        List<AnswerVote> avList = new List<AnswerVote>();
+        Answer obj = new Answer();
+        Post plist = new Post();
         public string thisPostID { get; set; }
 
         public AnswerCommentViewModel(string pid)
@@ -25,15 +28,21 @@ namespace ShikkhanobishStudentApp.ViewModel
             thisPostID = pid;
             GetPost(pid);
             showImg = false;
-            //imgButtonEnable = false;
+            ViewCount();
+            //obj.voteFrameVisibility = true;
         }
 
         #region Methods
+        public async Task ViewCount()
+        {
+            var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/viewCountWithPostID".PostJsonAsync(new { postID = thisPostID }).ReceiveJson<Response>();
+            StaticPageToPassData.postViewEventStatic.CallPostViewEvent();
+        }
         public async Task GetPost(string pid)
         {
             using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
             {
-                var plist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPostWithID".PostJsonAsync(new { postID = pid }).ReceiveJson<Post>();
+                plist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPostWithID".PostJsonAsync(new { postID = pid }).ReceiveJson<Post>();
                 var tlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTag".GetJsonAsync<List<Tag>>();
                 teacherList = await "https://api.shikkhanobish.com/api/ShikkhanobishTeacher/getAllTeacher".PostJsonAsync(new { }).ReceiveJson<List<Teacher>>();
 
@@ -49,47 +58,85 @@ namespace ShikkhanobishStudentApp.ViewModel
                 }
 
                 await GetAnswer(plist);
-               
+
             }
         }
-        
+
         public async Task GetAnswer(Post plist)
         {
             alist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswer".GetJsonAsync<List<Answer>>();
             var postlist = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getPost".GetJsonAsync<List<Post>>();
 
+            avList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswerVote".GetJsonAsync<List<AnswerVote>>();
+
             List<Answer> updatedAnsList = new List<Answer>();
-            foreach(var item in alist)
+            foreach (var item in alist)
             {
 
-                item.riviewImg = "";
-                if (plist.postID==item.postID)
+                if (plist.postID == item.postID)
                 {
-
-                    if (item.review == 1)
+                    foreach (var vote in avList)
                     {
-                        item.riviewImg = "correctreview.gif";
+                        if (item.answerID == vote.answerID)
+                        {
+
+                            item.upBackColor = "Transparent";
+                            item.downBackColor = "Transparent";
+
+                            if (StaticPageToPassData.thisStudentInfo.studentID == vote.userID)
+                            {
+
+                                if (vote.upOrdownVote == 1)
+                                {
+                                    item.upBackColor = "#100DD545";
+                                    item.downBackColor = "Transparent";
+                                }
+
+                                if (vote.upOrdownVote == 2)
+                                {
+                                    item.downBackColor = "#10F0140E";
+                                    item.upBackColor = "Transparent";
+                                }
+
+                            }
+
+
+                            if (vote.upOrdownVote == 1)
+                            {
+                                item.upVoteCount++;
+                            }
+
+                            else if (vote.upOrdownVote == 2)
+                            {
+                                item.downVoteCount++;
+
+
+                            }
+                            break;
+                        }
+                    }
+
+                    if (StaticPageToPassData.thisStudentInfo.studentID == item.userID)
+                    {
+                        item.editVisible = true;
+                        item.voteFrameVisibility = false;
+                    }
+                    else
+                    {
+                        item.voteFrameVisibility = true;
+                        item.editVisible = false;
+                    }
+                    if (item.userType == 2)
+                    {
+                        item.tinfoVisible = true;
+                    }
+                    else
+                    {
+                        item.tinfoVisible = false;
                     }
                     updatedAnsList.Add(item);
                 }
-                if (StaticPageToPassData.thisStudentInfo.studentID == item.userID)
-                {
-                    item.editVisible = true;
-                }
-                else
-                {
-                    item.editVisible = false;
-                }
-                if (item.userType == 2)
-                {
-                    item.tinfoVisible = true;
-                }
-                else
-                {
-                    item.tinfoVisible = false;
-                }
 
-                
             }
             List<Answer> SortedList = new List<Answer>();
             SortedList = updatedAnsList.OrderBy(x => x.review).ToList();
@@ -107,14 +154,24 @@ namespace ShikkhanobishStudentApp.ViewModel
                 await GetPost(thisPostID);
 
 
-          
-                var res2= await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setNotification".PostJsonAsync(new { notificationID = StaticPageToPassData.GenarateIDString(50), userId = StaticPageToPassData.thisStudentInfo.studentID, userType = 1, notificationType = 2, 
-                    
-                    description = "n/a", refIDOne = ansID, refIDTwo = "n/a", refIDThree = "n/a", refIDFour = "n/a", notificationDate = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+
+                var res2 = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setNotification".PostJsonAsync(new
+                {
+                    notificationID = StaticPageToPassData.GenarateIDString(50),
+                    userId = StaticPageToPassData.thisStudentInfo.studentID,
+                    userType = 1,
+                    notificationType = 2,
+
+                    description = "n/a",
+                    refIDOne = ansID,
+                    refIDTwo = "n/a",
+                    refIDThree = "n/a",
+                    refIDFour = "n/a",
+                    notificationDate = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
                 }).ReceiveJson<Response>();
             }
 
-
+            //Call Push Notification
             newComment = "";
         }
         private async Task PerformupdateEdit()
@@ -125,14 +182,14 @@ namespace ShikkhanobishStudentApp.ViewModel
                 var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerWithID".PostJsonAsync(new { answerID = answer.answerID, name = answer.name, answer = answer.answer, userID = answer.userID, userType = answer.userType, imgSrc = answer.imgSrc, review = answer.review, postID = answer.postID, answerDate = answer.answerDate }).ReceiveJson<Response>();
                 await GetPost(thisPostID);
             }
-         
+
         }
         private async Task PerformdeleteAnswer()
         {
             showEdit = false;
             using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Deleting Answer. Please Wait..."))
             {
-                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerWithID".PostJsonAsync(new { answerID=answer.answerID }).ReceiveJson<Response>();
+                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerWithID".PostJsonAsync(new { answerID = answer.answerID }).ReceiveJson<Response>();
                 await GetPost(thisPostID);
             }
         }
@@ -176,7 +233,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 //imgButtonEnable = true;
                 showImg = true;
-                
+
             }
         }
 
@@ -185,8 +242,117 @@ namespace ShikkhanobishStudentApp.ViewModel
             showImg = false;
 
         }
+        public void GetVote(Answer ans)
+        {
 
-      
+
+        }
+
+        public async Task PerformupVote(Answer ans)
+        {
+            bool isMatch = false;
+            foreach (var item in avList)
+            {
+                if (ans.answerID == item.answerID && StaticPageToPassData.thisStudentInfo.studentID == item.userID && item.upOrdownVote == 1)
+                {
+                    isMatch = true;
+                    var resp = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerVote".PostJsonAsync(new { answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<Response>();
+
+                }
+
+            }
+            if (!isMatch)
+            {
+                var resp = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerVote".PostJsonAsync(new { answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<Response>();
+                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerVote".PostJsonAsync(new { ansvoteID = StaticPageToPassData.GenarateNewID(), answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID, upOrdownVote = 1 }).ReceiveJson<Response>();
+            }
+            await GetAnswer(plist);
+            //avList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswerVote".GetJsonAsync<List<AnswerVote>>();
+            //foreach (var item in avList)
+            //{
+            //    if (ans.answerID == item.answerID && StaticPageToPassData.thisStudentInfo.studentID == item.userID)
+            //    {
+            //        for (int i = 0; i < ansList.Count; i++)
+            //        {
+            //            if (newAns[i].answerID == ans.answerID)
+            //            {
+            //                if (item.upOrdownVote == 1)
+            //                {
+            //                    newAns[i].upBackColor = "Transparent";
+            //                    newAns[i].upVoteCount--;
+
+            //                }
+            //                if (item.upOrdownVote == 2)
+            //                {
+            //                    newAns[i].upBackColor = "#100DD545";
+            //                    newAns[i].upVoteCount++;
+            //                    newAns[i].downVoteCount--;
+            //                    newAns[i].downBackColor = "Transparent";
+            //                }
+
+
+            //            }
+            //        }
+            //        ansList = new List<Answer>();
+            //        ansList = newAns;
+            //    }
+            //}
+
+        }
+
+        public async Task PerformdownVote(Answer ans)
+
+        {
+            bool isMatch = false;
+            foreach (var item in avList)
+            {
+                if (ans.answerID == item.answerID && StaticPageToPassData.thisStudentInfo.studentID == item.userID && item.upOrdownVote == 2)
+                {
+                    isMatch = true;
+                    var resp = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerVote".PostJsonAsync(new { answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<Response>();
+
+                }
+
+            }
+            if (!isMatch)
+            {
+                var resp = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/deleteAnswerVote".PostJsonAsync(new { answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID }).ReceiveJson<Response>();
+                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setAnswerVote".PostJsonAsync(new { ansvoteID = StaticPageToPassData.GenarateNewID(), answerID = ans.answerID, userID = StaticPageToPassData.thisStudentInfo.studentID, upOrdownVote = 2 }).ReceiveJson<Response>();
+            }
+            await GetAnswer(plist);
+            //avList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getAnswerVote".GetJsonAsync<List<AnswerVote>>();
+            //foreach (var item in avList)
+            //{
+            //    if (ans.answerID == item.answerID && StaticPageToPassData.thisStudentInfo.studentID == item.userID)
+            //    {
+            //        for (int i = 0; i < ansList.Count; i++)
+            //        {
+            //            if (newAns[i].answerID == ans.answerID)
+            //            {
+            //                if (item.upOrdownVote == 1)
+            //                {
+            //                    newAns[i].downBackColor = "#100DD545";
+            //                    newAns[i].downVoteCount++;
+            //                    newAns[i].upVoteCount--;
+            //                    newAns[i].upBackColor = "Transparent";
+            //                }
+            //                if (item.upOrdownVote == 2)
+            //                {
+            //                    newAns[i].downBackColor = "Transparent";
+            //                    newAns[i].downVoteCount--;
+            //                }
+
+
+            //            }
+            //        }
+            //        ansList = new List<Answer>();
+            //        ansList = newAns;
+            //    }
+            //}
+
+
+        }
+
 
 
         #endregion
@@ -200,7 +366,7 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         private Post post1;
 
-        public Post post{ get => post1; set => SetProperty(ref post1, value); }
+        public Post post { get => post1; set => SetProperty(ref post1, value); }
 
         private List<Answer> ansList1;
 
@@ -213,7 +379,7 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         private bool editAbleAnswer1;
         public bool editAbleAnswer { get => editAbleAnswer1; set => SetProperty(ref editAbleAnswer1, value); }
-        
+
 
         private bool showEdit1;
         public bool showEdit { get => showEdit1; set => SetProperty(ref showEdit1, value); }
@@ -227,9 +393,39 @@ namespace ShikkhanobishStudentApp.ViewModel
         private bool showImg1;
         public bool showImg { get => showImg1; set => SetProperty(ref showImg1, value); }
 
-        
+
         private bool imgButtonEnable1;
         public bool imgButtonEnable { get => imgButtonEnable1; set => SetProperty(ref imgButtonEnable1, value); }
+
+        private ICommand upVote1;
+
+        public ICommand upVote
+        {
+            get
+            {
+                return new Command<Answer>(async (a) =>
+                {
+
+                    await PerformupVote(a);
+                });
+
+            }
+        }
+
+        private ICommand downVote1;
+
+        public ICommand downVote
+        {
+            get
+            {
+                return new Command<Answer>(async (a) =>
+                {
+
+                    await PerformdownVote(a);
+                });
+            }
+        }
+
         //Edit
         private ICommand showEditPopUp1;
 
@@ -244,7 +440,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 });
 
             }
-           
+
         }
 
         private ICommand closeEditPopUp1;
@@ -271,8 +467,8 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 return new Command<Answer>(async (a) =>
                 {
-                    
-                    foreach(var item in teacherList)
+
+                    foreach (var item in teacherList)
                     {
                         if (a.userID == item.teacherID)
                         {
@@ -382,7 +578,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 if (sendAnswer1 == null)
                 {
-                    sendAnswer1 = new Command(async =>PerformsendAnswer());
+                    sendAnswer1 = new Command(async => PerformsendAnswer());
                 }
 
                 return sendAnswer1;
@@ -393,8 +589,8 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public string newComment { get => newComment1; set => SetProperty(ref newComment1, value); }
 
-        
-        
+
+
         private Command deleteAnswer1;
 
         public ICommand deleteAnswer
@@ -403,13 +599,13 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 if (deleteAnswer1 == null)
                 {
-                    deleteAnswer1 = new Command(async=> PerformdeleteAnswer());
+                    deleteAnswer1 = new Command(async => PerformdeleteAnswer());
                 }
 
                 return deleteAnswer1;
             }
         }
-        #endregion
 
+        #endregion
     }
 }
