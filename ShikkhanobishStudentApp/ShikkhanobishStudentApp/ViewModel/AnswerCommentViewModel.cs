@@ -15,7 +15,7 @@ namespace ShikkhanobishStudentApp.ViewModel
     public class AnswerCommentViewModel : BaseViewModel, INotifyPropertyChanged
     
     {
-     
+     //Test
         List<Teacher> teacherList = new List<Teacher>();
         List<Answer> alist = new List<Answer>();
         List<AnswerVote> avList = new List<AnswerVote>();
