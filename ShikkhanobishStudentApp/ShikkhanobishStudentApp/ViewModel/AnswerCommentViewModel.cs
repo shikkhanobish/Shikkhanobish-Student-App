@@ -72,21 +72,20 @@ namespace ShikkhanobishStudentApp.ViewModel
             List<Answer> updatedAnsList = new List<Answer>();
             foreach(var item in alist)
             {
-                item.riviewImg = "";
-                item.voteFrameVisibility = true;
+                
                 if (plist.postID==item.postID)
                 {
                     foreach (var vote in avList)
                     {
                         if (item.answerID == vote.answerID)
                         {
-                           
+                            
                             item.upBackColor = "Transparent";
                             item.downBackColor = "Transparent";
                             
                             if (StaticPageToPassData.thisStudentInfo.studentID == vote.userID)
                             {
-                                item.voteFrameVisibility = false;
+                                
                                 if (vote.upOrdownVote == 1)
                                 {
                                     item.upBackColor = "#100DD545";
@@ -98,8 +97,10 @@ namespace ShikkhanobishStudentApp.ViewModel
                                     item.downBackColor = "#10F0140E";
                                     item.upBackColor = "Transparent";
                                 }
+
                             }
-                            item.voteFrameVisibility = true;
+                           
+                            
                             if (vote.upOrdownVote == 1)
                             {
                                 item.upVoteCount++;
@@ -111,37 +112,30 @@ namespace ShikkhanobishStudentApp.ViewModel
                                
                                 
                             }
-                            
+                            break;
                         }
                     }
-                    if (item.review == 1)
-                    {
-                        item.riviewImg = "correctreview.gif";
-
-                        
-                    }
                     
+                    if (StaticPageToPassData.thisStudentInfo.studentID == item.userID)
+                    {
+                        item.editVisible = true;
+                        item.voteFrameVisibility = false;
+                    }
+                    else
+                    {
+                        item.voteFrameVisibility = true;
+                        item.editVisible = false;
+                    }
+                    if (item.userType == 2)
+                    {
+                        item.tinfoVisible = true;
+                    }
+                    else
+                    {
+                        item.tinfoVisible = false;
+                    }
                     updatedAnsList.Add(item);
                 }
-
-                
-                if (StaticPageToPassData.thisStudentInfo.studentID == item.userID)
-                {
-                    item.editVisible = true;
-                }
-                else
-                {
-                    item.editVisible = false;
-                }
-                if (item.userType == 2)
-                {
-                    item.tinfoVisible = true;
-                }
-                else
-                {
-                    item.tinfoVisible = false;
-                }
-
                 
             }
             List<Answer> SortedList = new List<Answer>();
