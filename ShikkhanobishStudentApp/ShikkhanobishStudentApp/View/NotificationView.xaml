@@ -7,11 +7,11 @@
                xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              x:Name="notificationObj"
              x:Class="ShikkhanobishStudentApp.View.NotificationView">
-    
+
     <ContentPage.BindingContext>
         <viewmodel:NotificationViewModel/>
     </ContentPage.BindingContext>
-    
+
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -29,8 +29,8 @@
         <!--
         <Label Text="Notification" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontSize="18" FontAttributes="Bold"/>
         -->
-        
-        
+
+
         <Image Source="back.png" Grid.Row="0" Grid.Column="1" Aspect="AspectFit" HorizontalOptions="Start" VerticalOptions="Center" Margin="0,10,0,10">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
@@ -38,7 +38,7 @@
         </Image>
         <Label Grid.Row="1" Grid.Column="1" Text="Notifications" TextColor="Black" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"></Label>
         <Label FontSize="11" Text="এই উইন্ডোতে আপনি দেখবেন আপনাকে কোন টিচার রিপোর্ট করেছে। শিক্ষানবিশ শিক্ষার গুনগত মান নিয়ন্ত্রণের জন্য শিক্ষক এবং শিক্ষার্থী উভয়ের জন্যই রিপোর্ট সিস্টেম চালু করেছে। আশা করি আপনারা শিক্ষানবিশে শিক্ষার পরিবেশ বজায় রাখবেন" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
-        <Frame BackgroundColor="Gray" Grid.Row="3" Grid.Column="1"> </Frame>
+        <Frame BackgroundColor="Gray" Grid.Row="3" Grid.Column="1"></Frame>
         <ListView  Grid.Row="4" Grid.Column="1" RowHeight="130"  SeparatorColor="White" ItemsSource="{Binding notificationList}">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -55,7 +55,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="5"/>
                             </Grid.ColumnDefinitions>
-                           
+
                             <Grid Grid.Row="1" Grid.Column="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -70,7 +70,7 @@
                                         <Span Text="{Binding spanOne}" FontAttributes="Bold" />
                                         <Span Text="{Binding spanTwo}"/>
                                         <Span Text="{Binding spanThree}" FontAttributes="Bold" />
-                                        
+
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>

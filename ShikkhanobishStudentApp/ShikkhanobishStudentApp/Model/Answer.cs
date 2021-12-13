@@ -18,8 +18,12 @@ namespace ShikkhanobishStudentApp.Model
         public string riviewImg { get; set; }
         public bool editVisible { get; set; }
         public bool tinfoVisible { get; set; }
-
         public string newComment { get; set; }
+        public int upVoteCount { get; set; }
+        public int downVoteCount { get; set; }
+        public string upBackColor { get; set; }
+        public string downBackColor { get; set; }
+        public bool voteFrameVisibility { get; set; }
         public string Response { get; set; }
     }
 }
