@@ -315,6 +315,12 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\videocall.png" />
   </ItemGroup>
+   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\answericon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\noanswericon.png" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\livehirerequest.gif" />
   </ItemGroup>
