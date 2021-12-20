@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             xmlns:forms="clr-namespace:Microcharts.Forms;assembly=MicroCharts.Forms"
+            
+             x:Class="ShikkhanobishStudentApp.View.Charts">
+
+    <Grid BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <forms:ChartView  x:Name="Chart1" HeightRequest="10"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <forms:ChartView x:Name="Chart2" HeightRequest="10"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <forms:ChartView x:Name="Chart3" HeightRequest="10"/>
+        </Grid>
+        <Grid Grid.Row="4">
+            <forms:ChartView x:Name="Chart4" HeightRequest="10"/>
+        </Grid>
+    </Grid>
+</ContentPage>
