@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             x:Class="ShikkhanobishStudentApp.View.ChapterDescription">
+    <ContentPage.BindingContext>
+        <viewmodel:ChapterDesciptionViewModel/>
+    </ContentPage.BindingContext>
+    <Grid BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="1"></RowDefinition>
+                <RowDefinition Height="200"></RowDefinition>
+                <RowDefinition Height="1"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Margin="5,0,5,0"  Grid.Row="0" Source="videocall.png"  ></Image>
+            <Frame Grid.Row="1" BackgroundColor="#10000000"></Frame>
+            <Grid Grid.Row="2" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="170"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Text="Chapter" FontSize="18" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                <Label Grid.Row="1" Text="chapterDes" FontSize="12" FontAttributes="Bold" Padding="10,10,10,10" TextColor="Black"/>
+                <material:MaterialCard Grid.Row="1" CornerRadius="5" BackgroundColor="#10000000"  Margin="5,5,5,5"/>
+            </Grid>
+            <Frame Grid.Row="3" BackgroundColor="#10000000"></Frame>
+            <Grid Grid.Row="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Text="Topics" FontSize="18" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <ListView  ItemsSource="{Binding topicList}" Grid.Row="1"  RowHeight="100"  SeparatorColor="White" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <material:MaterialChip HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" Padding="5,0,5,0"  Text="{Binding tagName}"  BackgroundColor="#10DA1CAB" TextColor="#DA1CAB"></material:MaterialChip>
+                                    <Label Grid.Column="1" Text="topicDes..." FontSize="12" FontAttributes="Bold" Padding="10,10,10,10" TextColor="Black"/>
+                                    <material:MaterialCard Grid.Column="1" CornerRadius="5" BackgroundColor="#10000000"  Margin="5,5,5,5"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </Grid>
+            
+        </Grid>
+        
+    </Grid>
+    
+</ContentPage>
