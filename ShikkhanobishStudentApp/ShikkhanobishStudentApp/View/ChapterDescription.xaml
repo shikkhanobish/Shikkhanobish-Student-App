@@ -4,9 +4,7 @@
              xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              x:Class="ShikkhanobishStudentApp.View.ChapterDescription">
-    <ContentPage.BindingContext>
-        <viewmodel:ChapterDesciptionViewModel/>
-    </ContentPage.BindingContext>
+    
     <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="10"></RowDefinition>
@@ -25,10 +23,10 @@
             <Grid Grid.Row="2" RowDefinitions="30,25,15,30,AUTO,40">
                 
                 <Label Grid.Row="0" Text="Hasan Ali" FontSize="11" Padding="20,10,0,0" FontAttributes="Bold" TextColor="Gray" HorizontalOptions="Start" VerticalOptions="End"/>
-                <Grid Grid.Row="1" ColumnDefinitions="*,*,AUTO">
-                    <Label Grid.Column="0"  Text="Physics"  FontSize="18" Padding="20,0,0,0" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Grid Grid.Row="1" ColumnDefinitions="AUTO,*,AUTO">
+                    <Label Grid.Column="0"  Text="{Binding chapName}"  FontSize="18" Padding="20,0,0,0" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
                     <Image Source="live.png" Grid.Column="2"   Margin="0,10,30,0" HorizontalOptions="End" VerticalOptions="End" Aspect="AspectFit"/>
-                    <Label Text="500 Taka" Grid.Column="1" FontSize="12" FontAttributes="Bold"  HorizontalOptions="End" VerticalOptions="End"/>
+                    <Label Text="{Binding chapPurchaseRate}" Grid.Column="1" FontSize="12" FontAttributes="Bold"  HorizontalOptions="End" VerticalOptions="End"/>
                 </Grid>
                
                 <Grid Grid.Row="2" Padding="20,0,0,0">
@@ -47,7 +45,7 @@
 
                 </Grid>
                 <Label Grid.Row="3" Text="Descriptions"  FontSize="11" Padding="20,15,0,0" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Start" VerticalOptions="End"/>
-                <Label Grid.Row="4" Text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." Padding="20,0,20,20" FontSize="11"  FontFamily="arial" TextColor="Black"/>
+                <Label Grid.Row="4" Text="{Binding chapDescription}" Padding="20,0,20,20" FontSize="11"  FontFamily="arial" TextColor="Black"/>
                 <Grid Grid.Row="5" ColumnDefinitions="*,AUTO,*">
                     <Image Source="purchaseicon.gif" Grid.Column="0" Aspect="AspectFit" IsAnimationPlaying="True" HorizontalOptions="End" VerticalOptions="Center"/>
                     <material:MaterialButton Text="Purchase This Chapter" Grid.Column="1" BackgroundColor="Transparent" TextColor="#6A08B2" />
@@ -66,7 +64,7 @@
                         <DataTemplate>
                             <ViewCell>
                                 <Grid RowDefinitions="15,25,15,15" ColumnDefinitions="10,20,Auto,*">
-                                    <Label Text="Topic 1" FontAttributes="Bold" FontSize="13" Grid.Row="1" Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center"/>
+                                    <Label Text="{Binding name}" FontAttributes="Bold" FontSize="13" Grid.Row="1" Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center"/>
                                     <Label FontSize="10" Grid.Row="2" Grid.Column="2" HorizontalOptions="Start" VerticalOptions="Center">
                                         <Label.FormattedText>
                                             <FormattedString>

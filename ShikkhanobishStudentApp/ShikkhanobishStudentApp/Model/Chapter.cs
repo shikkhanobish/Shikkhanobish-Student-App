@@ -14,6 +14,8 @@ namespace ShikkhanobishStudentApp.Model
         public int tuitionRequest { get; set; }
         public float avgRatting { get; set; }
         public int indexNo { get; set; }
+        public string description { get; set; }
+        public int purchaseRate { get; set; }
         public string Response { get; set; }
     }
 }
