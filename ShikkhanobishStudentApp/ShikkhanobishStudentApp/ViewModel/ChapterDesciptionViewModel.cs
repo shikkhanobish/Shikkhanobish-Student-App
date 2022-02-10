@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace ShikkhanobishStudentApp.ViewModel
 {
@@ -33,7 +35,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 if (item.chapterID == chapId)
                 {
                     chapName = item.name;
-                    chapDescription = item.description;
+                    chapDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ";
                     chapPurchaseRate = item.purchaseRate;
                 }
             }
@@ -46,7 +48,11 @@ namespace ShikkhanobishStudentApp.ViewModel
                 }
 
             }
+            topicNum = tp.Count.ToString();
             topicList = tp;
+        }
+        private void Performbuychapter()
+        {
         }
         #endregion
 
@@ -65,6 +71,26 @@ namespace ShikkhanobishStudentApp.ViewModel
         private List<Topic> topicList1;
 
         public List<Topic> topicList { get => topicList1; set => SetProperty(ref topicList1, value); }
+
+        private Command buychapter1;
+
+        public ICommand buychapter
+        {
+            get
+            {
+                if (buychapter1 == null)
+                {
+                    buychapter1 = new Command(Performbuychapter);
+                }
+
+                return buychapter1;
+            }
+        }
+
+        private string topicNum1;
+
+        public string topicNum { get => topicNum1; set => SetProperty(ref topicNum1, value); }
+
 
         #endregion
     }
