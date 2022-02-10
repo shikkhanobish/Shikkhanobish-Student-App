@@ -14,6 +14,10 @@ namespace ShikkhanobishStudentApp.ViewModel
 {
     public class LiveTuitionViewModel: BaseViewModel, INotifyPropertyChanged
     {
+        List<TuiTionLog> tuitionList = new List<TuiTionLog>();
+        TuiTionLog tuionLog = new TuiTionLog();
+
+
         #region Methods
         private RealTimeApiMethods realtimeapi = new RealTimeApiMethods();
         List<TuiTionLog> lList = new List<TuiTionLog>();
@@ -21,6 +25,8 @@ namespace ShikkhanobishStudentApp.ViewModel
         Teacher thisSelectedTeacher = new Teacher();
         public LiveTuitionViewModel()
         {
+            SetTuitionLog();
+            getTuitionLog();
             IsnumberofTeacherShow = false;
             GetLogList();
             
@@ -192,8 +198,32 @@ namespace ShikkhanobishStudentApp.ViewModel
                 
         }
         #endregion
+        public async Task SetTuitionLog()
+        {
+            var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setTuitionLog".PostUrlEncodedAsync(new {
+                studentName=tuionLog.studentName,
+                subjectname=tuionLog.subjectName,
+                tuitionLogID= tuionLog.tuitionLogID,
+                description= tuionLog.description,
+                date=tuionLog.date,
+                subjectID=tuionLog.subjectID,
+                studentID= tuionLog.studentID,
+                tuitionLogStatus = tuionLog.tuitionLogStatus,
+                pendingTeacherID = tuionLog.pendingTeacherID,
+                chapterName = tuionLog.chapterName,
+                chapterID = tuionLog.chapterID,
+                isTextOrVideo= tuionLog.isTextOrVideo,
+                img1=tuionLog.img1,
+                img2=tuionLog.img2,
+                img3= tuionLog.img3,
+                img4= tuionLog.img4
+            }).ReceiveJson<TuiTionLog>();
 
-
+        }
+        public async Task getTuitionLog()
+        {
+            tuitionList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuitionLog".GetJsonAsync<List<TuiTionLog>>();
+        }
         #region Bindings
         private List<TuiTionLog> liveTuitionList1;
 
