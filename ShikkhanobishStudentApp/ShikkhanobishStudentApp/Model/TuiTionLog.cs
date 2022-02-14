@@ -20,6 +20,11 @@ namespace ShikkhanobishStudentApp.Model
         public int chapterID { get; set; }
         public List<Teacher> teacherNameList { get; set; }
         public bool isPendingTeacherAvailable { get; set; }
+        public int isTextOrVideo { get; set; }
+        public string img1 { get; set; }
+        public string img2 { get; set; }
+        public string img3 { get; set; }
+        public string img4 { get; set; }
         public string Response { get; set; }
     }
 }
