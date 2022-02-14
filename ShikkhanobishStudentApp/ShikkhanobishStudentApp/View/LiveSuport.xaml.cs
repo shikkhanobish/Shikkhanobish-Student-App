@@ -15,6 +15,18 @@ namespace ShikkhanobishStudentApp.View
         public LiveSuport()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
         }
+        /*
+         * //Create actions
+var actions = new string[]{ "Open in new tab", "Open in new window", "Copy link address", "Download link" };
+
+//Show simple dialog
+var result = await MaterialDialog.Instance.SelectActionAsync(actions: actions);
+
+//Show simple dialog with title
+var result = await MaterialDialog.Instance.SelectActionAsync(title: "Select an action", 
+                                                             actions: actions);
+        */
     }
 }
