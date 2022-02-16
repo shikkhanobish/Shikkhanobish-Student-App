@@ -16,7 +16,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         List<Subject> subList = new List<Subject>();
         List<Chapter> chapList = new List<Chapter>();
         List<TuiTionLog> tuiTionLogList = new List<TuiTionLog>();
-        List<StudentTuitionHistory> tuitionHisList = new List<StudentTuitionHistory>();
+        List<TuiTionLog> tuitionWithstID = new List<TuiTionLog>();
         int selectedSubID = 0;
         int selectedchapID = 0;
         string subname = "";
@@ -36,7 +36,6 @@ namespace ShikkhanobishStudentApp.ViewModel
             subList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getSubject".GetJsonAsync<List<Subject>>();
             chapList= await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getChapter".GetJsonAsync<List<Chapter>>();
             tuiTionLogList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
-            tuitionHisList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getstudentTuitionHistory".GetJsonAsync<List<StudentTuitionHistory>>();
         }
         
         public async Task PerformSubjectChoose()
@@ -129,7 +128,9 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public async Task GetTuitionHistory()
         {
-            tuiHisList = tuitionHisList;
+            tuitionWithstID = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getstudentTuitionHistory".PostJsonAsync(new { studentID = StaticPageToPassData.thisStudentInfo.studentID}).ReceiveJson<List<TuiTionLog>>();
+
+            tuiHisList = tuitionWithstID;
         }
 
         #region Bindings
@@ -176,9 +177,9 @@ namespace ShikkhanobishStudentApp.ViewModel
             }
         }
 
-        private List<StudentTuitionHistory> tuiHisList1;
+        private List<TuiTionLog> tuiHisList1;
 
-        public List<StudentTuitionHistory> tuiHisList { get => tuiHisList1; set => SetProperty(ref tuiHisList1, value); }
+        public List<TuiTionLog> tuiHisList { get => tuiHisList1; set => SetProperty(ref tuiHisList1, value); }
         #endregion
     }
 }
