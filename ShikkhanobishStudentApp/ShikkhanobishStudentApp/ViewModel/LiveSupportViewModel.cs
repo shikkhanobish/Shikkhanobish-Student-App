@@ -16,6 +16,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         List<Subject> subList = new List<Subject>();
         List<Chapter> chapList = new List<Chapter>();
         List<TuiTionLog> tuiTionLogList = new List<TuiTionLog>();
+        List<StudentTuitionHistory> tuitionHisList = new List<StudentTuitionHistory>();
         int selectedSubID = 0;
         int selectedchapID = 0;
         string subname = "";
@@ -24,6 +25,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         public LiveSupportViewModel()
         {
             GetAllInfo();
+            GetTuitionHistory();
             //SubmitInfo();
         }
 
@@ -34,6 +36,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             subList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getSubject".GetJsonAsync<List<Subject>>();
             chapList= await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getChapter".GetJsonAsync<List<Chapter>>();
             tuiTionLogList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
+            tuitionHisList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getstudentTuitionHistory".GetJsonAsync<List<StudentTuitionHistory>>();
         }
         
         public async Task PerformSubjectChoose()
@@ -124,6 +127,11 @@ namespace ShikkhanobishStudentApp.ViewModel
             }).ReceiveJson<TuiTionLog>();
         }
 
+        public async Task GetTuitionHistory()
+        {
+            tuiHisList = tuitionHisList;
+        }
+
         #region Bindings
         private Command subjectChoose1;
 
@@ -167,8 +175,10 @@ namespace ShikkhanobishStudentApp.ViewModel
                 return textOrVideoChoose1;
             }
         }
-        
-  
+
+        private List<StudentTuitionHistory> tuiHisList1;
+
+        public List<StudentTuitionHistory> tuiHisList { get => tuiHisList1; set => SetProperty(ref tuiHisList1, value); }
         #endregion
     }
 }
