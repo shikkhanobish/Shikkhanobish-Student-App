@@ -1,8 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" 
+             xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
+         
+             x:Name="liveSupRef"
              x:Class="ShikkhanobishStudentApp.View.LiveSuport">
+
+    <ContentPage.BindingContext>
+        <viewmodel:LiveSupportViewModel/>
+    </ContentPage.BindingContext>
 
     <Grid BackgroundColor="White" RowDefinitions="AUTO,25,*" RowSpacing="0">
         <Grid Grid.Row="0" RowDefinitions="50,*" Margin="15,0,15,0">
@@ -14,9 +21,9 @@
                     <Frame BackgroundColor="White" Grid.Column="1" CornerRadius="10" HasShadow="False"/>
                     <Label Text="Choose Subject" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
                     <Label Text="Choose Chapter" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
-                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Column="0" CornerRadius="10" IsClickable="True"  ClickCommand=""/>
-                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Column="1" CornerRadius="10" IsClickable="True" ClickCommand="" />
-                    
+                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Column="0" CornerRadius="10" IsClickable="True"  ClickCommand="{Binding subjectChoose}" />
+                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Column="1" CornerRadius="10" IsClickable="True" ClickCommand="{Binding chapterChoose}" />
+
                 </Grid>
                 <Editor Grid.Row="1"  BackgroundColor="White" Placeholder="Write Your Problem Here" MaxLength="500" FontSize="14"/>
                 <Frame BackgroundColor="#ECECEC" Grid.Row="2" CornerRadius="10" HasShadow="False"/>
@@ -31,21 +38,28 @@
                 <Grid Grid.Row="4" ColumnDefinitions="*,*">
                     <Frame BackgroundColor="White" Grid.Column="0" CornerRadius="10" HasShadow="False"/>
                     <Label Text="Choose Answer Type" HorizontalOptions="Center" VerticalOptions="Center"  Grid.Column="0" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
-                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0"  Grid.Column="0" CornerRadius="10" IsClickable="True" ClickCommand=""/>
+                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0"  Grid.Column="0" CornerRadius="10" IsClickable="True" ClickCommand="{Binding Source={x:Reference liveSupRef}, Path=BindingContext.textOrVideoChoose}" ClickCommandParameter="{Binding .}"/>
 
                     <Frame BackgroundColor="#DAEAFF" Grid.Column="1" CornerRadius="10" HasShadow="False"/>
                     <Label Text="SUBMIT" HorizontalOptions="Center" VerticalOptions="Center"  Grid.Column="1" FontSize="13" FontAttributes="Bold" TextColor="#0B49A2"/>
                     <material:MaterialCard BackgroundColor="Transparent" Elevation="0"  Grid.Column="1" CornerRadius="10" IsClickable="True" />
                 </Grid>
-                
+
             </Grid>
-            
         </Grid>
         <material:MaterialCard Elevation="10" Grid.Row="1" Grid.RowSpan="2" BackgroundColor="#602ECD" CornerRadius="30"/>
         <Grid Grid.Row="2" BackgroundColor="#602ECD">
             <Grid Margin="10,0,10,0" RowDefinitions="30,*">
                 <Label Text="Live Support History" Grid.Column="0" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White"/>
-                
+                <ListView Grid.Row="1" ItemsSource="{Binding tuiHisList}"  RowHeight="220" SeparatorColor="Black" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </Grid>
     </Grid>

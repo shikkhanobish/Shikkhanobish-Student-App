@@ -9,7 +9,7 @@
              
              x:Name="ansComment"
              x:Class="ShikkhanobishStudentApp.View.AnswerComment">
-
+   
     <Grid BackgroundColor="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="10"></RowDefinition>
