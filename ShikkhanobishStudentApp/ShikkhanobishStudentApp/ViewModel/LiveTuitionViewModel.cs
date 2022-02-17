@@ -25,6 +25,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         Teacher thisSelectedTeacher = new Teacher();
         public LiveTuitionViewModel()
         {
+
             SetTuitionLog();
             getTuitionLog();
             IsnumberofTeacherShow = false;
@@ -285,6 +286,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         private bool IsnumberofTeacherShow1;
 
         public bool IsnumberofTeacherShow { get => IsnumberofTeacherShow1; set => SetProperty(ref IsnumberofTeacherShow1, value); }
+        
 
         private Command acceptTeacherTuition1;
 

@@ -16,17 +16,23 @@ namespace ShikkhanobishStudentApp.ViewModel
         List<Subject> subList = new List<Subject>();
         List<Chapter> chapList = new List<Chapter>();
         List<TuiTionLog> tuiTionLogList = new List<TuiTionLog>();
+        List<Subject> sortedSubList = new List<Subject>();
         List<StudentTuitionHistory> tuitionHisList = new List<StudentTuitionHistory>();
         int selectedSubID = 0;
         int selectedchapID = 0;
         string subname = "";
         string chapname = "";
         int selectedTextorVideo = 0;
+        int classSelc = 101;
         public LiveSupportViewModel()
         {
+            chapterChooseText = "Choose Chapter";
+            subjectChooseText = "Choose Subject";
+            chooseansTypeTxt = "Choose Answer Type";
             GetAllInfo();
             GetTuitionHistory();
             //SubmitInfo();
+            tuiHisList.Add(new StudentTuitionHistory());
         }
 
         #region Method
@@ -34,6 +40,13 @@ namespace ShikkhanobishStudentApp.ViewModel
         public async Task GetAllInfo()
         {
             subList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getSubject".GetJsonAsync<List<Subject>>();
+            for(int i = 0; i < subList.Count; i++)
+            {
+                if(subList[i].classID == classSelc)
+                {
+                    sortedSubList.Add(subList[i]);
+                }
+            }
             chapList= await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getChapter".GetJsonAsync<List<Chapter>>();
             tuiTionLogList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
             tuitionHisList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getstudentTuitionHistory".GetJsonAsync<List<StudentTuitionHistory>>();
@@ -41,18 +54,19 @@ namespace ShikkhanobishStudentApp.ViewModel
         
         public async Task PerformSubjectChoose()
         {
-            var stringList = new String[subList.Count];
-            for (int i=0; i < subList.Count; i++)
+            var stringList = new String[sortedSubList.Count];
+            for (int i=0; i < sortedSubList.Count; i++)
             {
-                stringList.SetValue(subList[i].name, i);
+                stringList.SetValue(sortedSubList[i].name, i);
             }
             var actions = stringList;
-
             //Show simple dialog with title
             var result = await MaterialDialog.Instance.SelectActionAsync(title: "Select Subject",
                                                                          actions: actions);
-            selectedSubID = subList[result].subjectID;
-            subname = subList[result].name;
+            selectedSubID = sortedSubList[result].subjectID;
+            subname = sortedSubList[result].name;
+            subjectChooseText = subname;
+            chapterChooseText = "Choose Chapter";
         }
         public async Task PerformChapterChoose()
         {
@@ -75,24 +89,15 @@ namespace ShikkhanobishStudentApp.ViewModel
             //Show simple dialog with title
             var result = await MaterialDialog.Instance.SelectActionAsync(title: "Select Chapter",
                                                                          actions: actions);
-            selectedchapID = chapList[result].chapterID;
-            chapname = chapList[result].name;
+            selectedchapID = ch[result].chapterID;
+            chapname = ch[result].name;
+            chapterChooseText = chapname;
         }
         public async Task PerformTextOrVideoChoose()
         {
-            var stringList = new String[tuiTionLogList.Count];
-            for (int i = 0; i < tuiTionLogList.Count; i++)
-            {
-                if (tuiTionLogList[i].isTextOrVideo == 1)
-                {
-                    stringList.SetValue("Text", i);
-                }
-                else if(tuiTionLogList[i].isTextOrVideo == 2)
-                {
-                    stringList.SetValue("Video", i);
-                }
-                
-            }
+            var stringList = new String[2];
+            stringList.SetValue("Text",0);
+            stringList.SetValue("Video", 1);
             var actions = stringList;
             
 
@@ -100,6 +105,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             var result = await MaterialDialog.Instance.SelectActionAsync(title: "Select Communication Type",
                                                                          actions: actions);
             selectedTextorVideo = tuiTionLogList[result].isTextOrVideo;
+            chooseansTypeTxt = actions[result];
         }
 
         #endregion
@@ -126,7 +132,12 @@ namespace ShikkhanobishStudentApp.ViewModel
                 img4 = "n/a"
             }).ReceiveJson<TuiTionLog>();
         }
+        private string subjectChooseText1;
 
+        public string subjectChooseText { get => subjectChooseText1; set => SetProperty(ref subjectChooseText1, value); }
+        private string chapterChooseText1;
+
+        public string chapterChooseText { get => chapterChooseText1; set => SetProperty(ref chapterChooseText1, value); }
         public async Task GetTuitionHistory()
         {
             tuiHisList = tuitionHisList;
@@ -179,6 +190,10 @@ namespace ShikkhanobishStudentApp.ViewModel
         private List<StudentTuitionHistory> tuiHisList1;
 
         public List<StudentTuitionHistory> tuiHisList { get => tuiHisList1; set => SetProperty(ref tuiHisList1, value); }
+
+        private string chooseansTypeTxt1;
+
+        public string chooseansTypeTxt { get => chooseansTypeTxt1; set => SetProperty(ref chooseansTypeTxt1, value); }
         #endregion
     }
 }

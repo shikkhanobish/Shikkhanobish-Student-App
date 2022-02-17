@@ -13,48 +13,84 @@
 
     <Grid BackgroundColor="White" RowDefinitions="AUTO,25,*" RowSpacing="0">
         <Grid Grid.Row="0" RowDefinitions="50,*" Margin="15,0,15,0">
-            <Label Text="Live Support" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" FontSize="18" FontAttributes="Bold"/>
+            <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" >
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Live Support " FontSize="18" FontAttributes="Bold"/>
+                        <Span Text="5" FontSize="13" TextColor="Green"/>
+                        <Span Text="/" FontSize="13" TextColor="Black"/>
+                        <Span Text="5" FontSize="13" TextColor="Black"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
             <Image Source="wisthis.png" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" Aspect="AspectFit" Margin="14" Opacity=".7"/>
-            <Grid Grid.Row="1" RowDefinitions="35,100,40,100,35,40" RowSpacing="0">
-                <Grid Grid.Row="0" ColumnDefinitions="*,*">
-                    <Frame BackgroundColor="White"  Grid.Column="0" CornerRadius="10" HasShadow="False" />
-                    <Frame BackgroundColor="White" Grid.Column="1" CornerRadius="10" HasShadow="False"/>
-                    <Label Text="Choose Subject" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
-                    <Label Text="Choose Chapter" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
+            <Grid Grid.Row="1" RowDefinitions="60,100,40,100,45,30" RowSpacing="0">
+                <Grid Grid.Row="0" RowDefinitions="35,15" ColumnDefinitions="*,*">
+                    <Frame BackgroundColor="Transparent"  Grid.Column="0" CornerRadius="10" HasShadow="False" />
+                    <Frame BackgroundColor="Transparent" Grid.Column="1" CornerRadius="10" HasShadow="False"/>
+                    <Label Text="{Binding subjectChooseText}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
+                    <Label Text="{Binding chapterChooseText}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
                     <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Column="0" CornerRadius="10" IsClickable="True"  ClickCommand="{Binding subjectChoose}" />
                     <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Column="1" CornerRadius="10" IsClickable="True" ClickCommand="{Binding chapterChoose}" />
 
+                    <Label Text="Subject" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" Grid.Row="1" FontSize="11" FontAttributes="Bold" TextColor="#6D6D6D"/>
+                    <Label Text="Chapter" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" Grid.Row="1" FontSize="11" FontAttributes="Bold" TextColor="#6D6D6D"/>
                 </Grid>
                 <Editor Grid.Row="1"  BackgroundColor="White" Placeholder="Write Your Problem Here" MaxLength="500" FontSize="14"/>
-                <Frame BackgroundColor="#ECECEC" Grid.Row="2" CornerRadius="10" HasShadow="False"/>
-                <Label Text="ADD IMAGE" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="2" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
+                <Frame BackgroundColor="Transparent" Grid.Row="2" CornerRadius="10" HasShadow="False"/>
+                <Label Text="ADD IMAGE" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="2" FontSize="13" FontAttributes="Bold" TextColor="Black"/>
                 <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Row="2" CornerRadius="10" IsClickable="True" />
                 <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*">
-                    <Image Source="liverequest.png" Grid.Column="0" Aspect="AspectFit"/>
-                    <Image Source="liverequest.png" Grid.Column="1" Aspect="AspectFit"/>
-                    <Image Source="liverequest.png" Grid.Column="2" Aspect="AspectFit"/>
-                    <Image Source="liverequest.png" Grid.Column="3" Aspect="AspectFit"/>
+                    
                 </Grid>
-                <Grid Grid.Row="4" ColumnDefinitions="*,*">
-                    <Frame BackgroundColor="White" Grid.Column="0" CornerRadius="10" HasShadow="False"/>
-                    <Label Text="Choose Answer Type" HorizontalOptions="Center" VerticalOptions="Center"  Grid.Column="0" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
-                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0"  Grid.Column="0" CornerRadius="10" IsClickable="True" ClickCommand="{Binding Source={x:Reference liveSupRef}, Path=BindingContext.textOrVideoChoose}" ClickCommandParameter="{Binding .}"/>
+                <Grid Grid.Row="4" RowDefinitions="35,15" ColumnDefinitions="*,*">
+                    <Frame BackgroundColor="Transparent" Grid.Column="0" Grid.Row="0" CornerRadius="10" HasShadow="False"/>
+                    <Label Text="{Binding chooseansTypeTxt}" HorizontalOptions="Center"  Grid.Row="0" VerticalOptions="Center"  Grid.Column="0" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
+                    <material:MaterialCard BackgroundColor="Transparent"  Grid.Row="0" Elevation="0"  Grid.Column="0" CornerRadius="10" IsClickable="True" ClickCommand="{Binding Source={x:Reference liveSupRef}, Path=BindingContext.textOrVideoChoose}" ClickCommandParameter="{Binding .}"/>
+                    <Label Text="Answer Type" HorizontalOptions="Center"  Grid.Row="1" VerticalOptions="Center"  Grid.Column="0" FontSize="11" FontAttributes="Bold" TextColor="#6D6D6D"/>
 
-                    <Frame BackgroundColor="#DAEAFF" Grid.Column="1" CornerRadius="10" HasShadow="False"/>
-                    <Label Text="SUBMIT" HorizontalOptions="Center" VerticalOptions="Center"  Grid.Column="1" FontSize="13" FontAttributes="Bold" TextColor="#0B49A2"/>
-                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0"  Grid.Column="1" CornerRadius="10" IsClickable="True" />
+                    <Frame BackgroundColor="#DAEAFF" Grid.Column="1" Grid.Row="0" CornerRadius="10" HasShadow="False"/>
+                    <Label Text="SUBMIT" HorizontalOptions="Center" Grid.Row="0" VerticalOptions="Center"  Grid.Column="1" FontSize="13" FontAttributes="Bold" TextColor="#0B49A2"/>
+                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Row="0" Grid.Column="1" CornerRadius="10" IsClickable="True" />
                 </Grid>
 
             </Grid>
         </Grid>
         <material:MaterialCard Elevation="10" Grid.Row="1" Grid.RowSpan="2" BackgroundColor="#602ECD" CornerRadius="30"/>
         <Grid Grid.Row="2" BackgroundColor="#602ECD">
-            <Grid Margin="10,0,10,0" RowDefinitions="30,*">
+            <Grid Margin="0,0,0,0" RowDefinitions="30,*">
                 <Label Text="Live Support History" Grid.Column="0" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White"/>
-                <ListView Grid.Row="1" ItemsSource="{Binding tuiHisList}"  RowHeight="220" SeparatorColor="Black" >
+                <ListView Grid.Row="1" ItemsSource="{Binding tuiHisList}" HasUnevenRows="True" SeparatorColor="Transparent" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
+                                <Grid RowDefinitions="10,AUTO,10" ColumnDefinitions="10,*,10" >
+                                    <Grid RowDefinitions="AUTO,AUTO,*,40" Margin="10,5,10,5" ColumnDefinitions="*,AUTO" Grid.Row="1" Grid.Column="1">
+                                        <Label Text="Active" HorizontalOptions="End" FontSize="12" VerticalOptions="Center" TextColor="White" Grid.Column="1"/>
+                                        <Label Text="20.03.2022" HorizontalOptions="Start" FontSize="12" VerticalOptions="Center" TextColor="White"/>
+                                        <Grid Grid.Row="1" ColumnDefinitions="AUTO,*">
+                                            <Label Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Start" TextColor="White">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Subject:" TextColor="#90ffffff" FontSize="11"/>
+                                                        <Span Text="Bangla First Paper" TextColor="White" FontSize="12" FontAttributes="Bold"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Start" TextColor="White">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Chapter:" TextColor="#90ffffff" FontSize="11"/>
+                                                        <Span Text="Bangla First Paper is simplstext of the printing and typesetti " TextColor="White" FontSize="12" FontAttributes="Bold"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </Grid>
+                                        <Label Text="orem Ipsum is siesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, " Grid.Row="2" VerticalOptions="Start" FontSize="12" HorizontalOptions="Start" TextColor="White"/>
+                                        <Label Text="Answerd" Grid.Row="1" Grid.RowSpan="2" Padding="2" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="13" FontAttributes="Bold" TextColor="White"/>
+                                        <Button Text="See Answer" Grid.Row="3" Grid.ColumnSpan="2" BackgroundColor="#6E3BDE" TextColor="White"/>
+                                    </Grid>
+                                </Grid>
                                 
                             </ViewCell>
                         </DataTemplate>
