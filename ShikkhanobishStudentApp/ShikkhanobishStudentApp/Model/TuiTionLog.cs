@@ -26,5 +26,12 @@ namespace ShikkhanobishStudentApp.Model
         public string img3 { get; set; }
         public string img4 { get; set; }
         public string Response { get; set; }
+
+        public string isText { get; set; }
+        public string answeredOrNot { get; set; }
+        public bool seeAnsOrStartTuiVisibility { get; set; }
+        public string activeOrComplete { get; set; }
+   
+
     }
 }
