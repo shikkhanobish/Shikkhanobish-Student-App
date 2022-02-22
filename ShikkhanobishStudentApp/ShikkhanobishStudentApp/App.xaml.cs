@@ -21,7 +21,7 @@ namespace ShikkhanobishStudentApp
             InitializeComponent();
             XF.Material.Forms.Material.Init(this);
             chapterID = 1004;
-            MainPage = new SharedTransitionNavigationPage(new LiveSuport());
+            MainPage = new SharedTransitionNavigationPage(new LoginPage());
         }
         
         

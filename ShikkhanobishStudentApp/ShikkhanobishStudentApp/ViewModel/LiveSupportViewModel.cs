@@ -3,6 +3,7 @@ using ShikkhanobishStudentApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -131,7 +132,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                         description = descriptionEntry,
                         date = DateTime.Now.ToString("dd MM yyyy hh:mm:ss"),
                         subjectID = selectedSubID,
-                        studentID = 10000152,
+                        studentID = StaticPageToPassData.thisStudentInfo.studentID,
                         tuitionLogStatus = 0,
                         pendingTeacherID = 0,
                         chapterName = chapname,
@@ -162,7 +163,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             List<TuiTionLog> tList = new List<TuiTionLog>();
             var thisList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuitionLogWithStudentID".PostUrlEncodedAsync(new
             {
-                studentID = 10000152,
+                studentID = StaticPageToPassData.thisStudentInfo.studentID,
             }).ReceiveJson<List<TuiTionLog>>();
             foreach(var item in thisList)
             {
@@ -187,14 +188,80 @@ namespace ShikkhanobishStudentApp.ViewModel
                 if (item.isTextOrVideo == 2)
                 {
                     item.seeAnsOrStartTuiVisibility = true;
-                    item.isText = "Start Tuition";
+                   
+
+                    if (item.tuitionLogStatus==0)
+                    {
+                        item.activeOrComplete = "Active";
+                        item.answeredOrNot = "Not Answered";
+                        item.seeAnsOrStartTuiVisibility = false;                      
+                    }
+                    if (item.isTextOrVideo == 1)
+                    {
+                        item.activeOrComplete = "Waiting For Tuition";
+                        item.answeredOrNot = "Answered";
+                        item.seeAnsOrStartTuiVisibility = true;
+
+
+                        CultureInfo culture = new CultureInfo("en-US");
+                        DateTime oldDate = DateTime.ParseExact(item.date, "dd MM yyyy hh:mm:ss", culture);
+
+                        string now = DateTime.Now.ToString("dd MM yyyy hh:mm:ss");
+                        DateTime nowDate = DateTime.ParseExact(now, "dd MM yyyy hh:mm:ss", culture);
+
+                        TimeSpan value = oldDate.Subtract(nowDate);
+                        var totalsec = value.TotalSeconds;
+                        int hr, min, sec;
+                        hr = (int)totalsec / 3600;
+                        min = (int)totalsec / 60;
+                        sec = (int)(hr * min - totalsec);
+
+                        string time="";
+                        bool TimerContinue = true;
+                        bool isSafeTimeAvailable = true;
+                        Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                        {
+                            if (isSafeTimeAvailable)
+                            {
+                                sec--;
+                                time = hr+ ":" + min + " : " + sec + "";
+
+                                if (sec == 0 & min == 0 && hr==0 && isSafeTimeAvailable)
+                                {
+        
+                                    isSafeTimeAvailable=false;
+                                }
+                            }
+                            else
+                            {
+                                if (sec == 59)
+                                {
+                                    sec = -1;
+                                    min++;
+                                }
+                                sec++;
+
+                                if (min == 59)
+                                {
+                                    min = -1;
+                                    hr++;
+                                }
+                                min++;
+
+                                time = hr + ":" + min + " : " + sec + "";
+                            }
+
+                            return TimerContinue;
+                        });
+                        item.isText = "Starting in"+time;
+                    }
+
                 }
-
-
                 tList.Add(item);
 
             }
             tuiHisList = tList;
+            
         }
 
         #region Bindings
