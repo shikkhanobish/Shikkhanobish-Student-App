@@ -132,7 +132,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                         description = descriptionEntry,
                         date = DateTime.Now.ToString("dd MM yyyy hh:mm:ss"),
                         subjectID = selectedSubID,
-                        studentID = StaticPageToPassData.thisStudentInfo.studentID,
+                        studentID = 10000152,
                         tuitionLogStatus = 0,
                         pendingTeacherID = 0,
                         chapterName = chapname,
@@ -163,7 +163,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             List<TuiTionLog> tList = new List<TuiTionLog>();
             var thisList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuitionLogWithStudentID".PostUrlEncodedAsync(new
             {
-                studentID = StaticPageToPassData.thisStudentInfo.studentID,
+                studentID = 10000152,
             }).ReceiveJson<List<TuiTionLog>>();
             foreach(var item in thisList)
             {
@@ -179,7 +179,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                     }
                     if (item.tuitionLogStatus== 1)
                     {
-                        item.activeOrComplete = "Complete";
+                        item.activeOrComplete = "Completed";
                         item.answeredOrNot = "Answered";
                         item.isText = "See Answer";
                         item.seeAnsOrStartTuiVisibility = true;
@@ -193,67 +193,70 @@ namespace ShikkhanobishStudentApp.ViewModel
                     if (item.tuitionLogStatus==0)
                     {
                         item.activeOrComplete = "Active";
-                        item.answeredOrNot = "Not Answered";
+                        item.answeredOrNot = "Request Sent";
                         item.seeAnsOrStartTuiVisibility = false;                      
                     }
-                    if (item.isTextOrVideo == 1)
+
+                    if(item.tuitionLogStatus == 1)
+                    {
+                        item.activeOrComplete = "Session Quit";
+                        item.answeredOrNot = "";
+                        item.seeAnsOrStartTuiVisibility = false;
+                    }
+
+                    if (item.tuitionLogStatus == 2)
                     {
                         item.activeOrComplete = "Waiting For Tuition";
-                        item.answeredOrNot = "Answered";
+                        item.answeredOrNot = "";
                         item.seeAnsOrStartTuiVisibility = true;
+                        item.isText = "Starting in.....";
 
+                        //CultureInfo culture = new CultureInfo("en-US");
+                        //DateTime oldDate = DateTime.ParseExact(item.startingDate, "dd MM yyyy hh:mm:ss", culture);
 
-                        CultureInfo culture = new CultureInfo("en-US");
-                        DateTime oldDate = DateTime.ParseExact(item.date, "dd MM yyyy hh:mm:ss", culture);
+                        //string now = DateTime.Now.ToString("dd MM yyyy hh:mm:ss");
+                        //DateTime nowDate = DateTime.ParseExact(now, "dd MM yyyy hh:mm:ss", culture);
 
-                        string now = DateTime.Now.ToString("dd MM yyyy hh:mm:ss");
-                        DateTime nowDate = DateTime.ParseExact(now, "dd MM yyyy hh:mm:ss", culture);
+                        //TimeSpan value = oldDate.Subtract(nowDate);
+                        //var totalsec = value.TotalSeconds;
+                        //int hr, min, sec;
+                        //hr = (int)totalsec / 3600;
+                        //min = (int)totalsec / 60;
+                        //sec = (int)(hr * min - totalsec);
 
-                        TimeSpan value = oldDate.Subtract(nowDate);
-                        var totalsec = value.TotalSeconds;
-                        int hr, min, sec;
-                        hr = (int)totalsec / 3600;
-                        min = (int)totalsec / 60;
-                        sec = (int)(hr * min - totalsec);
+                        //string time = "";
+                        //bool TimerContinue = true;
+                        //bool isSafeTimeAvailable = true;
+                        //Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                        //{
+                        //    if (isSafeTimeAvailable)
+                        //    {
 
-                        string time="";
-                        bool TimerContinue = true;
-                        bool isSafeTimeAvailable = true;
-                        Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-                        {
-                            if (isSafeTimeAvailable)
-                            {
-                                sec--;
-                                time = hr+ ":" + min + " : " + sec + "";
+                        //        if (sec == 0 & min == 0 && hr == 0 && isSafeTimeAvailable)
+                        //        {
 
-                                if (sec == 0 & min == 0 && hr==0 && isSafeTimeAvailable)
-                                {
-        
-                                    isSafeTimeAvailable=false;
-                                }
-                            }
-                            else
-                            {
-                                if (sec == 59)
-                                {
-                                    sec = -1;
-                                    min++;
-                                }
-                                sec++;
+                        //            isSafeTimeAvailable = false;
+                        //            if (sec == 60)
+                        //            {
+                        //                sec = -1;
+                        //                min--;
+                        //            }
+                        //            sec++;
 
-                                if (min == 59)
-                                {
-                                    min = -1;
-                                    hr++;
-                                }
-                                min++;
+                        //            if (min == 60)
+                        //            {
+                        //                min = -1;
+                        //                hr--;
+                        //            }
+                        //            min++;
 
-                                time = hr + ":" + min + " : " + sec + "";
-                            }
+                        //            time = hr + ":" + min + " : " + sec + "";
+                        //        }
+                        //    }
 
-                            return TimerContinue;
-                        });
-                        item.isText = "Starting in"+time;
+                        //    return TimerContinue;
+                        //});
+                        //item.isText = "Starting in" + time;
                     }
 
                 }

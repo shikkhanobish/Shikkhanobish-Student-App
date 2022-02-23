@@ -25,6 +25,7 @@ namespace ShikkhanobishStudentApp.Model
         public string img2 { get; set; }
         public string img3 { get; set; }
         public string img4 { get; set; }
+        public string startingDate { get; set; }
         public string Response { get; set; }
 
         public string isText { get; set; }
