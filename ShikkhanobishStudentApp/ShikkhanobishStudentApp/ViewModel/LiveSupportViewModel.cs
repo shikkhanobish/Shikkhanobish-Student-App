@@ -3,6 +3,7 @@ using ShikkhanobishStudentApp.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -11,8 +12,9 @@ using XF.Material.Forms.UI.Dialogs;
 
 namespace ShikkhanobishStudentApp.ViewModel
 {
-    public class LiveSupportViewModel: BaseViewModel, INotifyPropertyChanged
+    public class LiveSupportViewModel : BaseViewModel, INotifyPropertyChanged
     {
+        TuiTionLog tuitionObj = new TuiTionLog();
         List<Subject> subList = new List<Subject>();
         List<Chapter> chapList = new List<Chapter>();
         List<TuiTionLog> tuiTionLogList = new List<TuiTionLog>();
@@ -32,7 +34,8 @@ namespace ShikkhanobishStudentApp.ViewModel
             GetAllInfo();
             GetTuitionHistory();
             //SubmitInfo();
-            tuiHisList.Add(new StudentTuitionHistory());
+            //tuiHisList = tuitionHisList;
+            //tuiHisList.Add(new StudentTuitionHistory());
         }
 
         #region Method
@@ -40,22 +43,22 @@ namespace ShikkhanobishStudentApp.ViewModel
         public async Task GetAllInfo()
         {
             subList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getSubject".GetJsonAsync<List<Subject>>();
-            for(int i = 0; i < subList.Count; i++)
+            for (int i = 0; i < subList.Count; i++)
             {
-                if(subList[i].classID == classSelc)
+                if (subList[i].classID == classSelc)
                 {
                     sortedSubList.Add(subList[i]);
                 }
             }
-            chapList= await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getChapter".GetJsonAsync<List<Chapter>>();
+            chapList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getChapter".GetJsonAsync<List<Chapter>>();
             tuiTionLogList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuiTionLogNeW".GetJsonAsync<List<TuiTionLog>>();
             tuitionHisList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getstudentTuitionHistory".GetJsonAsync<List<StudentTuitionHistory>>();
         }
-        
+
         public async Task PerformSubjectChoose()
         {
             var stringList = new String[sortedSubList.Count];
-            for (int i=0; i < sortedSubList.Count; i++)
+            for (int i = 0; i < sortedSubList.Count; i++)
             {
                 stringList.SetValue(sortedSubList[i].name, i);
             }
@@ -71,7 +74,7 @@ namespace ShikkhanobishStudentApp.ViewModel
         public async Task PerformChapterChoose()
         {
             List<Chapter> ch = new List<Chapter>();
-            foreach(var item in chapList)
+            foreach (var item in chapList)
             {
                 if (selectedSubID == item.subjectID)
                 {
@@ -96,42 +99,59 @@ namespace ShikkhanobishStudentApp.ViewModel
         public async Task PerformTextOrVideoChoose()
         {
             var stringList = new String[2];
-            stringList.SetValue("Text",0);
+            stringList.SetValue("Text", 0);
             stringList.SetValue("Video", 1);
             var actions = stringList;
-            
+
 
             //Show simple dialog with title
             var result = await MaterialDialog.Instance.SelectActionAsync(title: "Select Communication Type",
                                                                          actions: actions);
-            selectedTextorVideo = tuiTionLogList[result].isTextOrVideo;
+            selectedTextorVideo = result + 1;
             chooseansTypeTxt = actions[result];
         }
 
         #endregion
 
-        public async Task SubmitInfo()
+        public async Task PerformsubmitTution()
         {
-            var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setTuitionLog".PostUrlEncodedAsync(new
+            if (subname == null || chapname == null ||  descriptionEntry == null || subname ==  "" || chapname == "" || descriptionEntry == "" || selectedTextorVideo == 0)
             {
-                studentName = StaticPageToPassData.thisStudentInfo.name,
-                subjectname = subname,
-                tuitionLogID = chapname,
-                description = "n/a",
-                date = DateTime.Now,
-                subjectID = selectedSubID,
-                studentID = StaticPageToPassData.thisStudentInfo.studentID,
-                tuitionLogStatus = 0,
-                pendingTeacherID = 0,
-                chapterName = chapname,
-                chapterID = selectedchapID,
-                isTextOrVideo = selectedTextorVideo,
-                img1 = "n/a",
-                img2 = "n/a",
-                img3 = "n/a",
-                img4 = "n/a"
-            }).ReceiveJson<TuiTionLog>();
+
+                await MaterialDialog.Instance.AlertAsync(message: "Please fill up all requirements");
+            }
+            else
+            {
+                using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
+                {
+                    var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setTuitionLog".PostUrlEncodedAsync(new
+                    {
+                        studentName = "Abid",
+                        subjectname = subname,
+                        tuitionLogID = StaticPageToPassData.GenarateNewID(),
+                        description = descriptionEntry,
+                        date = DateTime.Now.ToString("dd MM yyyy hh:mm:ss"),
+                        subjectID = selectedSubID,
+                        studentID = 10000152,
+                        tuitionLogStatus = 0,
+                        pendingTeacherID = 0,
+                        chapterName = chapname,
+                        chapterID = selectedchapID,
+                        isTextOrVideo = selectedTextorVideo,
+                        img1 = "n/a",
+                        img2 = "n/a",
+                        img3 = "n/a",
+                        img4 = "n/a"
+                    }).ReceiveJson<Response>();
+
+                    await GetTuitionHistory();
+                }
+            }
+           
+
         }
+    
+
         private string subjectChooseText1;
 
         public string subjectChooseText { get => subjectChooseText1; set => SetProperty(ref subjectChooseText1, value); }
@@ -140,7 +160,111 @@ namespace ShikkhanobishStudentApp.ViewModel
         public string chapterChooseText { get => chapterChooseText1; set => SetProperty(ref chapterChooseText1, value); }
         public async Task GetTuitionHistory()
         {
-            tuiHisList = tuitionHisList;
+            List<TuiTionLog> tList = new List<TuiTionLog>();
+            var thisList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuitionLogWithStudentID".PostUrlEncodedAsync(new
+            {
+                studentID = 10000152,
+            }).ReceiveJson<List<TuiTionLog>>();
+            foreach(var item in thisList)
+            {
+                if (item.isTextOrVideo == 1)
+                {
+                    
+                    if (item.tuitionLogStatus == 0)
+                    {
+                        item.activeOrComplete = "Active";
+                        item.answeredOrNot = "Not Answered";
+                        item.seeAnsOrStartTuiVisibility = false;
+                        
+                    }
+                    if (item.tuitionLogStatus== 1)
+                    {
+                        item.activeOrComplete = "Completed";
+                        item.answeredOrNot = "Answered";
+                        item.isText = "See Answer";
+                        item.seeAnsOrStartTuiVisibility = true;
+                    }
+                }
+                if (item.isTextOrVideo == 2)
+                {
+                    item.seeAnsOrStartTuiVisibility = true;
+                   
+
+                    if (item.tuitionLogStatus==0)
+                    {
+                        item.activeOrComplete = "Active";
+                        item.answeredOrNot = "Request Sent";
+                        item.seeAnsOrStartTuiVisibility = false;                      
+                    }
+
+                    if(item.tuitionLogStatus == 1)
+                    {
+                        item.activeOrComplete = "Session Quit";
+                        item.answeredOrNot = "";
+                        item.seeAnsOrStartTuiVisibility = false;
+                    }
+
+                    if (item.tuitionLogStatus == 2)
+                    {
+                        item.activeOrComplete = "Waiting For Tuition";
+                        item.answeredOrNot = "";
+                        item.seeAnsOrStartTuiVisibility = true;
+                        item.isText = "Starting in.....";
+
+                        //CultureInfo culture = new CultureInfo("en-US");
+                        //DateTime oldDate = DateTime.ParseExact(item.startingDate, "dd MM yyyy hh:mm:ss", culture);
+
+                        //string now = DateTime.Now.ToString("dd MM yyyy hh:mm:ss");
+                        //DateTime nowDate = DateTime.ParseExact(now, "dd MM yyyy hh:mm:ss", culture);
+
+                        //TimeSpan value = oldDate.Subtract(nowDate);
+                        //var totalsec = value.TotalSeconds;
+                        //int hr, min, sec;
+                        //hr = (int)totalsec / 3600;
+                        //min = (int)totalsec / 60;
+                        //sec = (int)(hr * min - totalsec);
+
+                        //string time = "";
+                        //bool TimerContinue = true;
+                        //bool isSafeTimeAvailable = true;
+                        //Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                        //{
+                        //    if (isSafeTimeAvailable)
+                        //    {
+
+                        //        if (sec == 0 & min == 0 && hr == 0 && isSafeTimeAvailable)
+                        //        {
+
+                        //            isSafeTimeAvailable = false;
+                        //            if (sec == 60)
+                        //            {
+                        //                sec = -1;
+                        //                min--;
+                        //            }
+                        //            sec++;
+
+                        //            if (min == 60)
+                        //            {
+                        //                min = -1;
+                        //                hr--;
+                        //            }
+                        //            min++;
+
+                        //            time = hr + ":" + min + " : " + sec + "";
+                        //        }
+                        //    }
+
+                        //    return TimerContinue;
+                        //});
+                        //item.isText = "Starting in" + time;
+                    }
+
+                }
+                tList.Add(item);
+
+            }
+            tuiHisList = tList;
+            
         }
 
         #region Bindings
@@ -187,13 +311,36 @@ namespace ShikkhanobishStudentApp.ViewModel
             }
         }
 
-        private List<StudentTuitionHistory> tuiHisList1;
+        private List<TuiTionLog> tuiHisList1;
 
-        public List<StudentTuitionHistory> tuiHisList { get => tuiHisList1; set => SetProperty(ref tuiHisList1, value); }
+        public List<TuiTionLog> tuiHisList { get => tuiHisList1; set => SetProperty(ref tuiHisList1, value); }
 
         private string chooseansTypeTxt1;
 
         public string chooseansTypeTxt { get => chooseansTypeTxt1; set => SetProperty(ref chooseansTypeTxt1, value); }
+
+        private string descriptionEntry1;
+
+        public string descriptionEntry { get => descriptionEntry1; set => SetProperty(ref descriptionEntry1, value); }
+
+
+        private Command submitTuition1;
+
+        public ICommand submitTuition
+        {
+            get
+            {
+                if (submitTuition1 == null)
+                {
+                    submitTuition1 = new Command( async => PerformsubmitTution());
+                }
+
+                return submitTuition1;
+            }
+        }
+        
+
+        
         #endregion
     }
 }

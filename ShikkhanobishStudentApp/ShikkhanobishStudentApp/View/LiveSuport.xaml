@@ -36,7 +36,7 @@
                     <Label Text="Subject" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" Grid.Row="1" FontSize="11" FontAttributes="Bold" TextColor="#6D6D6D"/>
                     <Label Text="Chapter" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" Grid.Row="1" FontSize="11" FontAttributes="Bold" TextColor="#6D6D6D"/>
                 </Grid>
-                <Editor Grid.Row="1"  BackgroundColor="White" Placeholder="Write Your Problem Here" MaxLength="500" FontSize="14"/>
+                <Editor Grid.Row="1"  BackgroundColor="White" Placeholder="Write Your Problem Here" MaxLength="500" FontSize="14" Text="{Binding descriptionEntry}"/>
                 <Frame BackgroundColor="Transparent" Grid.Row="2" CornerRadius="10" HasShadow="False"/>
                 <Label Text="ADD IMAGE" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="2" FontSize="13" FontAttributes="Bold" TextColor="Black"/>
                 <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Row="2" CornerRadius="10" IsClickable="True" />
@@ -51,7 +51,7 @@
 
                     <Frame BackgroundColor="#DAEAFF" Grid.Column="1" Grid.Row="0" CornerRadius="10" HasShadow="False"/>
                     <Label Text="SUBMIT" HorizontalOptions="Center" Grid.Row="0" VerticalOptions="Center"  Grid.Column="1" FontSize="13" FontAttributes="Bold" TextColor="#0B49A2"/>
-                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Row="0" Grid.Column="1" CornerRadius="10" IsClickable="True" />
+                    <material:MaterialCard  BackgroundColor="Transparent" Elevation="0" Grid.Row="0" Grid.Column="1" CornerRadius="10" IsClickable="True" ClickCommand="{Binding submitTuition}" />
                 </Grid>
 
             </Grid>
@@ -66,29 +66,29 @@
                             <ViewCell>
                                 <Grid RowDefinitions="10,AUTO,10" ColumnDefinitions="10,*,10" >
                                     <Grid RowDefinitions="AUTO,AUTO,*,40" Margin="10,5,10,5" ColumnDefinitions="*,AUTO" Grid.Row="1" Grid.Column="1">
-                                        <Label Text="Active" HorizontalOptions="End" FontSize="12" VerticalOptions="Center" TextColor="White" Grid.Column="1"/>
-                                        <Label Text="20.03.2022" HorizontalOptions="Start" FontSize="12" VerticalOptions="Center" TextColor="White"/>
+                                        <Label Text="{Binding activeOrComplete}" HorizontalOptions="End" FontSize="12" VerticalOptions="Center" TextColor="White" Grid.Column="1"/>
+                                        <Label Text="{Binding date}" HorizontalOptions="Start" FontSize="12" VerticalOptions="Center" TextColor="White"/>
                                         <Grid Grid.Row="1" ColumnDefinitions="AUTO,*">
                                             <Label Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Start" TextColor="White">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="Subject:" TextColor="#90ffffff" FontSize="11"/>
-                                                        <Span Text="Bangla First Paper" TextColor="White" FontSize="12" FontAttributes="Bold"/>
+                                                        <Span Text="Subject: " TextColor="#90ffffff" FontSize="11"/>
+                                                        <Span Text="{Binding subjectName}" TextColor="White" FontSize="12" FontAttributes="Bold"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
                                             <Label Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Start" TextColor="White">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="Chapter:" TextColor="#90ffffff" FontSize="11"/>
-                                                        <Span Text="Bangla First Paper is simplstext of the printing and typesetti " TextColor="White" FontSize="12" FontAttributes="Bold"/>
+                                                        <Span Text="Chapter: " TextColor="#90ffffff" FontSize="11"/>
+                                                        <Span Text="{Binding chapterName}" TextColor="White" FontSize="12" FontAttributes="Bold"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
                                         </Grid>
-                                        <Label Text="orem Ipsum is siesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, " Grid.Row="2" VerticalOptions="Start" FontSize="12" HorizontalOptions="Start" TextColor="White"/>
-                                        <Label Text="Answerd" Grid.Row="1" Grid.RowSpan="2" Padding="2" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="13" FontAttributes="Bold" TextColor="White"/>
-                                        <Button Text="See Answer" Grid.Row="3" Grid.ColumnSpan="2" BackgroundColor="#6E3BDE" TextColor="White"/>
+                                        <Label Text="{Binding description}" Grid.Row="2" VerticalOptions="Start" FontSize="12" HorizontalOptions="Start" TextColor="White"/>
+                                        <Label Text="{Binding answeredOrNot}" Grid.Row="1" Grid.RowSpan="2" Padding="2" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="13" FontAttributes="Bold" TextColor="White"/>
+                                        <Button Text="{Binding isText}" Grid.Row="3" Grid.ColumnSpan="2" BackgroundColor="#6E3BDE" TextColor="White" IsVisible="{Binding seeAnsOrStartTuiVisibility}"/>
                                     </Grid>
                                 </Grid>
                                 
