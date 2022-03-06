@@ -170,7 +170,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             List<TuiTionLog> tList = new List<TuiTionLog>();
             var thisList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTuitionLogWithStudentID".PostUrlEncodedAsync(new
             {
-                studentID = 10000152,
+                studentID = StaticPageToPassData.thisStudentInfo.studentID,
             }).ReceiveJson<List<TuiTionLog>>();
             List<string> timerID = new List<string>();
             List<double> timetList = new List<double>();

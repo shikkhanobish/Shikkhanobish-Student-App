@@ -5,17 +5,6 @@
              SelectedTabColor="#633CFF" 
              BackgroundColor="White"
              x:Class="ShikkhanobishStudentApp.View.RootPage">
-    
-    <NavigationPage  IconImageSource="taketuition.png" >
-        <x:Arguments>
-            <local:TakeTuitionView />
-        </x:Arguments>
-    </NavigationPage>
-    <NavigationPage  IconImageSource="questiondeedicon.png" >
-        <x:Arguments>
-            <local:StudentPerformance />
-        </x:Arguments>
-    </NavigationPage>
     <NavigationPage  IconImageSource="questiondeedicon.png" >
         <x:Arguments>
             <local:QuestionTimeLine />
@@ -23,12 +12,17 @@
     </NavigationPage>
     <NavigationPage  IconImageSource="rechargeicon.png"  >
         <x:Arguments>
-            <local:RechargeCoinView />
+            <local:StudentPerformance />
         </x:Arguments>
     </NavigationPage>
-    <NavigationPage  IconImageSource="favouriteteacher.png"  >
+    <NavigationPage  IconImageSource="taketuition.png" >
         <x:Arguments>
-            <local:FavTeacherView />
+            <local:LiveSuport />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage  IconImageSource="questiondeedicon.png" >
+        <x:Arguments>
+            <local:TakeTuitionView />
         </x:Arguments>
     </NavigationPage>
     <NavigationPage  IconImageSource="profileicon.png">
