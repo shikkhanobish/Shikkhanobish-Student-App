@@ -3,70 +3,93 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" 
              xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
-         
+             xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
              x:Name="liveSupRef"
              x:Class="ShikkhanobishStudentApp.View.LiveSuport">
 
     <ContentPage.BindingContext>
         <viewmodel:LiveSupportViewModel/>
     </ContentPage.BindingContext>
+    <ScrollView>
+        <VisualElement.Behaviors>
+            <xamanimation:ScrollViewScrollBehavior x:Name="ScrollBehavior" />
+        </VisualElement.Behaviors>
+        <Grid BackgroundColor="White" RowDefinitions="AUTO,35,*" RowSpacing="0">
+            
+            <Grid Grid.Row="0" RowDefinitions="50,*" Margin="15,0,15,0">
+                <VisualElement.Behaviors>
+                    <xamanimation:AnimateProgressDouble
+                                        TargetProperty="VisualElement.TranslationY"
+                                        Progress="{Binding ScrollY, Source={x:Reference ScrollBehavior}}" 
+                                        Minimum="0"
+                                        Maximum="200"
+                                        From="0"
+                                        To="150"/>
+                </VisualElement.Behaviors>
+                <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" >
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Live Support " FontSize="18" FontAttributes="Bold"/>
+                            <Span Text="5" FontSize="13" TextColor="Green"/>
+                            <Span Text="/" FontSize="13" TextColor="Black"/>
+                            <Span Text="5" FontSize="13" TextColor="Black"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Image Source="wisthis.png" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" Aspect="AspectFit" Margin="14" Opacity=".7"/>
+                <Grid Grid.Row="1" RowDefinitions="60,100,40,100,45,30" RowSpacing="0">
+                    <Grid Grid.Row="0" RowDefinitions="35,15" ColumnDefinitions="*,*">
+                        <Frame BackgroundColor="Transparent"  Grid.Column="0" CornerRadius="10" HasShadow="False" />
+                        <Frame BackgroundColor="Transparent" Grid.Column="1" CornerRadius="10" HasShadow="False"/>
+                        <Label Text="{Binding subjectChooseText}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
+                        <Label Text="{Binding chapterChooseText}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
+                        <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Column="0" CornerRadius="10" IsClickable="True"  ClickCommand="{Binding subjectChoose}" />
+                        <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Column="1" CornerRadius="10" IsClickable="True" ClickCommand="{Binding chapterChoose}" />
 
-    <Grid BackgroundColor="White" RowDefinitions="AUTO,25,*" RowSpacing="0">
-        <Grid Grid.Row="0" RowDefinitions="50,*" Margin="15,0,15,0">
-            <Label Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Center" >
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="Live Support " FontSize="18" FontAttributes="Bold"/>
-                        <Span Text="5" FontSize="13" TextColor="Green"/>
-                        <Span Text="/" FontSize="13" TextColor="Black"/>
-                        <Span Text="5" FontSize="13" TextColor="Black"/>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
-            <Image Source="wisthis.png" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" Aspect="AspectFit" Margin="14" Opacity=".7"/>
-            <Grid Grid.Row="1" RowDefinitions="60,100,40,100,45,30" RowSpacing="0">
-                <Grid Grid.Row="0" RowDefinitions="35,15" ColumnDefinitions="*,*">
-                    <Frame BackgroundColor="Transparent"  Grid.Column="0" CornerRadius="10" HasShadow="False" />
-                    <Frame BackgroundColor="Transparent" Grid.Column="1" CornerRadius="10" HasShadow="False"/>
-                    <Label Text="{Binding subjectChooseText}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
-                    <Label Text="{Binding chapterChooseText}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
-                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Column="0" CornerRadius="10" IsClickable="True"  ClickCommand="{Binding subjectChoose}" />
-                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Column="1" CornerRadius="10" IsClickable="True" ClickCommand="{Binding chapterChoose}" />
+                        <Label Text="Subject" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" Grid.Row="1" FontSize="11" FontAttributes="Bold" TextColor="#6D6D6D"/>
+                        <Label Text="Chapter" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" Grid.Row="1" FontSize="11" FontAttributes="Bold" TextColor="#6D6D6D"/>
+                    </Grid>
+                    <Editor Grid.Row="1"  BackgroundColor="White" Placeholder="Write Your Problem Here" MaxLength="500" FontSize="14" Text="{Binding descriptionEntry}"/>
+                    <Frame BackgroundColor="Transparent" Grid.Row="2" CornerRadius="10" HasShadow="False"/>
+                    <Label Text="ADD IMAGE" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="2" FontSize="13" FontAttributes="Bold" TextColor="Black"/>
+                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Row="2" CornerRadius="10" IsClickable="True" />
+                    <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*">
 
-                    <Label Text="Subject" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0" Grid.Row="1" FontSize="11" FontAttributes="Bold" TextColor="#6D6D6D"/>
-                    <Label Text="Chapter" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" Grid.Row="1" FontSize="11" FontAttributes="Bold" TextColor="#6D6D6D"/>
+                    </Grid>
+                    <Grid Grid.Row="4" RowDefinitions="35,15" ColumnDefinitions="*,*">
+                        <Frame BackgroundColor="Transparent" Grid.Column="0" Grid.Row="0" CornerRadius="10" HasShadow="False"/>
+                        <Label Text="{Binding chooseansTypeTxt}" HorizontalOptions="Center"  Grid.Row="0" VerticalOptions="Center"  Grid.Column="0" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
+                        <material:MaterialCard BackgroundColor="Transparent"  Grid.Row="0" Elevation="0"  Grid.Column="0" CornerRadius="10" IsClickable="True" ClickCommand="{Binding Source={x:Reference liveSupRef}, Path=BindingContext.textOrVideoChoose}" ClickCommandParameter="{Binding .}"/>
+                        <Label Text="Answer Type" HorizontalOptions="Center"  Grid.Row="1" VerticalOptions="Center"  Grid.Column="0" FontSize="11" FontAttributes="Bold" TextColor="#6D6D6D"/>
+
+                        <Frame BackgroundColor="#DAEAFF" Grid.Column="1" Grid.Row="0" CornerRadius="10" HasShadow="False"/>
+                        <Label Text="SUBMIT" HorizontalOptions="Center" Grid.Row="0" VerticalOptions="Center"  Grid.Column="1" FontSize="13" FontAttributes="Bold" TextColor="#0B49A2"/>
+                        <material:MaterialCard  BackgroundColor="Transparent" Elevation="0" Grid.Row="0" Grid.Column="1" CornerRadius="10" IsClickable="True" ClickCommand="{Binding submitTuition}" />
+                    </Grid>
+
                 </Grid>
-                <Editor Grid.Row="1"  BackgroundColor="White" Placeholder="Write Your Problem Here" MaxLength="500" FontSize="14" Text="{Binding descriptionEntry}"/>
-                <Frame BackgroundColor="Transparent" Grid.Row="2" CornerRadius="10" HasShadow="False"/>
-                <Label Text="ADD IMAGE" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="2" FontSize="13" FontAttributes="Bold" TextColor="Black"/>
-                <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Row="2" CornerRadius="10" IsClickable="True" />
-                <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*">
-                    
-                </Grid>
-                <Grid Grid.Row="4" RowDefinitions="35,15" ColumnDefinitions="*,*">
-                    <Frame BackgroundColor="Transparent" Grid.Column="0" Grid.Row="0" CornerRadius="10" HasShadow="False"/>
-                    <Label Text="{Binding chooseansTypeTxt}" HorizontalOptions="Center"  Grid.Row="0" VerticalOptions="Center"  Grid.Column="0" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
-                    <material:MaterialCard BackgroundColor="Transparent"  Grid.Row="0" Elevation="0"  Grid.Column="0" CornerRadius="10" IsClickable="True" ClickCommand="{Binding Source={x:Reference liveSupRef}, Path=BindingContext.textOrVideoChoose}" ClickCommandParameter="{Binding .}"/>
-                    <Label Text="Answer Type" HorizontalOptions="Center"  Grid.Row="1" VerticalOptions="Center"  Grid.Column="0" FontSize="11" FontAttributes="Bold" TextColor="#6D6D6D"/>
-
-                    <Frame BackgroundColor="#DAEAFF" Grid.Column="1" Grid.Row="0" CornerRadius="10" HasShadow="False"/>
-                    <Label Text="SUBMIT" HorizontalOptions="Center" Grid.Row="0" VerticalOptions="Center"  Grid.Column="1" FontSize="13" FontAttributes="Bold" TextColor="#0B49A2"/>
-                    <material:MaterialCard  BackgroundColor="Transparent" Elevation="0" Grid.Row="0" Grid.Column="1" CornerRadius="10" IsClickable="True" ClickCommand="{Binding submitTuition}" />
-                </Grid>
-
             </Grid>
-        </Grid>
-        <material:MaterialCard Elevation="10" Grid.Row="1" Grid.RowSpan="2" BackgroundColor="#602ECD" CornerRadius="30"/>
-        <Grid Grid.Row="2" BackgroundColor="#602ECD">
-            <Grid Margin="0,0,0,0" RowDefinitions="30,*">
-                <Label Text="Live Support History" Grid.Column="0" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White"/>
-                <ListView Grid.Row="1" ItemsSource="{Binding tuiHisList}" HasUnevenRows="True" SeparatorColor="Transparent" >
+            <material:MaterialCard Elevation="10" Grid.Row="1" Grid.RowSpan="2" BackgroundColor="#602ECD" CornerRadius="30"/>
+            <Label Text="Live Support History" Grid.Row="1" Grid.RowSpan="2" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" Padding="0,10,0,0" TextColor="White"/>
+            <Label Text="Live Support History" Grid.Row="1" Grid.RowSpan="2" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" Padding="0,10,0,0" TextColor="White"/>
+            <Grid Margin="0,0,0,0" Grid.Row="2" RowDefinitions="35,5,*" BackgroundColor="#602ECD">
+                <Grid Grid.Row="0" ColumnDefinitions="AUTO,*,*" Margin="20,10,20,0">
+                    <Label Text="Sort By: " Grid.Column="0" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#E1E1E1"/>
+                    <material:MaterialCard BackgroundColor="{Binding sortBack}" Grid.Column="1" HasShadow="False" CornerRadius="10" Elevation="10"/>
+                    <Label Text="{Binding sortedName}"  FontSize="12" VerticalOptions="Center" HorizontalOptions="Center" TextColor="{Binding sortBtntxt}" FontAttributes="Bold" Grid.Column="1"/>
+                    <material:MaterialCard BackgroundColor="Transparent" Grid.Column="1" HasShadow="False" CornerRadius="10" IsClickable="True" ClickCommand="{Binding clickSort}" />
+                </Grid>
+                <ListView Grid.Row="2" ItemsSource="{Binding tuiHisList}" HasUnevenRows="True" SeparatorColor="White" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid RowDefinitions="10,AUTO,10" ColumnDefinitions="10,*,10" >
-                                    <Grid RowDefinitions="AUTO,AUTO,*,40" Margin="10,5,10,5" ColumnDefinitions="*,AUTO" Grid.Row="1" Grid.Column="1">
-                                        <Label Text="{Binding activeOrComplete}" HorizontalOptions="End" FontSize="12" VerticalOptions="Center" TextColor="White" Grid.Column="1"/>
+                                <Grid RowDefinitions="AUTO" ColumnDefinitions="10,*,10" >
+                                    <Grid RowDefinitions="25,32,AUTO,AUTO" Margin="10,5,10,5" ColumnDefinitions="*,AUTO" Grid.Row="0" Grid.Column="1">
+                                        <Grid Grid.Column="1" RowDefinitions="*,25, *" ColumnDefinitions="*,70,*">
+                                            <Frame BackgroundColor="{Binding btnBackColor}" Grid.Row="1" Grid.Column="1" HasShadow="False" CornerRadius="10"/>
+                                            <Label Text="{Binding activeOrComplete}"  FontSize="12" VerticalOptions="Center" HorizontalOptions="Center" TextColor="{Binding btntxtColor}" FontAttributes="Bold" Grid.Column="1" Grid.Row="1"/>
+                                        </Grid>
+                                        
                                         <Label Text="{Binding date}" HorizontalOptions="Start" FontSize="12" VerticalOptions="Center" TextColor="White"/>
                                         <Grid Grid.Row="1" ColumnDefinitions="AUTO,*">
                                             <Label Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Start" TextColor="White">
@@ -91,12 +114,13 @@
                                         <Button Text="{Binding isText}" Grid.Row="3" Grid.ColumnSpan="2" BackgroundColor="#6E3BDE" TextColor="White" IsVisible="{Binding seeAnsOrStartTuiVisibility}"/>
                                     </Grid>
                                 </Grid>
-                                
+
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
         </Grid>
-    </Grid>
+    </ScrollView>
+    
 </ContentPage>

@@ -18,7 +18,7 @@ namespace ShikkhanobishStudentApp.Model
                          .WithChannelId("General")
                          .WithOngoing(true)
                          .WithTimeout(TimeSpan.FromSeconds(30))
-                         .WithPriority(NotificationPriority.Max)
+                         .WithPriority( Plugin.LocalNotification.AndroidOption.AndroidNotificationPriority.Max)
                          .WithVisibilityType(Plugin.LocalNotification.AndroidOption.AndroidVisibilityType.Public)
                          .Build())
                     .WithiOSOptions((ios) => ios
