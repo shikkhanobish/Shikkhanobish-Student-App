@@ -37,7 +37,7 @@
                     </Label.FormattedText>
                 </Label>
                 <Image Source="wisthis.png" Grid.Row="0" HorizontalOptions="End" VerticalOptions="Center" Aspect="AspectFit" Margin="14" Opacity=".7"/>
-                <Grid Grid.Row="1" RowDefinitions="60,100,40,100,45,30" RowSpacing="0">
+                <Grid Grid.Row="1" RowDefinitions="60,100,0,130,45,30" RowSpacing="0">
                     <Grid Grid.Row="0" RowDefinitions="35,15" ColumnDefinitions="*,*">
                         <Frame BackgroundColor="Transparent"  Grid.Column="0" CornerRadius="10" HasShadow="False" />
                         <Frame BackgroundColor="Transparent" Grid.Column="1" CornerRadius="10" HasShadow="False"/>
@@ -51,15 +51,39 @@
                     </Grid>
                     <Editor Grid.Row="1"  BackgroundColor="White" Placeholder="Write Your Problem Here" MaxLength="500" FontSize="14" Text="{Binding descriptionEntry}"/>
                     <Frame BackgroundColor="Transparent" Grid.Row="2" CornerRadius="10" HasShadow="False"/>
-                    <Label Text="ADD IMAGE" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="2" FontSize="13" FontAttributes="Bold" TextColor="Black"/>
-                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Row="2" CornerRadius="10" IsClickable="True" ClickCommand="{Binding chooseImage}" />
-                    <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*">
-                        <Image Source="{Binding imgOne}" Grid.Column="0" Aspect="AspectFit"/>
-                        <Image Source="{Binding imgTWo}" Grid.Column="1" Aspect="AspectFit"/>
-                        <Image Source="{Binding imgThree}" Grid.Column="2" Aspect="AspectFit"/>
-                        <Image Source="{Binding imgFour}" Grid.Column="3" Aspect="AspectFit"/>
+
+                    
+                    <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*" RowDefinitions="*,25">
+                       
+                        <Label Text="Add Image" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="13" FontAttributes="Bold"/>
+                        <material:MaterialCard BackgroundColor="Transparent" Grid.Column="0" IsClickable="True" ClickCommand="{Binding chooseImage}"/>
+                        <Image Source="{Binding imgOne}" Grid.Column="0" Aspect="AspectFit" IsVisible="{Binding imgOnevisis}"/>
+                        <Image Source="delete.png" Grid.Row="1" Aspect="AspectFit" Margin="2" IsVisible="{Binding imgOnevisis}"/>
+                        <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" IsVisible="{Binding imgOnevisis}" Grid.Row="1" CornerRadius="10" HasShadow="False" ClickCommand="{Binding deleteImg}" ClickCommandParameter="1"/>
+
+                        
+                        <Label Text="Add Image" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="13" FontAttributes="Bold"/>
+                        <material:MaterialCard BackgroundColor="Transparent" Grid.Column="1" IsClickable="True" ClickCommand="{Binding chooseImage2}"/>
+                        <Image Source="{Binding imgTWo}" Grid.Column="1" Aspect="AspectFit" IsVisible="{Binding imgTwovisis}"/>
+                        <Image Source="delete.png" Grid.Row="1" Grid.Column="1" Aspect="AspectFit" IsVisible="{Binding imgTwovisis}" Margin="2"/>
+                        <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" IsVisible="{Binding imgTwovisis}"  Grid.Column="1" Grid.Row="1" CornerRadius="10" HasShadow="False" ClickCommand="{Binding deleteImg}" ClickCommandParameter="2"/>
+
+                       
+                        <Label Text="Add Image" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="13" FontAttributes="Bold"/>
+                        <material:MaterialCard BackgroundColor="Transparent" Grid.Column="2" IsClickable="True" ClickCommand="{Binding chooseImage3}"/>
+                        <Image Source="{Binding imgThree}" Grid.Column="2" Aspect="AspectFit" IsVisible="{Binding imgThreevisis}"/>
+                        <Image Source="delete.png" Grid.Row="1" Aspect="AspectFit"  Grid.Column="2" IsVisible="{Binding imgThreevisis}" Margin="2"/>
+                        <material:MaterialCard BackgroundColor="Transparent"  Grid.Column="2" IsVisible="{Binding imgThreevisis}" IsClickable="True" Grid.Row="1" CornerRadius="10" HasShadow="False" ClickCommand="{Binding deleteImg}" ClickCommandParameter="3"/>
+
+                       
+                        <Label Text="Add Image" Grid.Column="3" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="13" FontAttributes="Bold"/>
+                        <material:MaterialCard BackgroundColor="Transparent" Grid.Column="3" IsClickable="True" ClickCommand="{Binding chooseImage4}"/>
+                        <Image Source="{Binding imgFour}" Grid.Column="3" Aspect="AspectFit" IsVisible="{Binding imgFourvisis}"/>
+                        <Image Source="delete.png" Grid.Row="1"  Grid.Column="3" Aspect="AspectFit" IsVisible="{Binding imgFourvisis}" Margin="2"/>
+                        <material:MaterialCard BackgroundColor="Transparent"  Grid.Column="3" IsClickable="True" IsVisible="{Binding imgFourvisis}" Grid.Row="1" CornerRadius="10" HasShadow="False" ClickCommand="{Binding deleteImg}" ClickCommandParameter="4"/>
                     </Grid>
-                    <Grid Grid.Row="4" RowDefinitions="35,15" ColumnDefinitions="*,*">
+                    
+                    <Grid Grid.Row="4" RowDefinitions="35,15" ColumnDefinitions="*,*" Margin="0,10,0,0">
                         <Frame BackgroundColor="Transparent" Grid.Column="0" Grid.Row="0" CornerRadius="10" HasShadow="False"/>
                         <Label Text="{Binding chooseansTypeTxt}" HorizontalOptions="Center"  Grid.Row="0" VerticalOptions="Center"  Grid.Column="0" FontSize="13" FontAttributes="Bold" TextColor="#292929"/>
                         <material:MaterialCard BackgroundColor="Transparent"  Grid.Row="0" Elevation="0"  Grid.Column="0" CornerRadius="10" IsClickable="True" ClickCommand="{Binding Source={x:Reference liveSupRef}, Path=BindingContext.textOrVideoChoose}" ClickCommandParameter="{Binding .}"/>
@@ -113,8 +137,18 @@
                                             </Label>
                                         </Grid>
                                         <Label Text="{Binding description}" Grid.Row="2" VerticalOptions="Start" FontSize="12" HorizontalOptions="Start" TextColor="White"/>
-                                        <Label Text="{Binding answeredOrNot}" Grid.Row="1" Grid.RowSpan="2" Padding="2" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="13" FontAttributes="Bold" TextColor="White"/>
-                                        <Button Text="{Binding isText}" Grid.Row="3" Grid.ColumnSpan="2" BackgroundColor="#6E3BDE" TextColor="White" IsVisible="{Binding seeAnsOrStartTuiVisibility}"/>
+                                        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" RowDefinitions="AUTO,*">
+                                            <Label Text="{Binding answeredOrNot}" Grid.Row="0" Padding="2" HorizontalTextAlignment="Center" VerticalTextAlignment="End" FontSize="13" FontAttributes="Bold" TextColor="White"/>
+                                            <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start" TextColor="White" FontSize="12">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Tuition Type: " TextColor="#90ffffff"/>
+                                                        <Span Text="{Binding tuitionTypeTxt}" FontAttributes="Bold"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </Grid>
+                                        <Button Text="{Binding isText}" Grid.Row="3" Grid.ColumnSpan="2"  BackgroundColor="#6E3BDE" TextColor="White" IsVisible="{Binding seeAnsOrStartTuiVisibility}"/>
                                     </Grid>
                                 </Grid>
 

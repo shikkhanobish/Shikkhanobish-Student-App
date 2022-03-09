@@ -30,6 +30,10 @@ namespace ShikkhanobishStudentApp.ViewModel
         string chapname = "";
         int selectedTextorVideo = 0;
         int classSelc = 101;
+        FileResult img1file;
+        FileResult img2file;
+        FileResult img3file;
+        FileResult img4file;
         public LiveSupportViewModel()
         {
             sortedName = "All";
@@ -38,6 +42,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             chapterChooseText = "Choose Chapter";
             subjectChooseText = "Choose Subject";
             chooseansTypeTxt = "Choose Answer Type";
+           
             GetAllInfo();
             GetTuitionHistory();
             //SubmitInfo();
@@ -119,62 +124,97 @@ namespace ShikkhanobishStudentApp.ViewModel
         }
 
         #endregion
-        async Task<IEnumerable<FileResult>> PickAndShow(PickOptions options)
+        public async Task<string> UploadFileResult( FileResult fl)
         {
-            try
-            {
-                var result = await FilePicker.PickMultipleAsync(options);
-                int i = 0;
-                foreach(var img in result)
-                {
-                    
-                    if (img != null)
-                    {
-                        if (img.FileName.EndsWith("jpg", StringComparison.OrdinalIgnoreCase) ||
-                            img.FileName.EndsWith("png", StringComparison.OrdinalIgnoreCase))
-                        {
-                            var stream = await img.OpenReadAsync();
-                            if(i == 0)
-                            {
-                                imgOne = ImageSource.FromStream(() => stream);
-                            }
-                            if (i == 1)
-                            {
-                                imgTWo = ImageSource.FromStream(() => stream);
-                            }
-                            if (i == 2)
-                            {
-                                imgThree = ImageSource.FromStream(() => stream);
-                            }
-                            if (i == 3)
-                            {
-                                imgFour = ImageSource.FromStream(() => stream);
-                            }
-
-
-                        }
-                    }
-                    i++;
-                }
-                var gg = result.ToList();              
-                UploadImage up = new UploadImage();
-                var fs = await gg[0].OpenReadAsync();
-                FileStream fileStream = fs as FileStream;
-                await up.UploadFileSample("shiquesimage", fileStream);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                // The user canceled or something went wrong
-            }
-
-            return null;
+            UploadImage up = new UploadImage();
+            var fs = await fl.OpenReadAsync();
+            FileStream fileStream = fs as FileStream;
+            var result = await up.UploadFileSample("shlivesupportimage", fileStream);
+            return result;
         }
         private async Task PerformchooseImage()
         {
-            await PickAndShow(PickOptions.Images);
+            try
+            {
+                img1file = await FilePicker.PickAsync(PickOptions.Images);
+                var stream = await img1file.OpenReadAsync();
+                imgOne = ImageSource.FromStream(() => stream);
+                imgOnevisis = true;
+            }
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
         }
-        
+        private async Task PerformchooseImage2()
+        {
+            try
+            {
+                img2file = await FilePicker.PickAsync(PickOptions.Images);
+                var stream = await img2file.OpenReadAsync();
+                imgTWo = ImageSource.FromStream(() => stream);
+                imgTwovisis = true;
+            }
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
+        }
+        private async Task PerformchooseImage3()
+        {
+            try
+            {
+                img3file = await FilePicker.PickAsync(PickOptions.Images);
+                var stream = await img3file.OpenReadAsync();
+                imgThree = ImageSource.FromStream(() => stream);
+                imgThreevisis = true;
+            }
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
+        }
+        private async Task PerformchooseImage4()
+        {
+            try
+            {
+                img4file = await FilePicker.PickAsync(PickOptions.Images);
+                var stream = await img4file.OpenReadAsync();
+                imgFour = ImageSource.FromStream(() => stream);
+                imgFourvisis = true;
+            }
+            catch (Exception ex)
+            {
+                await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+            }
+        }
+        private void PerformdeleteImg(string i)
+        {
+            if(i == "1")
+            {
+                img1file = null;
+                imgOne = "";
+                imgOnevisis = false;
+            }
+            if (i == "2")
+            {
+                img2file = null;
+                imgTWo = "";
+                imgTwovisis = false;
+            }
+            if (i == "3")
+            {
+                img3file = null;
+                imgThree = "";
+                imgThreevisis = false;
+            }
+            if (i == "4")
+            {
+                img4file = null;
+                imgFour = "";
+                imgFourvisis = false;
+            }
+        }
         public async Task PerformsubmitTution()
         {
             if (subname == null || chapname == null ||  descriptionEntry == null || subname ==  "" || chapname == "" || descriptionEntry == "" || selectedTextorVideo == 0)
@@ -184,30 +224,63 @@ namespace ShikkhanobishStudentApp.ViewModel
             }
             else
             {
-                using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
+                try
                 {
-                    var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setTuitionLog".PostUrlEncodedAsync(new
+                    using (var dialog = await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
                     {
-                        studentName = "Abid",
-                        subjectname = subname,
-                        tuitionLogID = StaticPageToPassData.GenarateNewID(),
-                        description = descriptionEntry,
-                        date = DateTime.Now.ToString("dd MM yyyy hh:mm:ss"),
-                        subjectID = selectedSubID,
-                        studentID = 10000152,
-                        tuitionLogStatus = 0,
-                        pendingTeacherID = 0,
-                        chapterName = chapname,
-                        chapterID = selectedchapID,
-                        isTextOrVideo = selectedTextorVideo,
-                        img1 = "n/a",
-                        img2 = "n/a",
-                        img3 = "n/a",
-                        img4 = "n/a"
-                    }).ReceiveJson<Response>();
+                        string link1 = "N/A";
+                        string link2 = "N/A";
+                        string link3 = "N/A";
+                        string link4 = "N/A";
+                        if (img1file != null)
+                        {
+                            link1 = await UploadFileResult(img1file);
+                        }
+                        if (img2file != null)
+                        {
+                            link2 = await UploadFileResult(img2file);
+                        }
+                        if (img3file != null)
+                        {
+                            link3 = await UploadFileResult(img3file);
+                        }
+                        if (img4file != null)
+                        {
+                            link4 = await UploadFileResult(img4file);
+                        }
 
-                    await GetTuitionHistory();
+
+                        var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setTuitionLog".PostUrlEncodedAsync(new
+                        {
+                            studentName = StaticPageToPassData.thisStudentInfo.name,
+                            subjectname = subname,
+                            tuitionLogID = StaticPageToPassData.GenarateNewID(),
+                            description = descriptionEntry,
+                            date = DateTime.Now.ToString("dd'/'MM'/'yyyy hh:mm:ss"),
+                            subjectID = selectedSubID,
+                            studentID = StaticPageToPassData.thisStudentInfo.studentID,
+                            tuitionLogStatus = 0,
+                            pendingTeacherID = 0,
+                            chapterName = chapname,
+                            chapterID = selectedchapID,
+                            startingDate = "N/A",
+                            isTextOrVideo = selectedTextorVideo,
+                            img1 = link1,
+                            img2 = link2,
+                            img3 = link3,
+                            img4 = link4
+                        }).ReceiveJson<Response>();
+
+                        await GetTuitionHistory();
+                    }
+                    await MaterialDialog.Instance.AlertAsync(message: "Question will be answerd within 2 hours. ");
                 }
+                catch (Exception ex)
+                {
+                    await MaterialDialog.Instance.AlertAsync(message: ex.Message);
+                }
+                
+                
             }
            
 
@@ -235,7 +308,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 if (item.isTextOrVideo == 1)
                 {
-                    
+                    item.tuitionTypeTxt = "Text";
                     if (item.tuitionLogStatus == 0)
                     {
                         item.btntxtColor = "#"+ active;
@@ -259,6 +332,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 }
                 if (item.isTextOrVideo == 2)
                 {
+                    item.tuitionTypeTxt = "Video";
                     item.seeAnsOrStartTuiVisibility = true;
                    
 
@@ -327,6 +401,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             var type4 = tList.Where(t => t.statusType == 3).ToList();
             var type5 = tList.Where(t => t.statusType == 4).ToList();
             tuiHisList = type1.Concat(type2).Concat(type3).Concat(type4).Concat(type5).ToList();
+            savedTuitionLog = new List<TuiTionLog>();
             savedTuitionLog = tuiHisList;
             if (timerID.Count != 0)
             {
@@ -341,9 +416,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             thislog = tuiHisList;
             
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            {
-
-                
+            {                
                 for (int i = 0; i < thislog.Count; i++)
                 {
                     for(int j = 0; j < idList.Count; j++)
@@ -579,9 +652,41 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public ImageSource imgFour { get => imgFour1; set => SetProperty(ref imgFour1, value); }
 
+        private Command chooseImage21;
+        public ICommand chooseImage2 => chooseImage21 ??= new Command(async =>  PerformchooseImage2());
 
+   
 
+        private Command chooseImage31;
+        public ICommand chooseImage3 => chooseImage31 ??= new Command(async =>  PerformchooseImage3());
 
+    
+
+        private Command chooseImage41;
+        public ICommand chooseImage4 => chooseImage41 ??= new Command(async => PerformchooseImage4());
+
+ 
+
+        private bool imgOnevisis1;
+
+        public bool imgOnevisis { get => imgOnevisis1; set => SetProperty(ref imgOnevisis1, value); }
+
+        private bool imgTwovisis1;
+
+        public bool imgTwovisis { get => imgTwovisis1; set => SetProperty(ref imgTwovisis1, value); }
+
+        private bool imgThreevisis1;
+
+        public bool imgThreevisis { get => imgThreevisis1; set => SetProperty(ref imgThreevisis1, value); }
+
+        private bool imgFourvisis1;
+
+        public bool imgFourvisis { get => imgFourvisis1; set => SetProperty(ref imgFourvisis1, value); }
+
+        private Command deleteImg1;
+        public ICommand deleteImg => deleteImg1 ??= new Command<string>(PerformdeleteImg);
+
+        
 
 
         #endregion
