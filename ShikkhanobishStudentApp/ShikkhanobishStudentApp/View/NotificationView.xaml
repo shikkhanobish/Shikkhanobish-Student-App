@@ -39,7 +39,7 @@
         <Label Grid.Row="1" Grid.Column="1" Text="Notifications" TextColor="Black" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"></Label>
         <Label FontSize="11" Text="এই উইন্ডোতে আপনি দেখবেন আপনাকে কোন টিচার রিপোর্ট করেছে। শিক্ষানবিশ শিক্ষার গুনগত মান নিয়ন্ত্রণের জন্য শিক্ষক এবং শিক্ষার্থী উভয়ের জন্যই রিপোর্ট সিস্টেম চালু করেছে। আশা করি আপনারা শিক্ষানবিশে শিক্ষার পরিবেশ বজায় রাখবেন" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
         <Frame BackgroundColor="Gray" Grid.Row="3" Grid.Column="1"></Frame>
-        <ListView  Grid.Row="4" Grid.Column="1" RowHeight="130"  SeparatorColor="White" ItemsSource="{Binding notificationList}">
+        <ListView  Grid.Row="4" Grid.Column="1" RowHeight="130"  SeparatorColor="White" ItemsSource="{Binding notificationList}" HasUnevenRows="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -47,12 +47,12 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10"/>
                                 <RowDefinition Height="20"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="AUTO"/>
                                 <RowDefinition Height="10"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="5"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="AUTO"/>
                                 <ColumnDefinition Width="5"/>
                             </Grid.ColumnDefinitions>
 

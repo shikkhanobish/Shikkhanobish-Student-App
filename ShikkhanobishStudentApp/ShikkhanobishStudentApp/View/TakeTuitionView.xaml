@@ -21,14 +21,32 @@
                 <ColumnDefinition Width="20*" />
                 <ColumnDefinition Width=".5*" />
             </Grid.ColumnDefinitions>
-            <BoxView Grid.Row="0"  Grid.ColumnSpan="3">
-                <BoxView.Background>
+            <Frame 
+                   Grid.Row="0" Grid.ColumnSpan="3"  Margin="0,0,0,10">
+                <Frame.Background>
+                    <!-- StartPoint defaults to (0,0) -->
                     <LinearGradientBrush EndPoint="1,0">
-                        <GradientStop Color="#11AAD7" Offset="1" />
-                        <GradientStop Color="#864AE8" Offset=".01" />
+                        <GradientStop Color="#49A7E3"
+                          Offset="0.1" />
+                        <GradientStop Color="#6A49E3"
+                          Offset="1.0" />
                     </LinearGradientBrush>
-                </BoxView.Background>
-            </BoxView>
+                </Frame.Background>
+            </Frame>
+
+            <Frame 
+       CornerRadius="12"
+                   Grid.Row="0" Grid.ColumnSpan="3" Margin="0,15,0,0">
+                <Frame.Background>
+                    <!-- StartPoint defaults to (0,0) -->
+                    <LinearGradientBrush EndPoint="1,0">
+                        <GradientStop Color="#49A7E3"
+                          Offset="0.1" />
+                        <GradientStop Color="#6A49E3"
+                          Offset="1.0" />
+                    </LinearGradientBrush>
+                </Frame.Background>
+            </Frame>
 
             <Grid Grid.Row="0" Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -263,7 +281,7 @@
                 <Grid Grid.Row="1" Grid.Column="1" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height=".2*" />
-                        <RowDefinition Height=".7*" />
+                        <RowDefinition Height="22" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="40" />
                         <RowDefinition Height="AUTO" />

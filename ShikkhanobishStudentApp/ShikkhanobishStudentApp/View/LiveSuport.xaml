@@ -52,9 +52,12 @@
                     <Editor Grid.Row="1"  BackgroundColor="White" Placeholder="Write Your Problem Here" MaxLength="500" FontSize="14" Text="{Binding descriptionEntry}"/>
                     <Frame BackgroundColor="Transparent" Grid.Row="2" CornerRadius="10" HasShadow="False"/>
                     <Label Text="ADD IMAGE" HorizontalOptions="Start" VerticalOptions="Center" Grid.Row="2" FontSize="13" FontAttributes="Bold" TextColor="Black"/>
-                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Row="2" CornerRadius="10" IsClickable="True" />
+                    <material:MaterialCard BackgroundColor="Transparent" Elevation="0" Grid.Row="2" CornerRadius="10" IsClickable="True" ClickCommand="{Binding chooseImage}" />
                     <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*">
-
+                        <Image Source="{Binding imgOne}" Grid.Column="0" Aspect="AspectFit"/>
+                        <Image Source="{Binding imgTWo}" Grid.Column="1" Aspect="AspectFit"/>
+                        <Image Source="{Binding imgThree}" Grid.Column="2" Aspect="AspectFit"/>
+                        <Image Source="{Binding imgFour}" Grid.Column="3" Aspect="AspectFit"/>
                     </Grid>
                     <Grid Grid.Row="4" RowDefinitions="35,15" ColumnDefinitions="*,*">
                         <Frame BackgroundColor="Transparent" Grid.Column="0" Grid.Row="0" CornerRadius="10" HasShadow="False"/>

@@ -119,7 +119,62 @@ namespace ShikkhanobishStudentApp.ViewModel
         }
 
         #endregion
+        async Task<IEnumerable<FileResult>> PickAndShow(PickOptions options)
+        {
+            try
+            {
+                var result = await FilePicker.PickMultipleAsync(options);
+                int i = 0;
+                foreach(var img in result)
+                {
+                    
+                    if (img != null)
+                    {
+                        if (img.FileName.EndsWith("jpg", StringComparison.OrdinalIgnoreCase) ||
+                            img.FileName.EndsWith("png", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var stream = await img.OpenReadAsync();
+                            if(i == 0)
+                            {
+                                imgOne = ImageSource.FromStream(() => stream);
+                            }
+                            if (i == 1)
+                            {
+                                imgTWo = ImageSource.FromStream(() => stream);
+                            }
+                            if (i == 2)
+                            {
+                                imgThree = ImageSource.FromStream(() => stream);
+                            }
+                            if (i == 3)
+                            {
+                                imgFour = ImageSource.FromStream(() => stream);
+                            }
 
+
+                        }
+                    }
+                    i++;
+                }
+                var gg = result.ToList();              
+                UploadImage up = new UploadImage();
+                var fs = await gg[0].OpenReadAsync();
+                FileStream fileStream = fs as FileStream;
+                await up.UploadFileSample("shiquesimage", fileStream);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                // The user canceled or something went wrong
+            }
+
+            return null;
+        }
+        private async Task PerformchooseImage()
+        {
+            await PickAndShow(PickOptions.Images);
+        }
+        
         public async Task PerformsubmitTution()
         {
             if (subname == null || chapname == null ||  descriptionEntry == null || subname ==  "" || chapname == "" || descriptionEntry == "" || selectedTextorVideo == 0)
@@ -505,9 +560,29 @@ namespace ShikkhanobishStudentApp.ViewModel
 
         public Color sortBack { get => sortBack1; set => SetProperty(ref sortBack1, value); }
 
-       
+        private Command chooseImage1;
+        public ICommand chooseImage => chooseImage1 ??= new Command(async => PerformchooseImage());
 
-        
+        private ImageSource imgOne1;
+
+        public ImageSource imgOne { get => imgOne1; set => SetProperty(ref imgOne1, value); }
+
+        private ImageSource imgTWo1;
+
+        public ImageSource imgTWo { get => imgTWo1; set => SetProperty(ref imgTWo1, value); }
+
+        private ImageSource imgThree1;
+
+        public ImageSource imgThree { get => imgThree1; set => SetProperty(ref imgThree1, value); }
+
+        private ImageSource imgFour1;
+
+        public ImageSource imgFour { get => imgFour1; set => SetProperty(ref imgFour1, value); }
+
+
+
+
+
 
         #endregion
     }

@@ -799,7 +799,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             int indexno = int.Parse(index);
             if (indexno == 1)
             {
-                if (scChoice == Color.GreenYellow)
+                if (scChoice == Color.FromHex("#431BB8"))
                 {
                     scChoice = Color.Transparent;
                     ObservableCollection<Subject> popupclsList = new ObservableCollection<Subject>();
@@ -818,7 +818,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 }
                 else
                 {
-                    scChoice = Color.GreenYellow;
+                    scChoice = Color.FromHex("#431BB8");
                     cmChoice = Color.Transparent;
                     arChoice = Color.Transparent;
 
@@ -839,7 +839,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             }
             if (indexno == 2)
             {
-                if (cmChoice == Color.GreenYellow)
+                if (cmChoice == Color.FromHex("#431BB8"))
                 {
                     cmChoice = Color.Transparent;
                     ObservableCollection<Subject> popupclsList = new ObservableCollection<Subject>();
@@ -858,7 +858,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 }
                 else
                 {
-                    cmChoice = Color.GreenYellow;
+                    cmChoice = Color.FromHex("#431BB8");
                     arChoice = Color.Transparent;
                     scChoice = Color.Transparent;
                     ObservableCollection<Subject> popupclsList = new ObservableCollection<Subject>();
@@ -878,7 +878,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             }
             if (indexno == 3)
             {
-                if (arChoice == Color.GreenYellow)
+                if (arChoice == Color.FromHex("#431BB8"))
                 {
                     arChoice = Color.Transparent;
                     ObservableCollection<Subject> popupclsList = new ObservableCollection<Subject>();
@@ -897,7 +897,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 }
                 else
                 {
-                    arChoice = Color.GreenYellow;
+                    arChoice = Color.FromHex("#431BB8");
                     scChoice = Color.Transparent;
                     cmChoice = Color.Transparent;
                     ObservableCollection<Subject> popupclsList = new ObservableCollection<Subject>();

@@ -30,7 +30,7 @@
                 <ColumnDefinition Width="70"/>
                 <ColumnDefinition Width="55"/>
             </Grid.ColumnDefinitions>
-            <Label Text="Interest" Grid.Row="0" Grid.Column="0" TextColor="#90000000"  HorizontalOptions="Start" VerticalOptions="Center" FontSize="15" FontAttributes="Bold"/>
+            <Label Text="Tags" Grid.Row="0" Grid.Column="0" TextColor="#90000000"  HorizontalOptions="Start" VerticalOptions="Center" FontSize="15" FontAttributes="Bold"/>
 
             <ListView  ItemsSource="{Binding tagList}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"  RowHeight="30"  SeparatorColor="White" >
                 <ListView.ItemTemplate>
