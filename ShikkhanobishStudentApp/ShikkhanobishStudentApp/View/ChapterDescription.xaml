@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel"
              xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" 
+             x:Name="chapterdes"
              x:Class="ShikkhanobishStudentApp.View.ChapterDescription">
 
     <Grid BackgroundColor="#F5F5F5">
@@ -25,7 +26,7 @@
                 
                 <Grid Grid.Row="0" Grid.RowSpan="2" RowDefinitions="AUTO,40" ColumnDefinitions="*,50">
                     <Label  Text="{Binding chapName}" Grid.Row="0" Grid.Column="0"  FontSize="15" Padding="20,0,0,0" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-                    <Image Source="live.png" Grid.Column="1"  Margin="0,8,10,8" HorizontalOptions="End" VerticalOptions="Center" Aspect="AspectFit"/>
+                    <Image Source="live.png" Grid.Column="1"  Margin="0,10,10,8" HorizontalOptions="End" VerticalOptions="Center" Aspect="AspectFit"/>
                     <material:MaterialButton Text="Buy Full Chapter 400 Taka" Grid.Row="1" Grid.ColumnSpan="2" FontSize="10" Command="{Binding buychapter}"/>
                 </Grid>
                
@@ -59,21 +60,24 @@
                 <Label Grid.Column="1" Grid.Row="0" Text="Topics" HorizontalOptions="Start" VerticalOptions="End" TextColor="White"/>
                 
                 <Frame BackgroundColor="White" Grid.Row="1" Grid.Column="1"/>
-                <ListView ItemsSource="{Binding topicList}" Grid.Row="2" Grid.Column="1"  RowHeight="60" SeparatorColor="Transparent"  >
+                <ListView ItemsSource="{Binding topicList}" Grid.Row="2" Grid.Column="1"  RowHeight="50" SeparatorColor="Transparent"  >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid  ColumnDefinitions="50,*,100">
+                                <Grid  ColumnDefinitions="50,*,25">
                                     <Label Text="{Binding name}" FontAttributes="Bold" FontSize="11" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" TextColor="White"/>
-                                    <Grid Grid.Column="0" RowDefinitions="*,15,*" ColumnDefinitions="*,1,*" >
+                                    <Grid Grid.Column="0" RowDefinitions="*,20,*" ColumnDefinitions="*,1,*" RowSpacing="0" >
                                         <Frame BackgroundColor="White" Grid.Row="0" Grid.Column="1"/>
                                         <Image Source="right.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Aspect="AspectFit"/>
                                         <Frame BackgroundColor="White" Grid.Row="2" Grid.Column="1"/>
                                     </Grid>
-                                    <Grid Grid.Column="2">
-                                        <Frame BackgroundColor="#DFF6FF"  HasShadow="False" CornerRadius="10" Margin="11"/>
-                                        <Label Text="Book This Topic" FontSize="10" FontAttributes="Bold"  TextColor="#08516D" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                        <material:MaterialButton BackgroundColor="Transparent" PressedBackgroundColor="#4008516D"  HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Grid Grid.Column="2" ColumnDefinitions="*" IsVisible="False">
+                                        <Image Source="sendtuireq.png" Aspect="AspectFit"  Grid.Column="0"/>
+                                        <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" CornerRadius="10" Grid.Column="0" ClickCommand="{Binding Source={x:Reference chapterdes}, Path=BindingContext.sendtuitionres}"/>
+                                    </Grid>
+                                    <Grid Grid.Column="2" ColumnDefinitions="*" IsVisible="False">
+                                        <Image Source="savedtuition.png" Aspect="AspectFit"  Grid.Column="0"/>
+                                        <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" CornerRadius="10" Grid.Column="0"/>
                                     </Grid>
                                 </Grid>
 

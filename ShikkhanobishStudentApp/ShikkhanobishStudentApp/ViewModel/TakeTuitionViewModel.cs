@@ -1480,6 +1480,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 {
                     if (thirdTitle == "Subject")
                     {
+                        isChapterVisi = false;
                         arChoice = Color.Transparent;
                         scChoice = Color.Transparent;
                         cmChoice = Color.Transparent;
@@ -1533,6 +1534,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                 {
                     if (forthTitle == "Chapter")
                     {
+                        isChapterVisi = true;
                         resultvisi = true;
                         searchName = "Select Chapter";
                         ObservableCollection<Chapter> popupclsList = new ObservableCollection<Chapter>();
@@ -1736,6 +1738,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                      }
 
                      selectedGlobalSub = selectedList;
+                     totalSubjectCost = selectedList.purchaseRate;
                      SelectedSubjectName = selectedList.name;
                      SelectedSubjectID = selectedList.subjectID;
                      SubTRequest = selectedList.tuitionRequest;
@@ -2012,7 +2015,8 @@ namespace ShikkhanobishStudentApp.ViewModel
             for (int i = 0; i < insList.Count; i++)
             {
                 popupList popupobj = new popupList();
-                popupobj.name = insList[i].name;
+                popupobj.name = insList[i].name;                
+                popupobj.price = insList[i].purchaseRate.ToString();
                 popupobj.totalRequest = insList[i].tuitionRequest;
                 popupobj.avgRatting = insList[i].avgRatting;
                 popupobj.ListIndex = 6;
@@ -2141,6 +2145,10 @@ namespace ShikkhanobishStudentApp.ViewModel
         private string selectedChapterName;
 
         public string SelectedChapterName { get => selectedChapterName; set => SetProperty(ref selectedChapterName, value); }
+
+        private int totalSubjectCost1;
+
+        public int totalSubjectCost { get => totalSubjectCost1; set => SetProperty(ref totalSubjectCost1, value); }
 
         private string searchText1;
 
@@ -2854,6 +2862,10 @@ namespace ShikkhanobishStudentApp.ViewModel
         private string notificationCount1;
 
         public string notificationCount { get => notificationCount1; set => SetProperty(ref notificationCount1, value); }
+
+        private bool isChapterVisi1;
+
+        public bool isChapterVisi { get => isChapterVisi1; set => SetProperty(ref isChapterVisi1, value); }
 
 
 

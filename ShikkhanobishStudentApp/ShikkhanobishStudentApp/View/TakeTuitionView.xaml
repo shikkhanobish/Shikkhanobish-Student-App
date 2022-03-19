@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:sharedTransitions="clr-namespace:Plugin.SharedTransitions;assembly=Plugin.SharedTransitions"
-             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material" xmlns:viewmodel="clr-namespace:ShikkhanobishStudentApp.ViewModel" 
+             xmlns:material="clr-namespace:XF.Material.Forms.UI;assembly=XF.Material"
              sharedTransitions:SharedTransitionNavigationPage.BackgroundAnimation="SlideFromRight"
              x:Name="tuitionView"
               
@@ -282,8 +282,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height=".2*" />
                         <RowDefinition Height="22" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="AUTO" />
+                        <RowDefinition Height="AUTO" />
                         <RowDefinition Height="AUTO" />
                         <RowDefinition Height="1" />
                         <RowDefinition Height="10*" />
@@ -302,40 +302,48 @@
                             <TapGestureRecognizer Command="{Binding ClosePopUp}"/>
                         </Label.GestureRecognizers>
                     </Label>
-                    <material:MaterialButton Text="Buy Full Subject" Grid.Row="3" Grid.Column="1" BackgroundColor="White" TextColor="#4D23C9"/>
-                    <Label Text="You Can Buy Full Subject At Only" Grid.Row="2" Grid.Column="1" HorizontalOptions="Start" TextColor="White" VerticalOptions="Center"/>
-                    <Label Text="2500 Taka" Grid.Row="2" HorizontalOptions="End" Grid.Column="1" FontAttributes="Bold" TextColor="White" VerticalOptions="Center"/>
-                    <Grid Grid.Row="4" Grid.Column="1" IsVisible="{Binding groupChoiseVisibility}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*" />
-                            <RowDefinition Height="2*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="1.5*" />
-                            <ColumnDefinition Width=".8*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Text="Choose Group" Grid.Row="0" Grid.ColumnSpan="3" HorizontalOptions="Start" TextColor="White" VerticalOptions="Center" />
-                        <material:MaterialButton Text="Science" ButtonType="Flat" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" TextColor="White" VerticalOptions="Center" FontSize="9" BackgroundColor="{Binding scChoice}" PressedBackgroundColor="#20000000" Command="{Binding groupChoice}" CommandParameter="1" />
-                        <material:MaterialButton Text="Commerce" ButtonType="Flat" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" TextColor="White" VerticalOptions="Center" FontSize="9" BackgroundColor="{Binding cmChoice}"  PressedBackgroundColor="#20000000" Command="{Binding groupChoice}" CommandParameter="2" />
-                        <material:MaterialButton Text="Arts" ButtonType="Flat" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" TextColor="White" VerticalOptions="Center" FontSize="9"  BackgroundColor="{Binding arChoice}" PressedBackgroundColor="#20000000" Command="{Binding groupChoice}" CommandParameter="3" />
-                    </Grid>
+
+                    <Frame BackgroundColor="White" Grid.Row="3" Grid.Column="1" HasShadow="False" CornerRadius="10" IsVisible="{Binding isChapterVisi}"/>
+                    <Label Grid.Row="3" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" TextColor="#4D23C9"  IsVisible="{Binding isChapterVisi}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Buy "/>
+                                <Span Text="{Binding SelectedSubjectName}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <material:MaterialCard BackgroundColor="Transparent" Grid.Row="3" Grid.Column="1" IsClickable="True" CornerRadius="10"  IsVisible="{Binding isChapterVisi}"/>
+                    <Label Text="You Can Buy Full Subject At Only" Grid.Row="2" Grid.Column="1" HorizontalOptions="Start" TextColor="White" VerticalOptions="Center" IsVisible="{Binding isChapterVisi}"/>
+                    <Label Grid.Row="2" HorizontalOptions="End" Grid.Column="1" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" IsVisible="{Binding isChapterVisi}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding totalSubjectCost}"/>
+                                <Span Text=" Taka"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    
                     
 
                     <Label Text="Getting Result..." Grid.Row="6" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#9C9C9C" Margin="0,0,0,50" IsVisible="{Binding resultvisi}" FontAttributes="Bold" />
-                    <ListView  ItemsSource="{Binding popupList}" Grid.Row="6" Grid.Column="1" RowHeight="50" SeparatorColor="Black">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Grid ColumnDefinitions="*,AUTO">
-                                        <material:MaterialCard Grid.ColumnSpan="2" IsClickable="True" ClickCommand="{Binding Source={x:Reference tuitionView}, Path=BindingContext.SelectedItem}" ClickCommandParameter="{Binding .}" />
-                                        <material:MaterialLabel Grid.Column="0" Text="{Binding name}"   FontSize="15"  HorizontalOptions="Start" VerticalOptions="Center" TextColor="#4B4B4B" />
-                                        <Label Text="50 Taka" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" FontAttributes="Bold" FontSize="12"></Label>
-                                    </Grid>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <Grid Grid.Row="6" Grid.Column="1" RowDefinitions="AUTO, *">
+                        
+                        <ListView  ItemsSource="{Binding popupList}" Grid.Row="1" HasUnevenRows="True" SeparatorColor="Black">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid ColumnDefinitions="AUTO,*">
+                                            <material:MaterialCard Grid.ColumnSpan="2" IsClickable="True" ClickCommand="{Binding Source={x:Reference tuitionView}, Path=BindingContext.SelectedItem}" ClickCommandParameter="{Binding .}" />
+                                            <material:MaterialLabel Grid.Column="0" Text="{Binding name}"   FontSize="15"  HorizontalOptions="Start" VerticalOptions="Center" TextColor="#4B4B4B" />
+                                            <Label Text="{Binding price}" Grid.Column="1" HorizontalOptions="End" VerticalOptions="Center" FontAttributes="Bold" FontSize="12"></Label>
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                    
                 </Grid>
                 <Frame BackgroundColor="#50000000" Grid.Row="1" Grid.Column="1" IsVisible="{Binding popWaitVisiblity}" />
                 <Label Text="Please Wait..." Grid.Column="1" Grid.Row="1" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding popWaitVisiblity}" />

@@ -43,11 +43,11 @@
                     <ColumnDefinition Width="20*"/>
                     <ColumnDefinition Width=".1*"/>
                 </Grid.ColumnDefinitions>
-                <material:MaterialTextField x:Name="pn" Placeholder="Phone Number" InputType="Numeric" MaxLength="11" Grid.Row="0"  Grid.Column="1" TextColor="#4c1dc3" IsSpellCheckEnabled="False" BackgroundColor="#E2D7FF" CardBackgroundColor="#Transparent"  PlaceholderColor="#4c1dc3"  >
+                <material:MaterialTextField x:Name="pn" Placeholder="Phone Number" InputType="Numeric" MaxLength="11" Grid.Row="0"  Grid.Column="1" TextColor="#4c1dc3"   CardBackgroundColor="#E2D7FF"  PlaceholderColor="#4c1dc3" >
 
                 </material:MaterialTextField>
 
-                <material:MaterialTextField x:Name="pass" Placeholder="Password" InputType="Password" Grid.Row="1"   Grid.Column="1"  TextColor="#0f5bb8" IsSpellCheckEnabled="False"   CardBackgroundColor="#D8E9FE" PlaceholderColor="#0f5bb8"  >
+                <material:MaterialTextField x:Name="pass" Placeholder="Password" InputType="Password" Grid.Row="1"   Grid.Column="1"  TextColor="#0f5bb8"  CardBackgroundColor="#D8E9FE" PlaceholderColor="#0f5bb8"  >
 
                 </material:MaterialTextField>
 

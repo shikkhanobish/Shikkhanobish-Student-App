@@ -1,8 +1,10 @@
 ﻿using Flurl.Http;
 using ShikkhanobishStudentApp.Model;
+using ShikkhanobishStudentApp.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -13,8 +15,10 @@ namespace ShikkhanobishStudentApp.ViewModel
     public class ChapterDesciptionViewModel: BaseViewModel, INotifyPropertyChanged
     {
         int chapterid;
+        Chapter thisChapter = new Chapter();
         List<Chapter> chapList = new List<Chapter>();
         List<Topic> tList = new List<Topic>();
+        public Topic thisselectedTopic = new Topic();
         public ChapterDesciptionViewModel(int chapterID)
         {
          chapterid = chapterID;   
@@ -34,6 +38,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 if (item.chapterID == chapId)
                 {
+                    thisChapter = item;
                     chapName = item.name;
                     chapDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ";
                     chapPurchaseRate = item.purchaseRate;
@@ -49,10 +54,31 @@ namespace ShikkhanobishStudentApp.ViewModel
 
             }
             topicNum = tp.Count.ToString();
+            List<Topic> SortedList = new List<Topic>();
+            SortedList = tp.OrderBy(x => x.topicIndex).ToList();
+            tp = SortedList;
             topicList = tp;
         }
-        private void Performbuychapter()
+        private async Task Performbuychapter()
         {
+            
+        }
+        public ICommand SelectedItem =>
+            new Command<popupList>(async (thisselectedTopic) =>
+            {
+                
+            });
+        public async Task StartPayment()
+        {
+            var redirectURL = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/RequestPayment".PostUrlEncodedAsync(new
+            {
+                name = StaticPageToPassData.thisStudentInfo.name,
+                amount = thisChapter.purchaseRate,
+                studentID = StaticPageToPassData.thisStudentInfo.studentID,
+                phonenumber = StaticPageToPassData.thisStudentInfo.phonenumber,
+            }).ReceiveJson<string>();
+
+            await Application.Current.MainPage.Navigation.PushModalAsync(new PaymentView(redirectURL));
         }
         #endregion
 
@@ -80,7 +106,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 if (buychapter1 == null)
                 {
-                    buychapter1 = new Command(Performbuychapter);
+                    buychapter1 = new Command(async => Performbuychapter());
                 }
 
                 return buychapter1;

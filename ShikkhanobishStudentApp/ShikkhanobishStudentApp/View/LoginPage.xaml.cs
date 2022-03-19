@@ -33,7 +33,7 @@ namespace ShikkhanobishStudentApp.View
                 {
                     await Task.Delay(1000);
                     errortxt.TextColor = Color.White;
-                    if (pn.Text != null && pass.Text != null)
+                    if (pn.Text != null && pass.Text != null && pn.Text != "" && pass.Text != "")
                     {
                         Student thistudent = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/LoginStudent".PostUrlEncodedAsync(new { phonenumber = pn.Text, password = pass.Text })
           .ReceiveJson<Student>();
