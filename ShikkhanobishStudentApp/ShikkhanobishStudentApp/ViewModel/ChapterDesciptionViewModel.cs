@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XF.Material.Forms.UI.Dialogs;
 
 namespace ShikkhanobishStudentApp.ViewModel
 {
@@ -19,19 +20,25 @@ namespace ShikkhanobishStudentApp.ViewModel
         List<Chapter> chapList = new List<Chapter>();
         List<Topic> tList = new List<Topic>();
         public Topic thisselectedTopic = new Topic();
-        public ChapterDesciptionViewModel(int chapterID)
+        public int subID;
+        public List<StudentTuitionHistory> sthis = new List<StudentTuitionHistory>();
+        public List<studentSubjectPurchase> subjectPurchaseList = new List<studentSubjectPurchase>();
+        public ChapterDesciptionViewModel(int subjectID , int chapterID)
         {
-         chapterid = chapterID;   
+         chapterid = chapterID;
+            subID = subjectID;
          GetTopic(chapterid);
         }
 
 
-        #region Methods
-     
+        #region Methods    
         public async Task GetTopic(int chapId)
         {
             chapList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getChapter".GetJsonAsync<List<Chapter>>();
             tList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getTopic".GetJsonAsync<List<Topic>>();
+            sthis = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getStudentTuitionHistory".GetJsonAsync<List<StudentTuitionHistory>>();
+            subjectPurchaseList = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getstudentSubjectPurchaseWithSt".PostUrlEncodedAsync(new { studentID = StaticPageToPassData.thisStudentInfo.studentID })
+        .ReceiveJson<List<studentSubjectPurchase>>();
 
 
             foreach (var item in chapList)
@@ -57,16 +64,73 @@ namespace ShikkhanobishStudentApp.ViewModel
             List<Topic> SortedList = new List<Topic>();
             SortedList = tp.OrderBy(x => x.topicIndex).ToList();
             tp = SortedList;
+            bool purchased = false;
+            for(int l = 0; l < subjectPurchaseList.Count; l++)
+            {
+                if(subjectPurchaseList[l].chapterID == chapterid)
+                {
+                    purchased = true;
+                    break;
+                }
+            }
+            if (purchased)
+            {
+                canBuyChapter = false;
+                for (int i = 0; i < tp.Count; i++)
+                {
+                    bool taken = false;
+                    for (int j = 0; j < sthis.Count; j++)
+                    {
+                        if (sthis[j].topicID == tp[i].topicID)
+                        {
+                            taken = true;
+                            if (sthis[j].videoURL != "N/A")
+                            {
+                                tp[i].isSavedVideoAvailable = false;
+                            }
+                        }
+                    }
+                    if (!taken)
+                    {
+                        tp[i].isTuitionAvailable = true;
+                        tp[i].isTuitionNotAvailable = false;
+                        for (int k = i + 1; k < tp.Count; k++)
+                        {
+                            tp[k].isTuitionNotAvailable = true;
+                        }
+                        break;
+                    }
+
+                }
+            }
+            else
+            {
+                canBuyChapter = true;
+            }
             topicList = tp;
         }
         private async Task Performbuychapter()
         {
-            
-        }
-        public ICommand SelectedItem =>
-            new Command<popupList>(async (thisselectedTopic) =>
+            using (await MaterialDialog.Instance.LoadingDialogAsync(message: "Please Wait..."))
             {
+                var res = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/setstudentSubjectPurchase".PostUrlEncodedAsync(new
+                {
+                    studentID = StaticPageToPassData.thisStudentInfo.studentID,
+                    subjectID = subID,
+                    chapterID = chapterid,
+                    date = DateTime.Now.ToString("dd'/'MM'/'yyyy hh':'mm':'ss"),
+                }).ReceiveJson<Response>();
+                await GetTopic(chapterid);
+            }
                 
+        }
+        public ICommand sendtuitionres =>
+            new Command<Topic>(async (thisselectedTopic) =>
+            {
+                TimePicker timePicker = new TimePicker
+                {
+                    Time = new TimeSpan(4, 15, 26) // Time set to "04:15:26"
+                };
             });
         public async Task StartPayment()
         {
@@ -116,6 +180,10 @@ namespace ShikkhanobishStudentApp.ViewModel
         private string topicNum1;
 
         public string topicNum { get => topicNum1; set => SetProperty(ref topicNum1, value); }
+
+        private bool canBuyChapter1;
+
+        public bool canBuyChapter { get => canBuyChapter1; set => SetProperty(ref canBuyChapter1, value); }
 
 
         #endregion

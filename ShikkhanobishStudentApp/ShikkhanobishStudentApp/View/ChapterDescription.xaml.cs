@@ -13,10 +13,10 @@ namespace ShikkhanobishStudentApp.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChapterDescription : ContentPage
     {
-        public ChapterDescription(int chapid)
+        public ChapterDescription(int subID ,int chapid)
         {
             InitializeComponent();
-            BindingContext = new ChapterDesciptionViewModel(chapid);
+            BindingContext = new ChapterDesciptionViewModel(subID,chapid);
             NavigationPage.SetHasNavigationBar(this, false);
         }
     }

@@ -1788,7 +1788,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                      SelectedChapterName = selectedList.name;
                      ChpTRequest = selectedList.tuitionRequest;
                      Chpavgratting = selectedList.avgRatting;
-                     await Application.Current.MainPage.Navigation.PushAsync(new ChapterDescription(selectedChapterID));
+                     await Application.Current.MainPage.Navigation.PushAsync(new ChapterDescription(SelectedSubjectID, selectedChapterID));
                  }
                  else if (thisList.ListIndex == 7)
                  {

@@ -22,15 +22,15 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <material:MaterialCard Grid.Row="0" Elevation="40" Margin="20" CornerRadius="10"/>
-            <Grid Grid.Row="0" RowDefinitions="30,55,15,30,AUTO" Margin="20">
+            <Grid Grid.Row="0" RowDefinitions="AUTO,AUTO,AUTO,AUTO" Margin="20">
                 
-                <Grid Grid.Row="0" Grid.RowSpan="2" RowDefinitions="AUTO,40" ColumnDefinitions="*,50">
-                    <Label  Text="{Binding chapName}" Grid.Row="0" Grid.Column="0"  FontSize="15" Padding="20,0,0,0" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-                    <Image Source="live.png" Grid.Column="1"  Margin="0,10,10,8" HorizontalOptions="End" VerticalOptions="Center" Aspect="AspectFit"/>
-                    <material:MaterialButton Text="Buy Full Chapter 400 Taka" Grid.Row="1" Grid.ColumnSpan="2" FontSize="10" Command="{Binding buychapter}"/>
+                <Grid Grid.Row="0" RowDefinitions="*,AUTO">
+                    <Label  Text="{Binding chapName}" Grid.Row="0"  FontSize="15" Padding="0,10,0,0" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    
+                    <material:MaterialButton Text="Buy Full Chapter 400 Taka" Grid.Row="1"  FontSize="10" Command="{Binding buychapter}" IsVisible="{Binding canBuyChapter}"/>
                 </Grid>
                
-                <Grid Grid.Row="2" Padding="20,0,0,0">
+                <Grid Grid.Row="1" Padding="20,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -50,6 +50,7 @@
                     <Label Grid.Column="2" Text="|| Class Record" FontSize="11" FontAttributes="Bold" HorizontalOptions="Start" VerticalOptions="Center" />
                     <Label Grid.Column="3" Text="|| Call Reminder" FontSize="11" FontAttributes="Bold" HorizontalOptions="Start" VerticalOptions="Center" />
                 </Grid>
+               
                 <Label Grid.Row="3" Text="Descriptions"  FontSize="11" Padding="20,15,0,0" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Start" VerticalOptions="End"/>
                 <Label Grid.Row="4" Text="{Binding chapDescription}" Padding="20,0,20,20" FontSize="11"  FontFamily="arial" TextColor="Gray"/>
                
@@ -60,24 +61,34 @@
                 <Label Grid.Column="1" Grid.Row="0" Text="Topics" HorizontalOptions="Start" VerticalOptions="End" TextColor="White"/>
                 
                 <Frame BackgroundColor="White" Grid.Row="1" Grid.Column="1"/>
-                <ListView ItemsSource="{Binding topicList}" Grid.Row="2" Grid.Column="1"  RowHeight="50" SeparatorColor="Transparent"  >
+                <ListView ItemsSource="{Binding topicList}" Grid.Row="2" Grid.Column="1"  RowHeight="55" SeparatorColor="Transparent"  >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid  ColumnDefinitions="50,*,25">
+                                <Grid  ColumnDefinitions="50,*,AUTO" >
                                     <Label Text="{Binding name}" FontAttributes="Bold" FontSize="11" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" TextColor="White"/>
                                     <Grid Grid.Column="0" RowDefinitions="*,20,*" ColumnDefinitions="*,1,*" RowSpacing="0" >
                                         <Frame BackgroundColor="White" Grid.Row="0" Grid.Column="1"/>
                                         <Image Source="right.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Aspect="AspectFit"/>
                                         <Frame BackgroundColor="White" Grid.Row="2" Grid.Column="1"/>
                                     </Grid>
-                                    <Grid Grid.Column="2" ColumnDefinitions="*" IsVisible="False">
-                                        <Image Source="sendtuireq.png" Aspect="AspectFit"  Grid.Column="0"/>
-                                        <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" CornerRadius="10" Grid.Column="0" ClickCommand="{Binding Source={x:Reference chapterdes}, Path=BindingContext.sendtuitionres}"/>
+                                    <Grid Grid.Column="2" ColumnDefinitions="*"  RowDefinitions="*,20"  Margin="0,2,0,0" IsVisible="{Binding isTuitionAvailable}">
+                                        <Frame BackgroundColor="#40000000" Grid.RowSpan="2" CornerRadius="5"/>
+                                        <Image Source="sendtuireq.png" Aspect="AspectFit"  Grid.Column="0" Margin="0,3,0,0"/>
+                                        <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" CornerRadius="10" Grid.Column="0" Grid.RowSpan="2" ClickCommand="{Binding Source={x:Reference chapterdes}, Path=BindingContext.sendtuitionres}"/>
+                                        
+                                        <Label Text="Book Tuition" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White" FontSize="11" FontAttributes="Bold" Margin="4,0,4,0"/>
                                     </Grid>
-                                    <Grid Grid.Column="2" ColumnDefinitions="*" IsVisible="False">
-                                        <Image Source="savedtuition.png" Aspect="AspectFit"  Grid.Column="0"/>
-                                        <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" CornerRadius="10" Grid.Column="0"/>
+                                    <Grid Grid.Column="2" ColumnDefinitions="*"  RowDefinitions="*,20"  Margin="0,2,0,0" IsVisible="{Binding isTuitionNotAvailable}">
+                                        <Image Source="sendtuireq.png" Aspect="AspectFit"  Grid.Column="0" Margin="0,3,0,0" Opacity=".3"/>
+                                        <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" CornerRadius="10" Grid.Column="0" Grid.RowSpan="2" IsEnabled="False"/>
+                                        <Label Text="Book Tuition" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="#30ffffff" FontSize="11" FontAttributes="Bold" Margin="4,0,4,0"/>
+                                    </Grid>
+                                    <Grid Grid.Column="2" ColumnDefinitions="*" RowDefinitions="*,AUTO" Margin="0,3,0,0" IsVisible="{Binding isSavedVideoAvailable}">
+                                        <Frame BackgroundColor="#20000000" Grid.RowSpan="2" CornerRadius="5"/>
+                                        <Image Source="savedtuition.png" Aspect="AspectFit"  Grid.Column="0"  Margin="0,2,0,0"/>
+                                        <material:MaterialCard BackgroundColor="Transparent" IsClickable="True" CornerRadius="10" Grid.RowSpan="2"/>
+                                        <Label Text="Play" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White" FontSize="11" FontAttributes="Bold" />
                                     </Grid>
                                 </Grid>
 
@@ -90,7 +101,42 @@
 
 
         </Grid>
-        
+        <Grid Grid.RowSpan="3" RowDefinitions="*,AUTO,*" ColumnDefinitions="20,*,20">
+            <Frame BackgroundColor="#30000000" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
+            <Grid Grid.Row="1" Grid.Column="1" RowDefinitions="50,AUTO,AUTO,*">
+                <material:MaterialCard BackgroundColor="White" Grid.RowSpan="4"  Elevation="10" CornerRadius="10"/>
+                <Label Text="Confirm Tuition Booking" Grid.Row="0"  HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" FontAttributes="Bold"/>
+                
+                <Grid  Grid.Row="1" RowDefinitions="*,*" ColumnDefinitions="AUTO,*">
+                    <DatePicker Grid.Row="0" Grid.Column="1"/>
+                    <Label Text="Pick Date: " Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Margin="10,0,0,0"/>
+                    <TimePicker Grid.Row="1" Grid.Column="1"/>
+                    <Label Text="Pick Time: " Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Margin="10,0,0,0"/>
+                </Grid>
+                <Grid Grid.Row="2" RowDefinitions="20,1,AUTO,AUTO,AUTO,AUTO,AUTO" ColumnDefinitions="AUTO,*" >
+                    <Label Text="Tuition Info" Grid.Row="0" Grid.ColumnSpan="2" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Frame Grid.Row="1" BackgroundColor="Black" HasShadow="False" Grid.ColumnSpan="2"/>
+                    <Label Text="Student Name" Grid.Row="2" Grid.Column="0" Margin="10,0,0,0"/>
+                    <Label Text="Mahir Muzahid" Grid.Row="2" Grid.Column="1" TextColor="Black" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0"/>
+                    
+                    <Label Text="Subjct" Grid.Row="3" Grid.Column="0" Margin="10,0,0,0"/>
+                    <Label Text="Physics" Grid.Row="3" Grid.Column="1" TextColor="Black" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0"/>
+                    
+                    <Label Text="Chapter" Grid.Row="4" Grid.Column="0" Margin="10,0,0,0"/>
+                    <Label Text="Chapter 2" Grid.Row="4" Grid.Column="1" TextColor="Black" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0"/>
+                    
+                    <Label Text="Topic" Grid.Row="5" Grid.Column="0" Margin="10,0,0,0"/>
+                    <Label Text="Topic 1" Grid.Row="5" Grid.Column="1" TextColor="Black" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0"/>
+                    
+                    <Label Text="Date" Grid.Row="6" Grid.Column="0" Margin="10,0,0,0"/>
+                    <Label Text="20/02/2022 04:30:00 PM" Grid.Row="6" Grid.Column="1" TextColor="Black" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="Center" Margin="0,0,10,0"/>
+
+                </Grid>
+                <Frame BackgroundColor="#0C8947" Grid.Row="3" HasShadow="False" CornerRadius="10"/>
+                <Label Text="Confirm" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="3" TextColor="White"/>
+                <material:MaterialCard Grid.Row="3" IsClickable="True" BackgroundColor="Transparent"/>
+            </Grid>
+        </Grid>
     </Grid>
     
 </ContentPage>

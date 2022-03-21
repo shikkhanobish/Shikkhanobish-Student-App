@@ -12,6 +12,7 @@ namespace ShikkhanobishStudentApp.Model
         public int topicIndex { get; set; }
         public bool isTuitionAvailable { get; set; }
         public bool isSavedVideoAvailable { get; set; }
+        public bool isTuitionNotAvailable { get; set; }
         public string description { get; set; }
       
     }
