@@ -13,6 +13,8 @@ namespace ShikkhanobishStudentApp.Model
         public bool isTuitionAvailable { get; set; }
         public bool isSavedVideoAvailable { get; set; }
         public bool isTuitionNotAvailable { get; set; }
+        public bool istuitionrequested { get; set; }
+        public string waitingVideoText { get; set; }
         public string description { get; set; }
       
     }

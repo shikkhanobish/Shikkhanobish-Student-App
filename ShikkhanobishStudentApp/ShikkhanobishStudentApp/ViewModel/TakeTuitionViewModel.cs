@@ -181,12 +181,14 @@ namespace ShikkhanobishStudentApp.ViewModel
         {
             var thischoice = await "https://api.shikkhanobish.com/api/ShikkhanobishLogin/getClassChoiceWithID".PostUrlEncodedAsync(new { studentID = StaticPageToPassData.thisStudentInfo.studentID })
                  .ReceiveJson<ClassChoice>();
+            
             await InsListPopulate();
             await ClassListPopulate();
             for (int i = 0; i < backUpFipName.Count; i++)
             {
                 if (backUpFipName[i].institutionID == thischoice.institutionID)
                 {
+                    thischoice.insName = backUpFipName[i].name;
                     popupList thispop = new popupList();
                     thispop.name = backUpFipName[i].name;
                     thispop.ListIndex = 1;
@@ -199,6 +201,7 @@ namespace ShikkhanobishStudentApp.ViewModel
             {
                 if (AllclsList[i].classID == thischoice.classID)
                 {
+                    thischoice.className = AllclsList[i].name;
                     popupList thispop = new popupList();
                     thispop.name = AllclsList[i].name;
                     thispop.ListIndex = AllclsList[i].indexNo;
@@ -207,6 +210,7 @@ namespace ShikkhanobishStudentApp.ViewModel
                     break;
                 }
             }
+            StaticPageToPassData.thisstClassChoice = thischoice;
         }
 
         public async Task GetALlReport()

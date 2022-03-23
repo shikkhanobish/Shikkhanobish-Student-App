@@ -12,10 +12,12 @@ namespace ShikkhanobishStudentApp.Model
         public static string thisstPass;
         public static string otpcode;
         public static bool isLoginOK;
-
+        public static ClassChoice thisstClassChoice { get; set; }
         public static Student thisStudentInfo;
         public static bool isFromLogin;
         public static bool isInBackground;
+
+        public static string timeFormat = "dd'/'MM'/'yyyy hh':'mm':'ss";
         public static string lastTuitionHistoryID { get; set; }
         public static int lastRate { get; set; }
         public static int lastTeacherID { get; set; }
